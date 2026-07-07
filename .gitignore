@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# IDE
+.qoder/
+.vscode/
+.idea/
+
+# Temp
+*.tmp
+*.log
+
+# Thumbnails
+Thumbs.db
