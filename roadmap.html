@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代路线</title>
+    <style id="theme-vars">
+/* ============================================
+   炭金精密设计系统 — Charcoal-Gold Precision Design System
+   CS2 搭配推荐引擎作品集
+   ============================================ */
+
+:root {
+  /* — Surface — */
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1e1e1e;
+
+  /* — Border — */
+  --color-border-default: #222222;
+  --color-border-subtle: #2a2a2a;
+  --color-border-accent: #3a3220;
+
+  /* — Text — */
+  --color-text-primary: #f0ede5;
+  --color-text-secondary: #999999;
+  --color-text-tertiary: #666666;
+  --color-text-disabled: #444444;
+
+  /* — Accent Gold — */
+  --color-accent: #e8a838;
+  --color-accent-dim: #b88828;
+  --color-accent-glow: rgba(232, 168, 56, 0.15);
+  --color-accent-border: rgba(232, 168, 56, 0.3);
+
+  /* — Functional — */
+  --color-good: #6abf69;
+  --color-bad: #e85d5d;
+  --color-warn: #e8c538;
+
+  /* — Radius — */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* — Font — */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Noto Sans Mono CJK SC', monospace;
+
+  /* — Spacing — */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* — Transition — */
+  --transition-default: 0.2s ease;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-accent: var(--color-accent);
+  }
+  @layer base {
+    body { background: var(--color-bg-primary); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .nav-link {
+        text-decoration: none;
+        font-size: 14px;
+        color: var(--color-text-tertiary);
+        transition: color 0.2s ease;
+      }
+      .nav-link:hover { color: var(--color-accent); }
+      .nav-link.active { color: var(--color-accent); font-weight: 500; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(13,13,13,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #222;">
+        <div class="max-w-[1700px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 text-sm font-medium" style="color: var(--color-accent);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+                CS2 搭配引擎
+            </a>
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="nav-link active" data-page="index">首页</a>
+                <a href="portfolio.html#mvp" class="nav-link" data-page="mvp">MVP方案</a>
+                <a href="portfolio.html#data" class="nav-link" data-page="data">数据分析</a>
+                <a href="portfolio.html#prototype" class="nav-link" data-page="prototype">产品原型</a>
+
+                <a href="resume.html" class="nav-link" data-page="resume">简历</a>
+            </div>
+        </div>
+    </nav>
+    <main class="max-w-[1700px] mx-auto px-6 py-12" style="padding-top: 80px;">
+
+        <!-- 1. Back Link REMOVED - USING FIXED NAVBAR -->
+
+        <!-- 2. Page Title -->
+        <div class="mt-8 mb-10">
+            <h1 class="text-3xl font-bold tracking-tight" style="color: var(--color-text-primary);">迭代路线</h1>
+            <div class="mt-3 h-[2px] w-16" style="background: var(--color-accent);"></div>
+        </div>
+
+        <!-- 3. Three-Phase Timeline -->
+        <div class="relative">
+            <!-- Horizontal connector line -->
+            <div class="absolute top-[8px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px]" style="background: var(--color-accent);"></div>
+
+            <div class="grid grid-cols-3 gap-6">
+
+                <!-- Phase 1 -->
+                <div class="flex flex-col items-center">
+                    <!-- Circular marker -->
+                    <div class="relative z-10 w-4 h-4 rounded-full" style="background: var(--color-accent);"></div>
+                    <!-- Vertical connector -->
+                    <div class="w-[1px] h-8" style="background: var(--color-accent);"></div>
+                    <!-- Phase label -->
+                    <div class="text-center mb-2">
+                        <h3 class="text-base font-semibold" style="color: var(--color-text-primary);">V1.0 基础推荐</h3>
+                        <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">第 1-4 周</p>
+                    </div>
+                    <!-- Card -->
+                    <div class="w-full rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-accent);">
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs font-bold" style="color: var(--color-good);">&#10003;</span>
+                                <span>基于协同过滤的推荐算法</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs font-bold" style="color: var(--color-good);">&#10003;</span>
+                                <span>基础搭配评分机制</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs font-bold" style="color: var(--color-good);">&#10003;</span>
+                                <span>搜索与筛选功能</span>
+                            </li>
+                        </ul>
+                        <div class="mt-4 inline-flex items-center px-2.5 py-1 rounded text-xs font-medium" style="background: rgba(106,191,105,0.12); color: var(--color-good); border: 1px solid rgba(106,191,105,0.25);">
+                            已完成
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="flex flex-col items-center">
+                    <div class="relative z-10 w-4 h-4 rounded-full" style="background: var(--color-accent);"></div>
+                    <div class="w-[1px] h-8" style="background: var(--color-accent);"></div>
+                    <div class="text-center mb-2">
+                        <h3 class="text-base font-semibold" style="color: var(--color-text-primary);">V2.0 智能优化</h3>
+                        <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">第 5-8 周</p>
+                    </div>
+                    <div class="w-full rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-accent);">
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs font-bold" style="color: var(--color-good);">&#10003;</span>
+                                <span>深度学习推荐模型</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs font-bold" style="color: var(--color-good);">&#10003;</span>
+                                <span>用户行为分析</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs font-bold" style="color: var(--color-accent);">&#10132;</span>
+                                <span>个性化推荐</span>
+                            </li>
+                        </ul>
+                        <div class="mt-4 inline-flex items-center px-2.5 py-1 rounded text-xs font-medium" style="background: rgba(232,168,56,0.12); color: var(--color-accent); border: 1px solid rgba(232,168,56,0.25);">
+                            进行中
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="flex flex-col items-center">
+                    <div class="relative z-10 w-4 h-4 rounded-full" style="background: var(--color-accent);"></div>
+                    <div class="w-[1px] h-8" style="background: var(--color-accent);"></div>
+                    <div class="text-center mb-2">
+                        <h3 class="text-base font-semibold" style="color: var(--color-text-primary);">V3.0 社区生态</h3>
+                        <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">第 9-12 周</p>
+                    </div>
+                    <div class="w-full rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-accent);">
+                        <ul class="space-y-2.5">
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs" style="color: var(--color-text-tertiary);">&#9675;</span>
+                                <span>搭配分享社区</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs" style="color: var(--color-text-tertiary);">&#9675;</span>
+                                <span>市场趋势分析</span>
+                            </li>
+                            <li class="flex items-start gap-2 text-sm" style="color: var(--color-text-secondary);">
+                                <span class="mt-[3px] text-xs" style="color: var(--color-text-tertiary);">&#9675;</span>
+                                <span>API 开放平台</span>
+                            </li>
+                        </ul>
+                        <div class="mt-4 inline-flex items-center px-2.5 py-1 rounded text-xs font-medium" style="background: rgba(102,102,102,0.12); color: var(--color-text-tertiary); border: 1px solid rgba(102,102,102,0.25);">
+                            规划中
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 4. Hypothesis Validation Table -->
+        <div class="mt-14 rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <div class="px-6 pt-5 pb-4">
+                <h2 class="text-lg font-semibold" style="color: var(--color-text-primary);">假设验证追踪</h2>
+            </div>
+            <div class="overflow-x-auto no-scrollbar">
+                <table class="w-full text-sm" style="min-width: 720px;">
+                    <thead>
+                        <tr style="background: var(--color-bg-elevated);">
+                            <th class="text-left px-6 py-3 font-medium text-xs tracking-wide uppercase" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--color-border-default);">假设</th>
+                            <th class="text-left px-6 py-3 font-medium text-xs tracking-wide uppercase" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--color-border-default);">验证方法</th>
+                            <th class="text-left px-6 py-3 font-medium text-xs tracking-wide uppercase" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--color-border-default);">预期结果</th>
+                            <th class="text-left px-6 py-3 font-medium text-xs tracking-wide uppercase" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--color-border-default);">实际结果</th>
+                            <th class="text-left px-6 py-3 font-medium text-xs tracking-wide uppercase" style="color: var(--color-text-tertiary); border-bottom: 1px solid var(--color-border-default);">状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr style="border-bottom: 1px solid var(--color-border-default);">
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">用户偏好评分高的搭配</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">A/B测试</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">采用率&gt;20%</td>
+                            <td class="px-6 py-3.5 font-medium" style="color: var(--color-good);">24.8%</td>
+                            <td class="px-6 py-3.5">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-medium" style="color: var(--color-good);">&#10003; 已验证</span>
+                            </td>
+                        </tr>
+                        <!-- Row 2 (alternating bg) -->
+                        <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--color-border-default);">
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">社交功能提升留存</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">数据分析</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">留存率+15%</td>
+                            <td class="px-6 py-3.5 font-medium" style="color: var(--color-accent);">数据收集中</td>
+                            <td class="px-6 py-3.5">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-medium" style="color: var(--color-accent);">&#9203; 进行中</span>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr style="border-bottom: 1px solid var(--color-border-default);">
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">列表布局优于卡片</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">A/B测试</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">CTR+10%</td>
+                            <td class="px-6 py-3.5 font-medium" style="color: var(--color-good);">+21.8%</td>
+                            <td class="px-6 py-3.5">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-medium" style="color: var(--color-good);">&#10003; 已验证</span>
+                            </td>
+                        </tr>
+                        <!-- Row 4 (alternating bg) -->
+                        <tr style="background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--color-border-default);">
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">价格提醒促进转化</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">数据分析</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">转化率+5%</td>
+                            <td class="px-6 py-3.5 font-medium" style="color: var(--color-warn);">+3.2%</td>
+                            <td class="px-6 py-3.5">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-medium" style="color: var(--color-warn);">&#9888; 部分验证</span>
+                            </td>
+                        </tr>
+                        <!-- Row 5 -->
+                        <tr>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">社区UGC增加活跃度</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">灰度发布</td>
+                            <td class="px-6 py-3.5" style="color: var(--color-text-secondary);">DAU+20%</td>
+                            <td class="px-6 py-3.5 font-medium" style="color: var(--color-text-tertiary);">待验证</td>
+                            <td class="px-6 py-3.5">
+                                <span class="inline-flex items-center gap-1.5 text-xs font-medium" style="color: var(--color-text-tertiary);">&#9675; 待验证</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 5. Iteration Direction Cards -->
+        <div class="mt-14 grid grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-top: 2px solid var(--color-accent);">
+                <div class="flex items-center gap-2.5 mb-3">
+                    <div class="w-8 h-8 rounded-md flex items-center justify-center" style="background: var(--color-accent-glow);">
+                        <i data-lucide="cpu" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                    </div>
+                    <h3 class="text-sm font-semibold" style="color: var(--color-text-primary);">算法优化</h3>
+                </div>
+                <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">深度学习模型迭代，多模态推荐</p>
+            </div>
+            <!-- Card 2 -->
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-top: 2px solid var(--color-accent);">
+                <div class="flex items-center gap-2.5 mb-3">
+                    <div class="w-8 h-8 rounded-md flex items-center justify-center" style="background: var(--color-accent-glow);">
+                        <i data-lucide="sparkles" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                    </div>
+                    <h3 class="text-sm font-semibold" style="color: var(--color-text-primary);">体验升级</h3>
+                </div>
+                <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">交互流程优化，个性化界面</p>
+            </div>
+            <!-- Card 3 -->
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-top: 2px solid var(--color-accent);">
+                <div class="flex items-center gap-2.5 mb-3">
+                    <div class="w-8 h-8 rounded-md flex items-center justify-center" style="background: var(--color-accent-glow);">
+                        <i data-lucide="globe" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                    </div>
+                    <h3 class="text-sm font-semibold" style="color: var(--color-text-primary);">生态扩展</h3>
+                </div>
+                <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">社区功能，第三方合作</p>
+            </div>
+        </div>
+
+        <!-- 6. Summary Callout -->
+        <div class="mt-14 mb-8 rounded-lg p-5" style="background: var(--color-bg-elevated); border-left: 3px solid var(--color-accent);">
+            <p class="text-sm leading-relaxed" style="color: var(--color-text-secondary);">
+                通过三轮迭代验证，核心推荐算法已达到预期效果。下一步将重点投入社交功能与社区生态建设，预计提升用户留存率 15% 以上。
+            </p>
+        </div>
+
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

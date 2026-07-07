@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行业认知 — CS2 饰品交易市场分析</title>
+    <style id="theme-vars">
+/* ============================================
+   炭金精密设计系统 — Charcoal-Gold Precision Design System
+   CS2 搭配推荐引擎作品集
+   ============================================ */
+
+:root {
+  /* — Surface — */
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1e1e1e;
+
+  /* — Border — */
+  --color-border-default: #222222;
+  --color-border-subtle: #2a2a2a;
+  --color-border-accent: #3a3220;
+
+  /* — Text — */
+  --color-text-primary: #f0ede5;
+  --color-text-secondary: #999999;
+  --color-text-tertiary: #666666;
+  --color-text-disabled: #444444;
+
+  /* — Accent Gold — */
+  --color-accent: #e8a838;
+  --color-accent-dim: #b88828;
+  --color-accent-glow: rgba(232, 168, 56, 0.15);
+  --color-accent-border: rgba(232, 168, 56, 0.3);
+
+  /* — Functional — */
+  --color-good: #6abf69;
+  --color-bad: #e85d5d;
+  --color-warn: #e8c538;
+
+  /* — Radius — */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* — Font — */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Noto Sans Mono CJK SC', monospace;
+
+  /* — Spacing — */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* — Transition — */
+  --transition-default: 0.2s ease;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-accent: var(--color-accent);
+  }
+  @layer base {
+    body { background: var(--color-bg-primary); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased" style="font-family: var(--font-body);">
+    <main class="max-w-[1100px] mx-auto px-6 py-12">
+
+      <!-- 1. BACK LINK -->
+      <a href="index.html" class="back-link" data-dom-id="back-to-index">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        返回
+      </a>
+
+      <!-- 2. PAGE TITLE -->
+      <div class="mt-8 mb-10">
+        <h1 class="text-3xl font-bold tracking-tight" style="color: var(--color-text-primary);">行业认知</h1>
+        <div class="mt-3 w-16 h-[2px]" style="background: var(--color-accent);"></div>
+        <p class="mt-4 text-sm leading-relaxed max-w-xl" style="color: var(--color-text-secondary);">
+          深入分析 CS2 饰品交易市场的核心知识体系，从磨损度评级到印花溢价，构建系统化的饰品估值认知框架。
+        </p>
+      </div>
+
+      <!-- 3. FLOAT VALUE ANALYSIS -->
+      <div class="section-card mb-8">
+        <div class="expand-toggle" id="floatToggle" onclick="toggleExpand('floatToggle','floatContent')">
+          <h2 class="text-lg font-semibold flex items-center gap-3" style="color: var(--color-accent);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><path d="M6 16l-4-4 4-4"/><path d="M18 16l4-4-4-4"/></svg>
+            磨损度 Float Value 分析
+          </h2>
+          <svg class="chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div class="expand-content open" id="floatContent">
+          <div class="mt-6">
+            <p class="text-sm leading-relaxed mb-5" style="color: var(--color-text-secondary);">
+              Float Value（磨损值）是决定 CS2 饰品外观和价格的核心参数，取值范围为 0.00 ~ 1.00。磨损度越低，饰品保存越完好，价值通常越高。不同磨损区间对应截然不同的视觉表现，是饰品选品的第一维度。
+            </p>
+            <!-- Float bar -->
+            <div class="float-bar"></div>
+            <div class="float-bar-labels">
+              <div class="text-center">
+                <span class="text-xs font-semibold" style="color: #6abf69;">FN</span>
+                <div class="text-[10px] mt-0.5" style="color: var(--color-text-tertiary);">0.00-0.07</div>
+              </div>
+              <div class="text-center">
+                <span class="text-xs font-semibold" style="color: #a8d86e;">MW</span>
+                <div class="text-[10px] mt-0.5" style="color: var(--color-text-tertiary);">0.07-0.15</div>
+              </div>
+              <div class="text-center">
+                <span class="text-xs font-semibold" style="color: #e8c538;">FT</span>
+                <div class="text-[10px] mt-0.5" style="color: var(--color-text-tertiary);">0.15-0.37</div>
+              </div>
+              <div class="text-center">
+                <span class="text-xs font-semibold" style="color: #e8a838;">WW</span>
+                <div class="text-[10px] mt-0.5" style="color: var(--color-text-tertiary);">0.37-0.44</div>
+              </div>
+              <div class="text-center">
+                <span class="text-xs font-semibold" style="color: #e85d5d;">BS</span>
+                <div class="text-[10px] mt-0.5" style="color: var(--color-text-tertiary);">0.44-1.00</div>
+              </div>
+            </div>
+            <div class="mt-5 grid grid-cols-5 gap-3">
+              <div class="text-center p-3 rounded-lg" style="background: rgba(106, 191, 105, 0.08); border: 1px solid rgba(106, 191, 105, 0.2);">
+                <div class="text-xs font-bold" style="color: #6abf69;">崭新出厂</div>
+                <div class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">Factory New</div>
+              </div>
+              <div class="text-center p-3 rounded-lg" style="background: rgba(168, 216, 110, 0.08); border: 1px solid rgba(168, 216, 110, 0.2);">
+                <div class="text-xs font-bold" style="color: #a8d86e;">略有磨损</div>
+                <div class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">Minimal Wear</div>
+              </div>
+              <div class="text-center p-3 rounded-lg" style="background: rgba(232, 197, 56, 0.08); border: 1px solid rgba(232, 197, 56, 0.2);">
+                <div class="text-xs font-bold" style="color: #e8c538;">久经沙场</div>
+                <div class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">Field-Tested</div>
+              </div>
+              <div class="text-center p-3 rounded-lg" style="background: rgba(232, 168, 56, 0.08); border: 1px solid rgba(232, 168, 56, 0.2);">
+                <div class="text-xs font-bold" style="color: #e8a838;">破损不堪</div>
+                <div class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">Well-Worn</div>
+              </div>
+              <div class="text-center p-3 rounded-lg" style="background: rgba(232, 93, 93, 0.08); border: 1px solid rgba(232, 93, 93, 0.2);">
+                <div class="text-xs font-bold" style="color: #e85d5d;">战痕累累</div>
+                <div class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">Battle-Scarred</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. STICKER PREMIUM ANALYSIS -->
+      <div class="section-card mb-8">
+        <h2 class="text-lg font-semibold flex items-center gap-3 mb-5" style="color: var(--color-accent);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          印花溢价分析 Sticker Premium
+        </h2>
+        <p class="text-sm leading-relaxed mb-5" style="color: var(--color-text-secondary);">
+          印花（Sticker）是影响饰品市场价值的重要变量。赛事限定、选手签名、稀有印花组合能显著提升饰品溢价。印花位置、可贴数量以及与饰品主题的契合度共同决定溢价幅度。
+        </p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="pill">赛事贴纸</span>
+          <span class="pill">签名贴纸</span>
+          <span class="pill">印花组合</span>
+          <span class="pill">小队贴纸</span>
+          <span class="pill">纪念包印花</span>
+          <span class="pill">胶囊印花</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 rounded-lg" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle);">
+            <div class="text-xs font-semibold mb-2" style="color: var(--color-accent);">Katowice 2014</div>
+            <div class="text-sm" style="color: var(--color-text-secondary);">单张贴纸最高溢价可达 10 万+，被市场视为印花费用的天花板级资产。</div>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle);">
+            <div class="text-xs font-semibold mb-2" style="color: var(--color-accent);">选手签名</div>
+            <div class="text-sm" style="color: var(--color-text-secondary);">s1mple、ZywOo 等明星选手签名贴纸，通常带来 30%-200% 溢价空间。</div>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-subtle);">
+            <div class="text-xs font-semibold mb-2" style="color: var(--color-accent);">印花位置</div>
+            <div class="text-sm" style="color: var(--color-text-secondary);">印花位于枪械正面可视区域（如 AWP 主体）比侧面位置溢价高出 2-5 倍。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. FACTOR GRID -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold flex items-center gap-3 mb-6" style="color: var(--color-accent);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          核心影响因素
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Factor 1: 磨损度 -->
+          <div class="section-card flex gap-4 items-start">
+            <div class="factor-icon">W</div>
+            <div>
+              <h3 class="text-base font-semibold" style="color: var(--color-accent);">磨损度</h3>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--color-text-secondary);">饰品的基础价值锚点。磨损值直接决定外观表现和价格区间，同一饰品 FN 与 BS 的价差可达数十倍。选品时磨损度是第一筛选维度。</p>
+            </div>
+          </div>
+          <!-- Factor 2: 印花 -->
+          <div class="section-card flex gap-4 items-start">
+            <div class="factor-icon">S</div>
+            <div>
+              <h3 class="text-base font-semibold" style="color: var(--color-accent);">印花</h3>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--color-text-secondary);">独立于饰品本身的溢价引擎。赛事限定与签名印花可带来指数级价值提升，四贴位置和主题匹配度进一步放大溢价效果。</p>
+            </div>
+          </div>
+          <!-- Factor 3: 配色 -->
+          <div class="section-card flex gap-4 items-start">
+            <div class="factor-icon">C</div>
+            <div>
+              <h3 class="text-base font-semibold" style="color: var(--color-accent);">配色</h3>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--color-text-secondary);">饰品搭配的核心美学维度。色彩协调度影响整体视觉效果，搭配推荐系统中配色匹配是首要排序依据，同色系/互补色组合最受欢迎。</p>
+            </div>
+          </div>
+          <!-- Factor 4: 稀有度 -->
+          <div class="section-card flex gap-4 items-start">
+            <div class="factor-icon">R</div>
+            <div>
+              <h3 class="text-base font-semibold" style="color: var(--color-accent);">稀有度</h3>
+              <p class="text-sm mt-1 leading-relaxed" style="color: var(--color-text-secondary);">决定饰品的长期保值能力。 knives、gloves 等高端品类天然稀缺，配合特殊模板和低磨损状态，构成核心投资逻辑。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. PLATFORM COMPARISON -->
+      <div class="section-card mb-12">
+        <h2 class="text-lg font-semibold flex items-center gap-3 mb-6" style="color: var(--color-accent);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-5"/><path d="M21 3l-7 7"/><path d="M3 3l7 7"/></svg>
+          平台对比 BUFF vs 悠悠有品
+        </h2>
+        <div class="overflow-x-auto rounded-lg" style="border: 1px solid var(--color-border-default);">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">对比维度</th>
+                <th style="width: 35%;">BUFF163</th>
+                <th style="width: 35%;">悠悠有品</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="platform-row-label">交易量</td>
+                <td class="platform-cell-neutral">极高，市场深度最佳</td>
+                <td class="platform-cell-neutral">较高，但低于 BUFF</td>
+              </tr>
+              <tr>
+                <td class="platform-row-label">手续费</td>
+                <td class="platform-cell-neutral">2.5% 平台费</td>
+                <td class="platform-cell-gold">阶梯费率，低至 1%</td>
+              </tr>
+              <tr>
+                <td class="platform-row-label">交易速度</td>
+                <td class="platform-cell-neutral">即时到账，流动性高</td>
+                <td class="platform-cell-gold">实名认证后较快</td>
+              </tr>
+              <tr>
+                <td class="platform-row-label">品类丰富度</td>
+                <td class="platform-cell-gold">全品类覆盖，SKU 最全</td>
+                <td class="platform-cell-neutral">主流品类齐全</td>
+              </tr>
+              <tr>
+                <td class="platform-row-label">用户体验</td>
+                <td class="platform-cell-neutral">功能强大但界面偏工具化</td>
+                <td class="platform-cell-gold">UI 更友好，适合新手</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs mt-4" style="color: var(--color-text-tertiary);">
+          * 金色标注表示该平台在此维度具有相对优势，灰色标注表示表现均衡或略逊。平台选择应综合考虑交易目的和个人偏好。
+        </p>
+      </div>
+
+    </main>
+
+    <script>
+      function toggleExpand(toggleId, contentId) {
+        const toggle = document.getElementById(toggleId);
+        const content = document.getElementById(contentId);
+        toggle.classList.toggle('active');
+        content.classList.toggle('open');
+      }
+      lucide.createIcons();
+    </script>
+
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+      /* Float value gradient bar */
+      .float-bar {
+        height: 10px;
+        border-radius: var(--radius-full);
+        background: linear-gradient(to right, #6abf69 0%, #a8d86e 20%, #e8c538 45%, #e8a838 55%, #d97735 70%, #e85d5d 90%, #c0392b 100%);
+      }
+      .float-bar-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+      }
+      /* Expandable section */
+      .expand-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .expand-content.open {
+        max-height: 600px;
+      }
+      /* Table styles */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .data-table th {
+        background: #1e1e1e;
+        color: var(--color-accent);
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border-default);
+      }
+      .data-table td {
+        padding: 12px 16px;
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+      .data-table tbody tr:nth-child(odd) {
+        background: #141414;
+      }
+      .data-table tbody tr:nth-child(even) {
+        background: #0d0d0d;
+      }
+      .data-table tbody tr:hover {
+        background: rgba(232, 168, 56, 0.04);
+      }
+      /* Pill badges */
+      .pill {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: var(--radius-full);
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--color-accent-border);
+        color: var(--color-accent);
+        background: var(--color-accent-glow);
+        transition: all var(--transition-default);
+      }
+      .pill:hover {
+        border-color: var(--color-accent);
+        background: rgba(232, 168, 56, 0.25);
+      }
+      /* Factor card icon circle */
+      .factor-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 700;
+        background: var(--color-accent-glow);
+        border: 1px solid var(--color-accent-border);
+        color: var(--color-accent);
+        flex-shrink: 0;
+      }
+      /* Platform comparison */
+      .platform-cell-gold {
+        color: var(--color-accent);
+        font-weight: 600;
+      }
+      .platform-cell-neutral {
+        color: var(--color-text-secondary);
+      }
+      .platform-row-label {
+        color: var(--color-text-primary);
+        font-weight: 500;
+        min-width: 100px;
+      }
+      /* Back link */
+      .back-link {
+        color: var(--color-text-tertiary);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color var(--transition-default);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .back-link:hover {
+        color: var(--color-accent);
+      }
+      /* Section card */
+      .section-card {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-default);
+        border-radius: var(--radius-lg);
+        padding: var(--color-xl);
+      }
+      /* Expand toggle */
+      .expand-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+      }
+      .expand-toggle .chevron {
+        transition: transform 0.3s ease;
+        color: var(--color-accent);
+      }
+      .expand-toggle.active .chevron {
+        transform: rotate(180deg);
+      }
+    </style>
+</body>
+</html>

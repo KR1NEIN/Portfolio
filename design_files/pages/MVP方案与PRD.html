@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRD — CS2 饰品搭配引擎 V3</title>
+    <style id="theme-vars">
+:root {
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1e1e1e;
+  --color-border-default: #222222;
+  --color-border-subtle: #2a2a2a;
+  --color-border-accent: #3a3220;
+  --color-text-primary: #f0ede5;
+  --color-text-secondary: #999999;
+  --color-text-tertiary: #666666;
+  --color-text-disabled: #444444;
+  --color-accent: #e8a838;
+  --color-accent-dim: #b88828;
+  --color-accent-glow: rgba(232, 168, 56, 0.15);
+  --color-accent-border: rgba(232, 168, 56, 0.3);
+  --color-good: #6abf69;
+  --color-bad: #e85d5d;
+  --color-warn: #e8c538;
+  --color-info: #6eb5ff;
+  --color-purple: #c792ea;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Noto Sans Mono CJK SC', monospace;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+  --transition-default: 0.2s ease;
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-accent: var(--color-accent);
+  }
+  @layer base {
+    body { background: var(--color-bg-primary); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+      .gold-underline {
+        position: relative;
+        display: inline-block;
+      }
+      .gold-underline::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: var(--color-accent);
+        border-radius: 2px;
+      }
+      .flow-arrow {
+        color: var(--color-accent);
+        flex-shrink: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-border-accent) 100%);
+      }
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--color-border-default), transparent);
+        margin: 48px 0;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main class="mx-auto max-w-[1100px] px-6 py-12">
+
+      <!-- BACK LINK -->
+      <a href="index.html"
+         class="inline-flex items-center gap-1.5 text-sm transition-[color] duration-200 hover:text-[var(--color-accent)]"
+         style="color: var(--color-text-secondary);">
+        <i data-icon="arrow-left" style="width:14px;height:14px;"></i>
+        <span>返回</span>
+      </a>
+
+      <!-- PAGE TITLE -->
+      <div class="mt-8 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center justify-center px-2.5 py-1 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">PRD V3</span>
+          <span class="text-xs" style="color: var(--color-text-tertiary);">2026-07-05</span>
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight gold-underline" style="color: var(--color-text-primary);">
+          CS2 饰品搭配引擎 — 产品需求文档
+        </h1>
+        <p class="mt-6 text-sm leading-relaxed max-w-3xl" style="color: var(--color-text-secondary);">
+          嵌入已有 App 的饰品搭配功能模块。V1 即开放自由搭配工具采集用户行为数据，驱动协同推荐飞轮，并支持快捷匹配与一键结算闭环。
+        </p>
+      </div>
+
+      <!-- CORE CONTEXT -->
+      <div class="mt-8 mb-12">
+        <div class="rounded-lg px-4 py-3 flex items-start gap-3" style="background: var(--color-accent-glow); border: 1px solid var(--color-accent-border);">
+          <i data-icon="refresh-cw" style="width:16px;height:16px;color:var(--color-accent);flex-shrink:0;margin-top:2px;"></i>
+          <div>
+            <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">核心飞轮</p>
+            <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">
+              自由搭配工具吸引用户 → 用户搭配行为产生数据 → 数据驱动协同推荐 → 推荐质量提升吸引更多用户。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOC -->
+      <section class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">目录</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <a href="#flywheel" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">01</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">数据飞轮</p>
+          </a>
+          <a href="#personas" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">02</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">用户画像</p>
+          </a>
+          <a href="#journey" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">03</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">核心旅程</p>
+          </a>
+          <a href="#features" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">04</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">功能架构</p>
+          </a>
+          <a href="#matching" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">05</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">自由搭配</p>
+          </a>
+          <a href="#engine" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">06</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">推荐引擎</p>
+          </a>
+          <a href="#checkout" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">07</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">购买闭环</p>
+          </a>
+          <a href="#acceptance" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">08</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">验收标准</p>
+          </a>
+          <a href="#roadmap" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">09</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">版本规划</p>
+          </a>
+          <a href="#metrics" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">10</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">数据指标</p>
+          </a>
+          <a href="#risks" class="block rounded-lg p-4 transition-[border-color] duration-200 hover:border-[var(--color-accent)]" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">11</span>
+            <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">风险与依赖</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- 01 DATA FLYWHEEL -->
+      <section id="flywheel" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">01 / 数据飞轮</h2>
+
+        <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+          <p class="text-xs font-medium mb-5" style="color: var(--color-text-tertiary);">自由搭配是工具，也是数据采集引擎</p>
+
+          <div class="flex items-center gap-3 flex-wrap justify-center">
+            <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+              <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">自由搭配工具</p>
+              <p class="text-[10px]" style="color: var(--color-text-tertiary);">用户主动选配</p>
+            </div>
+            <i data-icon="arrow-right" class="flow-arrow" style="width:20px;height:20px;"></i>
+            <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+              <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">搭配行为数据</p>
+              <p class="text-[10px]" style="color: var(--color-text-tertiary);">谁选了 A+B+C</p>
+            </div>
+            <i data-icon="arrow-right" class="flow-arrow" style="width:20px;height:20px;"></i>
+            <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+              <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">协同推荐</p>
+              <p class="text-[10px]" style="color: var(--color-text-tertiary);">高频组合提取</p>
+            </div>
+            <i data-icon="arrow-right" class="flow-arrow" style="width:20px;height:20px;"></i>
+            <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+              <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">推荐反哺用户</p>
+              <p class="text-[10px]" style="color: var(--color-text-tertiary);">更好搭配 → 更多人来</p>
+            </div>
+          </div>
+
+          <div class="mt-5 flex items-center justify-center">
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full" style="background: var(--color-accent-glow); border: 1px solid var(--color-accent-border);">
+              <i data-icon="refresh-cw" style="width:12px;height:12px;color:var(--color-accent);"></i>
+              <p class="text-[10px] font-medium" style="color: var(--color-accent);">飞轮：每多一个用户搭配，推荐就更准一点</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <p class="text-xs font-semibold mb-2" style="color: var(--color-accent);">为什么自由搭配必须 V1 上线</p>
+            <ul class="space-y-2">
+              <li class="text-xs flex items-start gap-2" style="color: var(--color-text-secondary);">
+                <i data-icon="check" style="width:12px;height:12px;color:var(--color-good);flex-shrink:0;margin-top:2px;"></i>
+                没有自由搭配就没有搭配行为数据，协同推荐无从启动
+              </li>
+              <li class="text-xs flex items-start gap-2" style="color: var(--color-text-secondary);">
+                <i data-icon="check" style="width:12px;height:12px;color:var(--color-good);flex-shrink:0;margin-top:2px;"></i>
+                自由搭配本身就是用户价值——即使没有推荐，工具也好用
+              </li>
+              <li class="text-xs flex items-start gap-2" style="color: var(--color-text-secondary);">
+                <i data-icon="check" style="width:12px;height:12px;color:var(--color-good);flex-shrink:0;margin-top:2px;"></i>
+                人工种子方案有上限，用户创造力的数据才是长期壁垒
+              </li>
+            </ul>
+          </div>
+          <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <p class="text-xs font-semibold mb-2" style="color: var(--color-text-secondary);">数据采集的关键字段</p>
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">user_id</span>
+                <span class="text-[10px]" style="color: var(--color-text-tertiary);">谁在搭配</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">items[]</span>
+                <span class="text-[10px]" style="color: var(--color-text-tertiary);">选了哪些饰品（含顺序）</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">action</span>
+                <span class="text-[10px]" style="color: var(--color-text-tertiary);">保存 / 加购 / 仅浏览（权重不同）</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">timestamp</span>
+                <span class="text-[10px]" style="color: var(--color-text-tertiary);">搭配时间（用于时间窗口过滤）</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 02 PERSONAS -->
+      <section id="personas" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">02 / 用户画像</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">王</div>
+              <div>
+                <p class="text-sm font-semibold" style="color: var(--color-accent);">休闲玩家小王</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">搭配消费者 / 低决策成本</p>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed mb-3" style="color: var(--color-text-secondary);">
+              想快速找到好看的搭配方案直接买，不想花时间研究。主要使用推荐路径。
+            </p>
+            <div class="pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+              <p class="text-xs font-medium mb-1.5" style="color: var(--color-text-tertiary);">核心需求</p>
+              <ul class="space-y-1">
+                <li class="text-xs" style="color: var(--color-text-tertiary);">看别人都在买什么搭配，直接抄作业</li>
+                <li class="text-xs" style="color: var(--color-text-tertiary);">一键加购整套方案，统一结算</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">李</div>
+              <div>
+                <p class="text-sm font-semibold" style="color: var(--color-accent);">搭配爱好者小李</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">自由搭配主力用户 / 数据贡献者</p>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed mb-3" style="color: var(--color-text-secondary);">
+              喜欢自己动手搭配，享受创造独特组合的过程。是自由搭配工具的核心用户，也是搭配数据的主要贡献者。
+            </p>
+            <div class="pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+              <p class="text-xs font-medium mb-1.5" style="color: var(--color-text-tertiary);">核心需求</p>
+              <ul class="space-y-1">
+                <li class="text-xs" style="color: var(--color-text-tertiary);">自由选配，实时看到搭配效果</li>
+                <li class="text-xs" style="color: var(--color-text-tertiary);">保存搭配方案，随时调整</li>
+                <li class="text-xs" style="color: var(--color-text-tertiary);">在热门方案基础上替换单件，个性化微调</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">张</div>
+              <div>
+                <p class="text-sm font-semibold" style="color: var(--color-accent);">饰品商人小张</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">高频用户 / 趋势敏感</p>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed mb-3" style="color: var(--color-text-secondary);">
+              关注搭配趋势预判市场热点，利用热门搭配组合进行囤货或套利。
+            </p>
+            <div class="pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+              <p class="text-xs font-medium mb-1.5" style="color: var(--color-text-tertiary);">核心需求</p>
+              <ul class="space-y-1">
+                <li class="text-xs" style="color: var(--color-text-tertiary);">追踪热门搭配趋势，发现潜力组合</li>
+                <li class="text-xs" style="color: var(--color-text-tertiary);">批量操作效率（快速加购/结算）</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 03 USER JOURNEY -->
+      <section id="journey" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">03 / 核心旅程</h2>
+        <p class="text-sm mb-8" style="color: var(--color-text-secondary);">V1 同时提供两条路径，覆盖"消费数据"和"创造数据"两种用户</p>
+
+        <!-- Path A -->
+        <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-accent-border);">
+          <div class="flex items-center gap-2 mb-5">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">路径 A</span>
+            <p class="text-xs font-semibold" style="color: var(--color-accent);">从推荐方案出发（消费数据）</p>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-accent);">A1</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">浏览热门方案</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">按武器/预算/热度</p>
+            </div>
+            <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-accent);">A2</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">快捷匹配微调</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">替换单件饰品</p>
+            </div>
+            <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-accent);">A3</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">一键加购结算</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">整套 → 购物车</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Path B -->
+        <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+          <div class="flex items-center gap-2 mb-5">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-card); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">路径 B</span>
+            <p class="text-xs font-semibold" style="color: var(--color-text-secondary);">自由搭配（创造数据）</p>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B1</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">选择起始饰品</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">或从已有库存出发</p>
+            </div>
+            <i data-icon="chevron-right" style="width:16px;height:16px;color:var(--color-text-disabled);"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B2</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">逐件添加搭配</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">系统推荐互补件</p>
+            </div>
+            <i data-icon="chevron-right" style="width:16px;height:16px;color:var(--color-text-disabled);"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B3</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">保存或加购</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">行为数据入库</p>
+            </div>
+            <i data-icon="chevron-right" style="width:16px;height:16px;color:var(--color-text-disabled);"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B4</p>
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">反哺推荐池</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">高频组合浮现</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Path intersection -->
+        <div class="rounded-lg px-4 py-3 flex items-start gap-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+          <i data-icon="git-merge" style="width:14px;height:14px;color:var(--color-accent);flex-shrink:0;margin-top:2px;"></i>
+          <p class="text-xs" style="color: var(--color-text-secondary);">
+            <span class="font-medium" style="color: var(--color-text-primary);">路径交叉点：</span>
+            路径 B 中系统推荐的"互补件"来自路径 A 的协同数据；路径 A 中用户替换饰品后的最终方案也回流为搭配数据。两条路径共享同一个数据池。
+          </p>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 04 FEATURE ARCHITECTURE -->
+      <section id="features" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">04 / 功能架构与优先级</h2>
+
+        <!-- P0 -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">P0</span>
+            <span class="text-xs font-medium" style="color: var(--color-text-secondary);">必须实现 — 飞轮转起来的最小闭环</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="palette" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">自由搭配工具</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">浏览饰品库 → 逐件选配 → 实时预览搭配效果 → 保存方案。同时采集搭配行为数据。</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="sparkles" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">协同推荐引擎</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">基于搭配行为数据提取高频组合，生成推荐方案。V1 初期用种子数据 + 简单规则，逐步过渡到数据驱动。</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="shuffle" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">快捷匹配替换</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">方案中任一饰品可替换为同类别热门选择，替换建议基于协同数据。</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="shopping-cart" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">购物车 + 统一结算</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">整套方案一键加购，支持移除/替换单件，复用已有 App 的结算能力。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- P1 -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">P1</span>
+            <span class="text-xs font-medium" style="color: var(--color-text-secondary);">应该实现 — 提升转化率与留存</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="bookmark" style="width:16px;height:16px;color:var(--color-text-secondary);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">方案收藏</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">收藏搭配方案，价格变动时标记提示</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="refresh-cw" style="width:16px;height:16px;color:var(--color-text-secondary);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">买/租混合切换</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">每件饰品独立切换买/租，实时更新总成本</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <div class="flex items-center gap-2 mb-1.5">
+                <i data-icon="share-2" style="width:16px;height:16px;color:var(--color-text-secondary);"></i>
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">搭配分享</p>
+              </div>
+              <p class="text-xs" style="color: var(--color-text-tertiary);">生成可购买的分享链接，链接内可直接加购</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- P2 -->
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">P2</span>
+            <span class="text-xs font-medium" style="color: var(--color-text-secondary);">可选实现 — 需要数据量支撑</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-sm font-medium" style="color: var(--color-text-primary);">趋势看板</p>
+              <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">热门搭配趋势变化</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-sm font-medium" style="color: var(--color-text-primary);">价格提醒</p>
+              <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">整套方案降价时通知</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-sm font-medium" style="color: var(--color-text-primary);">搭配排行榜</p>
+              <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">用户方案热度排名</p>
+            </div>
+            <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-sm font-medium" style="color: var(--color-text-primary);">个性化推荐</p>
+              <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">基于用户历史偏好</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 05 FREE MATCHING -->
+      <section id="matching" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">05 / 自由搭配工具详细设计</h2>
+
+        <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+          <p class="text-xs font-medium mb-4" style="color: var(--color-text-tertiary);">搭配流程</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs font-semibold mb-3" style="color: var(--color-accent);">交互步骤</p>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">1</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">选择起始饰品（从饰品库浏览或从"我的库存"选择）</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">2</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">系统自动推荐互补饰品（基于协同数据：选了 A 的人还选了 B）</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">3</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">用户逐件添加/替换/移除，搭配方案实时更新</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">4</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">完成后保存方案 / 加入购物车 / 仅浏览离开（每种行为都记录）</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <p class="text-xs font-semibold mb-3" style="color: var(--color-accent);">数据采集规则</p>
+              <div class="space-y-3">
+                <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                  <p class="text-xs font-medium mb-1" style="color: var(--color-text-primary);">高权重行为</p>
+                  <p class="text-[10px]" style="color: var(--color-text-tertiary);">保存方案、加入购物车 — 说明用户认可这个组合</p>
+                </div>
+                <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                  <p class="text-xs font-medium mb-1" style="color: var(--color-text-primary);">中权重行为</p>
+                  <p class="text-[10px]" style="color: var(--color-text-tertiary);">搭配超过 30 秒且包含 ≥3 件饰品 — 说明用户认真搭配过</p>
+                </div>
+                <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                  <p class="text-xs font-medium mb-1" style="color: var(--color-text-primary);">低权重行为</p>
+                  <p class="text-[10px]" style="color: var(--color-text-tertiary);">快速浏览、仅添加 1 件后离开 — 噪音数据，降权处理</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 06 RECOMMENDATION ENGINE -->
+      <section id="engine" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">06 / 推荐引擎逻辑</h2>
+
+        <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+          <p class="text-xs font-medium mb-4" style="color: var(--color-text-tertiary);">协同过滤逻辑（随数据量渐进增强）</p>
+
+          <div class="rounded-lg p-5 mb-5" style="background: var(--color-bg-primary); border: 1px solid var(--color-border-subtle);">
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 1</span>
+                <p class="text-xs" style="color: var(--color-text-secondary);">采集用户搭配行为：保存/加购的组合视为有效搭配，按时间窗口聚合</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 2</span>
+                <p class="text-xs" style="color: var(--color-text-secondary);">跨用户聚合，统计饰品共现频率：饰品 A 和 B 被不同用户搭配在一起的次数</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 3</span>
+                <p class="text-xs" style="color: var(--color-text-secondary);">过滤噪音：共现次数 < 阈值的组合不进入推荐池</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 4</span>
+                <p class="text-xs" style="color: var(--color-text-secondary);">按热度排序（共现人数、保存/加购率），生成搭配方案卡片</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progressive Enhancement -->
+          <p class="text-xs font-medium mb-3" style="color: var(--color-text-tertiary);">渐进增强策略</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-xs font-semibold mb-2" style="color: var(--color-accent);">V1 初期</p>
+              <p class="text-[10px] leading-relaxed" style="color: var(--color-text-secondary);">种子方案（人工策划 + 社区热门）+ 简单共现规则。推荐池 ≈50 套。</p>
+            </div>
+            <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-xs font-semibold mb-2" style="color: var(--color-text-secondary);">V1 中期</p>
+              <p class="text-[10px] leading-relaxed" style="color: var(--color-text-tertiary);">用户搭配数据达到一定量级后，自动提取高频组合替代种子方案。推荐池持续增长。</p>
+            </div>
+            <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+              <p class="text-xs font-semibold mb-2" style="color: var(--color-text-secondary);">V2+</p>
+              <p class="text-[10px] leading-relaxed" style="color: var(--color-text-tertiary);">引入个性化推荐（基于用户历史偏好）、时间衰减（近期搭配权重更高）、场景标签。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+          <p class="text-xs font-semibold mb-2" style="color: var(--color-accent);">热度分</p>
+          <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">
+            共现人数 x 行为权重（加购 > 保存 > 仅浏览）x 时间衰减。客观、可解释。用户看到的是"有 XX 人搭配了这套"。
+          </p>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 07 PURCHASE LOOP -->
+      <section id="checkout" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">07 / 购买闭环设计</h2>
+
+        <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+          <p class="text-xs font-medium mb-4" style="color: var(--color-text-tertiary);">结算流程（复用已有 App 交易能力）</p>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">搭配完成</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">自由搭配 / 推荐方案</p>
+            </div>
+            <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">一键加入购物车</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">整套方案批量加入</p>
+            </div>
+            <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">购物车调整</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">移除/替换单件</p>
+            </div>
+            <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+            <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+              <p class="text-xs font-medium" style="color: var(--color-text-primary);">调用 App 结算</p>
+              <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">复用已有支付能力</p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 08 ACCEPTANCE CRITERIA -->
+      <section id="acceptance" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">08 / 验收标准总表</h2>
+
+        <!-- P0 -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">P0</span>
+            <span class="text-xs" style="color: var(--color-text-secondary);">必须通过，否则不可上线</span>
+          </div>
+
+          <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <table class="w-full text-xs">
+              <thead>
+                <tr style="background: var(--color-bg-elevated);">
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary); width:18%;">功能</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">验收条件</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary); width:20%;">度量方式</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">自由搭配工具</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 用户可从饰品库浏览并逐件添加至搭配方案<br>
+                    2) 支持按武器类型/稀有度/价格/颜色筛选饰品<br>
+                    3) 添加/移除饰品时总价实时更新，延迟 ≤500ms<br>
+                    4) 搭配方案可保存，保存后行为数据入库<br>
+                    5) 支持从"我的库存"选择已有饰品作为起点
+                  </td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">交互回归测试 + 数据入库验证 + 响应时间测量</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">协同推荐引擎</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 推荐池 ≥50 套方案（初期含种子方案）<br>
+                    2) 每套方案展示：饰品列表 + 总价 + 热度标签<br>
+                    3) 支持按武器类型/价格区间/热度筛选<br>
+                    4) 用户搭配数据达到阈值后，自动提取的组合逐步替代种子方案
+                  </td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">推荐池数据验证 + 前端展示回归</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">快捷匹配替换</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 方案中任一饰品可点击替换<br>
+                    2) 展示同类别 Top 3 替换候选（基于协同数据）<br>
+                    3) 替换后总价实时更新<br>
+                    4) 自由搭配过程中也展示"其他用户常搭配的饰品"推荐
+                  </td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">交互测试 + 推荐候选数据验证</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">购物车 + 结算</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 整套方案一键加入购物车<br>
+                    2) 购物车内可移除/替换单件饰品<br>
+                    3) 结算时正确调用 App 已有支付接口<br>
+                    4) 加购行为本身也被记录为搭配数据
+                  </td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">端到端流程测试 + 接口联调验证</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">数据采集层</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 每次搭配行为（保存/加购/浏览）均记录 user_id + items[] + action + timestamp<br>
+                    2) 数据写入延迟 ≤1 秒<br>
+                    3) 支持按行为权重过滤（加购 > 保存 > 浏览）<br>
+                    4) 推荐引擎能消费采集到的数据并更新推荐池
+                  </td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">数据管道端到端验证 + 推荐池更新验证</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- P1 -->
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">P1</span>
+            <span class="text-xs" style="color: var(--color-text-secondary);">V1.5 交付前通过</span>
+          </div>
+
+          <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <table class="w-full text-xs">
+              <thead>
+                <tr style="background: var(--color-bg-elevated);">
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary); width:18%;">功能</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">验收条件</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">方案收藏</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 登录用户可收藏/取消收藏方案 2) 收藏夹上限 ≥50 3) 价格变动 ≥5% 时标记提示
+                  </td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">买/租混合切换</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 每件饰品可独立切换"购买"/"租赁" 2) 切换后总成本实时更新 3) 租赁显示日均成本
+                  </td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">搭配分享</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                    1) 生成唯一分享链接 2) 链接打开后可查看方案详情 3) 链接内支持一键加购 4) 未登录用户可查看但需登录后加购
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 09 ROADMAP -->
+      <section id="roadmap" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">09 / 版本规划</h2>
+
+        <div class="relative px-4 md:px-12 py-8">
+          <div class="timeline-line"></div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+
+            <div class="flex flex-col items-center text-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-accent); border: 3px solid var(--color-bg-primary);">
+                <span class="text-xs font-bold font-mono" style="color: var(--color-bg-primary);">V1</span>
+              </div>
+              <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V1.0 飞轮启动</p>
+              <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">自由搭配工具 + 种子推荐 + 快捷匹配 + 购物车 + 数据采集层</p>
+              <p class="text-[10px] mt-2 font-mono" style="color: var(--color-accent);">P0 全部</p>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-bg-card); border: 3px solid var(--color-accent-border);">
+                <span class="text-xs font-bold font-mono" style="color: var(--color-accent);">V1.5</span>
+              </div>
+              <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V1.5 转化优化</p>
+              <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">方案收藏 + 买/租混合 + 搭配分享 + 数据驱动推荐替代种子</p>
+              <p class="text-[10px] mt-2 font-mono" style="color: var(--color-text-secondary);">P1 全部</p>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-bg-card); border: 3px solid var(--color-border-subtle);">
+                <span class="text-xs font-bold font-mono" style="color: var(--color-text-secondary);">V2</span>
+              </div>
+              <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V2.0 数据深化</p>
+              <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">趋势看板 + 价格提醒 + 搭配排行榜 + 个性化推荐</p>
+              <p class="text-[10px] mt-2 font-mono" style="color: var(--color-text-secondary);">P2 全部</p>
+            </div>
+
+            <div class="flex flex-col items-center text-center">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-bg-card); border: 3px solid var(--color-border-subtle);">
+                <span class="text-xs font-bold font-mono" style="color: var(--color-text-secondary);">V3</span>
+              </div>
+              <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V3.0 平台化</p>
+              <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">开放 API + UGC 搭配社区 + 主播/创作者入驻</p>
+              <p class="text-[10px] mt-2 font-mono" style="color: var(--color-text-secondary);">新功能</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 10 METRICS -->
+      <section id="metrics" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">10 / 数据指标与目标</h2>
+
+        <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+          <table class="w-full text-xs">
+            <thead>
+              <tr style="background: var(--color-bg-elevated);">
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">指标</th>
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">定义</th>
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">V1 目标</th>
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">说明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">搭配创建数/日</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">每日用户创建搭配方案的次数</td>
+                <td class="px-4 py-3" style="color: var(--color-good);">飞轮核心指标</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">反映工具价值和数据采集效率</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">方案浏览→加购率</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">查看推荐方案后加入购物车的比例</td>
+                <td class="px-4 py-3" style="color: var(--color-good);">≥ 15%</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量推荐质量</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">替换使用率</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">使用快捷匹配替换至少一件饰品的比例</td>
+                <td class="px-4 py-3" style="color: var(--color-good);">≥ 30%</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量匹配替换功能价值</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">加购→结算率</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">加入购物车后完成结算的比例</td>
+                <td class="px-4 py-3" style="color: var(--color-good);">≥ 40%</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量购买闭环效率</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">7 日留存</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">首次使用后 7 天内回访的比例</td>
+                <td class="px-4 py-3" style="color: var(--color-good);">≥ 25%</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量整体用户价值</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">推荐池覆盖率</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">数据驱动方案占推荐池的比例</td>
+                <td class="px-4 py-3" style="color: var(--color-good);">V1 末 ≥ 60%</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量飞轮是否真正转起来</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- 11 RISKS -->
+      <section id="risks" class="mb-16">
+        <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">11 / 风险与依赖</h2>
+
+        <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+          <table class="w-full text-xs">
+            <thead>
+              <tr style="background: var(--color-bg-elevated);">
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">风险</th>
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">影响</th>
+                <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">缓解措施</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-medium" style="color: var(--color-bad);">冷启动数据不足</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">初期用户搭配行为数据不足，推荐池质量依赖种子方案</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">人工策划高质量种子方案；自由搭配工具本身即是数据采集器，数据量会自然增长</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-medium" style="color: var(--color-bad);">App 接口依赖</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">购物车/结算/用户体系依赖 App 已有接口，接口变更或不可用会影响功能</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">提前与 App 团队对齐接口契约；设计降级方案（如跳转外部链接）</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-medium" style="color: var(--color-warn);">搭配数据噪音</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">随意搭配、测试行为产生大量低质量数据</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">行为权重分层（加购 > 保存 > 浏览）；设置最低搭配时长和件数阈值</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-medium" style="color: var(--color-warn);">自由搭配工具吸引力</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">如果搭配工具体验不好，用户不愿使用，飞轮无法启动</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">V1 聚焦搭配工具的核心体验流畅度；搭配过程中的实时推荐也能提升工具价值</td>
+              </tr>
+              <tr style="border-top: 1px solid var(--color-border-subtle);">
+                <td class="px-4 py-3 font-medium" style="color: var(--color-warn);">饰品库数据同步</td>
+                <td class="px-4 py-3" style="color: var(--color-text-secondary);">饰品价格/库存变动频繁，搭配方案中的饰品可能下架或价格大变</td>
+                <td class="px-4 py-3" style="color: var(--color-text-tertiary);">定期巡检方案有效性；失效饰品自动替换为同类推荐；标注价格更新时间</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 搭配推荐引擎</title>
+    <style id="theme-vars">
+/* ============================================
+   炭金精密设计系统 — Charcoal-Gold Precision Design System
+   CS2 搭配推荐引擎作品集
+   ============================================ */
+
+:root {
+  /* — Surface — */
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1e1e1e;
+
+  /* — Border — */
+  --color-border-default: #222222;
+  --color-border-subtle: #2a2a2a;
+  --color-border-accent: #3a3220;
+
+  /* — Text — */
+  --color-text-primary: #f0ede5;
+  --color-text-secondary: #999999;
+  --color-text-tertiary: #666666;
+  --color-text-disabled: #444444;
+
+  /* — Accent Gold — */
+  --color-accent: #e8a838;
+  --color-accent-dim: #b88828;
+  --color-accent-glow: rgba(232, 168, 56, 0.15);
+  --color-accent-border: rgba(232, 168, 56, 0.3);
+
+  /* — Functional — */
+  --color-good: #6abf69;
+  --color-bad: #e85d5d;
+  --color-warn: #e8c538;
+
+  /* — Radius — */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* — Font — */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Noto Sans Mono CJK SC', monospace;
+
+  /* — Spacing — */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* — Transition — */
+  --transition-default: 0.2s ease;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-accent: var(--color-accent);
+  }
+  @layer base {
+    body { background: var(--color-bg-primary); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased" style="font-family: var(--font-body);">
+
+    <main>
+
+        <!-- ========== SECTION 1 — HERO ========== -->
+        <section class="relative flex flex-col items-center justify-center min-h-screen px-6 text-center overflow-hidden" style="background: #0d0d0d;">
+
+            <!-- LiquidEther WebGL Background -->
+            <div id="liquid-ether" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; touch-action: none; z-index: 0;"></div>
+
+            <!-- Dark overlay for text readability -->
+            <div class="absolute inset-0 z-[1]" style="background: radial-gradient(ellipse at center, rgba(13,13,13,0.4) 0%, rgba(13,13,13,0.85) 100%);"></div>
+
+            <div class="relative z-[2] max-w-2xl mx-auto">
+
+                <!-- Small label above title -->
+                <p class="text-xs tracking-[0.3em] uppercase mb-8" style="color: var(--color-accent-dim); font-family: var(--font-mono);">
+                    Portfolio &mdash; Product Intern Application
+                </p>
+
+                <!-- Main title -->
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-6" style="color: var(--color-text-primary);">
+                    CS2 搭配推荐引擎
+                </h1>
+
+                <!-- Gold separator line -->
+                <div class="w-[60px] h-[1px] mx-auto mb-8" style="background: var(--color-accent);"></div>
+
+                <!-- Subtitle -->
+                <p class="text-lg md:text-xl mb-6" style="color: var(--color-text-secondary);">
+                    悠悠有品产品实习作品集
+                </p>
+
+                <!-- Description -->
+                <p class="text-sm leading-relaxed max-w-md mx-auto" style="color: var(--color-text-tertiary);">
+                    基于 CS2 皮肤生态与用户搭配需求，设计一套智能化的搭配推荐方案。
+                </p>
+
+            </div>
+
+            <!-- Scroll down arrow -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-arrow">
+                <span class="text-[10px] tracking-[0.2em] uppercase" style="color: var(--color-text-disabled); font-family: var(--font-mono);">scroll</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color: var(--color-text-disabled);">
+                    <path d="M8 3L8 13M8 13L3 8M8 13L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+
+        </section>
+
+        <!-- ========== SECTION 2 — NAVIGATION GRID ========== -->
+        <section class="relative py-24 md:py-32 px-6" style="background: var(--color-bg-primary);">
+
+            <div class="max-w-[1100px] mx-auto">
+
+                <!-- Section header -->
+                <div class="text-center mb-16">
+                    <p class="text-xs tracking-[0.3em] uppercase mb-4" style="color: var(--color-accent-dim); font-family: var(--font-mono);">
+                        Contents
+                    </p>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight" style="color: var(--color-text-primary);">
+                        作品集导航
+                    </h2>
+                </div>
+
+                <!-- 3-column card grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                    <!-- Card 1: 个人简历 -->
+                    <a href="#" data-dom-id="nav-resume" class="nav-card block rounded-lg p-6 relative overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);">
+                        <!-- Gold left accent -->
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg" style="background: var(--color-accent);"></div>
+                        <!-- Icon area -->
+                        <div class="card-icon w-10 h-10 rounded flex items-center justify-center mb-4" style="background: var(--color-accent-glow); color: var(--color-accent-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">个人简历</h3>
+                        <p class="text-xs leading-relaxed" style="color: var(--color-text-tertiary);">教育背景、技能特长与产品经历概述</p>
+                    </a>
+
+                    <!-- Card 2: 行业认知 -->
+                    <a href="#" data-dom-id="nav-industry" class="nav-card block rounded-lg p-6 relative overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);">
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg" style="background: var(--color-accent);"></div>
+                        <div class="card-icon w-10 h-10 rounded flex items-center justify-center mb-4" style="background: var(--color-accent-glow); color: var(--color-accent-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="16" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">行业认知</h3>
+                        <p class="text-xs leading-relaxed" style="color: var(--color-text-tertiary);">CS2 皮肤市场分析与竞品研究洞察</p>
+                    </a>
+
+                    <!-- Card 3: MVP 方案 -->
+                    <a href="#" data-dom-id="nav-mvp" class="nav-card block rounded-lg p-6 relative overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);">
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg" style="background: var(--color-accent);"></div>
+                        <div class="card-icon w-10 h-10 rounded flex items-center justify-center mb-4" style="background: var(--color-accent-glow); color: var(--color-accent-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+                                <line x1="12" y1="22" x2="12" y2="15.5"/>
+                                <polyline points="22 8.5 12 15.5 2 8.5"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">MVP 方案</h3>
+                        <p class="text-xs leading-relaxed" style="color: var(--color-text-tertiary);">搭配推荐核心功能的产品设计方案</p>
+                    </a>
+
+                    <!-- Card 4: 数据分析 -->
+                    <a href="#" data-dom-id="nav-data" class="nav-card block rounded-lg p-6 relative overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);">
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg" style="background: var(--color-accent);"></div>
+                        <div class="card-icon w-10 h-10 rounded flex items-center justify-center mb-4" style="background: var(--color-accent-glow); color: var(--color-accent-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="20" x2="18" y2="10"/>
+                                <line x1="12" y1="20" x2="12" y2="4"/>
+                                <line x1="6" y1="20" x2="6" y2="14"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">数据分析</h3>
+                        <p class="text-xs leading-relaxed" style="color: var(--color-text-tertiary);">关键指标定义与实验验证数据支撑</p>
+                    </a>
+
+                    <!-- Card 5: 产品原型 -->
+                    <a href="#" data-dom-id="nav-prototype" class="nav-card block rounded-lg p-6 relative overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);">
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg" style="background: var(--color-accent);"></div>
+                        <div class="card-icon w-10 h-10 rounded flex items-center justify-center mb-4" style="background: var(--color-accent-glow); color: var(--color-accent-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">产品原型</h3>
+                        <p class="text-xs leading-relaxed" style="color: var(--color-text-tertiary);">交互式搭配推荐功能原型演示</p>
+                    </a>
+
+                    <!-- Card 6: 迭代路线 -->
+                    <a href="#" data-dom-id="nav-roadmap" class="nav-card block rounded-lg p-6 relative overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-radius: var(--radius-md);">
+                        <div class="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-lg" style="background: var(--color-accent);"></div>
+                        <div class="card-icon w-10 h-10 rounded flex items-center justify-center mb-4" style="background: var(--color-accent-glow); color: var(--color-accent-dim);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">迭代路线</h3>
+                        <p class="text-xs leading-relaxed" style="color: var(--color-text-tertiary);">功能演进规划与未来增长路径</p>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ========== SECTION 3 — FOOTER ========== -->
+    <footer class="py-10 px-6 text-center" style="background: var(--color-bg-secondary);">
+        <p class="text-xs tracking-wider" style="color: var(--color-text-disabled); font-family: var(--font-mono);">
+            &copy; 2025 &mdash; Made with care for Youpin898 Product Intern Application
+        </p>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+
+      /* Scroll bounce animation */
+      @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+      }
+      .scroll-arrow {
+        animation: bounce-slow 2s ease-in-out infinite;
+      }
+
+      /* Nav card hover glow */
+      .nav-card {
+        transition: border-color var(--transition-default), box-shadow var(--transition-default), transform var(--transition-default);
+      }
+      .nav-card:hover {
+        border-color: var(--color-accent-border);
+        box-shadow: 0 0 20px var(--color-accent-glow), inset 0 1px 0 var(--color-accent-border);
+        transform: translateY(-2px);
+      }
+      .nav-card:hover .card-icon {
+        color: var(--color-accent);
+        transform: scale(1.1);
+      }
+      .card-icon {
+        transition: color var(--transition-default), transform var(--transition-default);
+      }
+    </style>
+
+<script>
+(function() {
+  const container = document.getElementById('liquid-ether');
+  if (!container || typeof THREE === 'undefined') return;
+
+  // Color palette - warm charcoal gold tones to match the design system
+  const colors = ['#cfb413', '#8b5e2a', '#3a2a18', '#e8a838', '#b88828'];
+  
+  function makePaletteTexture(stops) {
+    let arr = stops.length > 1 ? stops : [stops[0], stops[0]];
+    const w = arr.length;
+    const data = new Uint8Array(w * 4);
+    for (let i = 0; i < w; i++) {
+      const c = new THREE.Color(arr[i]);
+      data[i * 4 + 0] = Math.round(c.r * 255);
+      data[i * 4 + 1] = Math.round(c.g * 255);
+      data[i * 4 + 2] = Math.round(c.b * 255);
+      data[i * 4 + 3] = 255;
+    }
+    const tex = new THREE.DataTexture(data, w, 1, THREE.RGBAFormat);
+    tex.magFilter = THREE.LinearFilter;
+    tex.minFilter = THREE.LinearFilter;
+    tex.wrapS = THREE.ClampToEdgeWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.generateMipmaps = false;
+    tex.needsUpdate = true;
+    return tex;
+  }
+
+  const paletteTex = makePaletteTexture(colors);
+  const bgVec4 = new THREE.Vector4(0, 0, 0, 0);
+
+  // --- Simulation Setup ---
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.autoClear = false;
+  renderer.setClearColor(new THREE.Color(0x000000), 0);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  container.prepend(renderer.domElement);
+  renderer.domElement.style.width = '100%';
+  renderer.domElement.style.height = '100%';
+  renderer.domElement.style.display = 'block';
+  renderer.domElement.style.position = 'absolute';
+  renderer.domElement.style.top = '0';
+  renderer.domElement.style.left = '0';
+
+  function getSize() {
+    const rect = container.getBoundingClientRect();
+    return { width: Math.max(1, Math.floor(rect.width)), height: Math.max(1, Math.floor(rect.height)) };
+  }
+
+  let { width, height } = getSize();
+  renderer.setSize(width, height);
+
+  const resolution = 0.4;
+  let fboW = Math.max(1, Math.round(resolution * width));
+  let fboH = Math.max(1, Math.round(resolution * height));
+  let cellScale = new THREE.Vector2(1.0 / fboW, 1.0 / fboH);
+  let fboSize = new THREE.Vector2(fboW, fboH);
+  const isIOS = /(iPad|iPhone|iPod)/i.test(navigator.userAgent);
+  const floatType = isIOS ? THREE.HalfFloatType : THREE.FloatType;
+
+  function makeFBO() {
+    return new THREE.WebGLRenderTarget(fboW, fboH, {
+      type: floatType, depthBuffer: false, stencilBuffer: false,
+      minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter,
+      wrapS: THREE.ClampToEdgeWrapping, wrapT: THREE.ClampToEdgeWrapping
+    });
+  }
+
+  const fbos = { v0: makeFBO(), v1: makeFBO(), vv0: makeFBO(), vv1: makeFBO(), div: makeFBO(), p0: makeFBO(), p1: makeFBO() };
+
+  // Shaders
+  const faceVert = `
+    attribute vec3 position;
+    uniform vec2 px;
+    uniform vec2 boundarySpace;
+    varying vec2 uv;
+    precision highp float;
+    void main(){
+      vec3 pos = position;
+      vec2 scale = 1.0 - boundarySpace * 2.0;
+      pos.xy = pos.xy * scale;
+      uv = vec2(0.5)+(pos.xy)*0.5;
+      gl_Position = vec4(pos, 1.0);
+    }`;
+  const lineVert = `
+    attribute vec3 position;
+    uniform vec2 px;
+    precision highp float;
+    varying vec2 uv;
+    void main(){
+      vec3 pos = position;
+      uv = 0.5 + pos.xy * 0.5;
+      vec2 n = sign(pos.xy);
+      pos.xy = abs(pos.xy) - px * 1.0;
+      pos.xy *= n;
+      gl_Position = vec4(pos, 1.0);
+    }`;
+  const mouseVert = `
+    precision highp float;
+    attribute vec3 position;
+    attribute vec2 uv;
+    uniform vec2 center;
+    uniform vec2 scale;
+    uniform vec2 px;
+    varying vec2 vUv;
+    void main(){
+      vec2 pos = position.xy * scale * 2.0 * px + center;
+      vUv = uv;
+      gl_Position = vec4(pos, 0.0, 1.0);
+    }`;
+  const advectionFrag = `
+    precision highp float;
+    uniform sampler2D velocity;
+    uniform float dt;
+    uniform bool isBFECC;
+    uniform vec2 fboSize;
+    uniform vec2 px;
+    varying vec2 uv;
+    void main(){
+      vec2 ratio = max(fboSize.x, fboSize.y) / fboSize;
+      if(!isBFECC){
+        vec2 vel = texture2D(velocity, uv).xy;
+        vec2 uv2 = uv - vel * dt * ratio;
+        vec2 newVel = texture2D(velocity, uv2).xy;
+        gl_FragColor = vec4(newVel, 0.0, 0.0);
+      } else {
+        vec2 spot_new = uv;
+        vec2 vel_old = texture2D(velocity, uv).xy;
+        vec2 spot_old = spot_new - vel_old * dt * ratio;
+        vec2 vel_new1 = texture2D(velocity, spot_old).xy;
+        vec2 spot_new2 = spot_old + vel_new1 * dt * ratio;
+        vec2 error = spot_new2 - spot_new;
+        vec2 spot_new3 = spot_new - error / 2.0;
+        vec2 vel_2 = texture2D(velocity, spot_new3).xy;
+        vec2 spot_old2 = spot_new3 - vel_2 * dt * ratio;
+        vec2 newVel2 = texture2D(velocity, spot_old2).xy;
+        gl_FragColor = vec4(newVel2, 0.0, 0.0);
+      }
+    }`;
+  const colorFrag = `
+    precision highp float;
+    uniform sampler2D velocity;
+    uniform sampler2D palette;
+    uniform vec4 bgColor;
+    varying vec2 uv;
+    void main(){
+      vec2 vel = texture2D(velocity, uv).xy;
+      float lenv = clamp(length(vel), 0.0, 1.0);
+      vec3 c = texture2D(palette, vec2(lenv, 0.5)).rgb;
+      vec3 outRGB = mix(bgColor.rgb, c, lenv);
+      float outA = mix(bgColor.a, 1.0, lenv);
+      gl_FragColor = vec4(outRGB, outA);
+    }`;
+  const divergenceFrag = `
+    precision highp float;
+    uniform sampler2D velocity;
+    uniform float dt;
+    uniform vec2 px;
+    varying vec2 uv;
+    void main(){
+      float x0 = texture2D(velocity, uv-vec2(px.x, 0.0)).x;
+      float x1 = texture2D(velocity, uv+vec2(px.x, 0.0)).x;
+      float y0 = texture2D(velocity, uv-vec2(0.0, px.y)).y;
+      float y1 = texture2D(velocity, uv+vec2(0.0, px.y)).y;
+      float divergence = (x1 - x0 + y1 - y0) / 2.0;
+      gl_FragColor = vec4(divergence / dt);
+    }`;
+  const externalForceFrag = `
+    precision highp float;
+    uniform vec2 force;
+    uniform vec2 center;
+    uniform vec2 scale;
+    uniform vec2 px;
+    varying vec2 vUv;
+    void main(){
+      vec2 circle = (vUv - 0.5) * 2.0;
+      float d = 1.0 - min(length(circle), 1.0);
+      d *= d;
+      gl_FragColor = vec4(force * d, 0.0, 1.0);
+    }`;
+  const poissonFrag = `
+    precision highp float;
+    uniform sampler2D pressure;
+    uniform sampler2D divergence;
+    uniform vec2 px;
+    varying vec2 uv;
+    void main(){
+      float p0 = texture2D(pressure, uv + vec2(px.x * 2.0, 0.0)).r;
+      float p1 = texture2D(pressure, uv - vec2(px.x * 2.0, 0.0)).r;
+      float p2 = texture2D(pressure, uv + vec2(0.0, px.y * 2.0)).r;
+      float p3 = texture2D(pressure, uv - vec2(0.0, px.y * 2.0)).r;
+      float div = texture2D(divergence, uv).r;
+      float newP = (p0 + p1 + p2 + p3) / 4.0 - div;
+      gl_FragColor = vec4(newP);
+    }`;
+  const pressureFrag = `
+    precision highp float;
+    uniform sampler2D pressure;
+    uniform sampler2D velocity;
+    uniform vec2 px;
+    uniform float dt;
+    varying vec2 uv;
+    void main(){
+      float p0 = texture2D(pressure, uv + vec2(px.x, 0.0)).r;
+      float p1 = texture2D(pressure, uv - vec2(px.x, 0.0)).r;
+      float p2 = texture2D(pressure, uv + vec2(0.0, px.y)).r;
+      float p3 = texture2D(pressure, uv - vec2(0.0, px.y)).r;
+      vec2 v = texture2D(velocity, uv).xy;
+      vec2 gradP = vec2(p0 - p1, p2 - p3) * 0.5;
+      v = v - gradP * dt;
+      gl_FragColor = vec4(v, 0.0, 1.0);
+    }`;
+
+  const dt = 0.014;
+  const mouseForce = 15;
+  const cursorSize = 60;
+
+  function makePass(vs, fs, uniforms, output) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.Camera();
+    const mat = new THREE.RawShaderMaterial({ vertexShader: vs, fragmentShader: fs, uniforms });
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 2.0), mat);
+    scene.add(mesh);
+    return { scene, camera, material: mat, mesh, output, render(rt) { renderer.setRenderTarget(rt || null); renderer.render(scene, camera); renderer.setRenderTarget(null); } };
+  }
+
+  // Advection
+  const advU = { boundarySpace: { value: cellScale }, px: { value: cellScale }, fboSize: { value: fboSize }, velocity: { value: fbos.v0.texture }, dt: { value: dt }, isBFECC: { value: true } };
+  const adv = makePass(faceVert, advectionFrag, advU, fbos.v1);
+  // Add boundary lines
+  const bVerts = new Float32Array([-1,-1,0,-1,1,0,-1,1,0,1,1,0,1,1,0,1,-1,0,1,-1,0,-1,-1,0]);
+  const bGeo = new THREE.BufferGeometry();
+  bGeo.setAttribute('position', new THREE.BufferAttribute(bVerts, 3));
+  const bLine = new THREE.LineSegments(bGeo, new THREE.RawShaderMaterial({ vertexShader: lineVert, fragmentShader: advectionFrag, uniforms: advU }));
+  bLine.visible = false;
+  adv.scene.add(bLine);
+
+  // External force
+  const efU = { px: { value: cellScale }, force: { value: new THREE.Vector2(0,0) }, center: { value: new THREE.Vector2(0,0) }, scale: { value: new THREE.Vector2(cursorSize, cursorSize) } };
+  const efScene = new THREE.Scene();
+  const efCamera = new THREE.Camera();
+  const efMesh = new THREE.Mesh(new THREE.PlaneGeometry(1,1), new THREE.RawShaderMaterial({ vertexShader: mouseVert, fragmentShader: externalForceFrag, blending: THREE.AdditiveBlending, depthWrite: false, uniforms: efU }));
+  efScene.add(efMesh);
+
+  // Divergence
+  const divPass = makePass(faceVert, divergenceFrag, { boundarySpace: { value: cellScale }, velocity: { value: fbos.v0.texture }, px: { value: cellScale }, dt: { value: dt } }, fbos.div);
+
+  // Poisson
+  const poissonU = { boundarySpace: { value: cellScale }, pressure: { value: fbos.p0.texture }, divergence: { value: fbos.div.texture }, px: { value: cellScale } };
+  const poissonScene = new THREE.Scene();
+  const poissonCamera = new THREE.Camera();
+  const poissonMat = new THREE.RawShaderMaterial({ vertexShader: faceVert, fragmentShader: poissonFrag, uniforms: poissonU });
+  const poissonMesh = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 2.0), poissonMat);
+  poissonScene.add(poissonMesh);
+
+  // Pressure
+  const pressPass = makePass(faceVert, pressureFrag, { boundarySpace: { value: cellScale }, pressure: { value: fbos.p0.texture }, velocity: { value: fbos.v0.texture }, px: { value: cellScale }, dt: { value: dt } }, fbos.v0);
+
+  // Output
+  const outScene = new THREE.Scene();
+  const outCamera = new THREE.Camera();
+  const outMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.RawShaderMaterial({
+    vertexShader: faceVert, fragmentShader: colorFrag, transparent: true, depthWrite: false,
+    uniforms: { velocity: { value: fbos.v0.texture }, boundarySpace: { value: new THREE.Vector2() }, palette: { value: paletteTex }, bgColor: { value: bgVec4 } }
+  }));
+  outScene.add(outMesh);
+
+  // Mouse
+  const mouse = { coords: new THREE.Vector2(), coordsOld: new THREE.Vector2(), diff: new THREE.Vector2(), moved: false, autoActive: false, autoIntensity: 1.5, autoAngle: 0, autoTime: 0, lastUserTime: performance.now(), inside: false };
+
+  function setMouseCoords(clientX, clientY) {
+    const rect = container.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    mouse.coords.set((clientX - rect.left) / rect.width * 2 - 1, -((clientY - rect.top) / rect.height * 2 - 1));
+    mouse.moved = true;
+    mouse.lastUserTime = performance.now();
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    const rect = container.getBoundingClientRect();
+    if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      mouse.inside = true;
+      setMouseCoords(e.clientX, e.clientY);
+    } else {
+      mouse.inside = false;
+    }
+  });
+  document.addEventListener('touchstart', function(e) { if (e.touches.length === 1) setMouseCoords(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+  document.addEventListener('touchmove', function(e) { if (e.touches.length === 1) setMouseCoords(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+
+  function updateMouse() {
+    // Auto driver
+    const now = performance.now();
+    const idle = now - mouse.lastUserTime;
+    if (idle > 2000 && !mouse.inside) {
+      mouse.autoActive = true;
+      mouse.autoTime += 0.016;
+      mouse.autoAngle += 0.008;
+      const r = 0.5;
+      const nx = Math.cos(mouse.autoAngle) * r * (0.6 + 0.4 * Math.sin(mouse.autoTime * 0.3));
+      const ny = Math.sin(mouse.autoAngle * 0.7) * r * (0.6 + 0.4 * Math.cos(mouse.autoTime * 0.2));
+      mouse.coords.set(nx, ny);
+    } else {
+      mouse.autoActive = false;
+    }
+
+    mouse.diff.subVectors(mouse.coords, mouse.coordsOld);
+    mouse.coordsOld.copy(mouse.coords);
+    if (mouse.autoActive) mouse.diff.multiplyScalar(mouse.autoIntensity);
+  }
+
+  function simulate() {
+    // Advection v0 -> v1
+    advU.velocity.value = fbos.v0.texture;
+    adv.render(fbos.v1);
+
+    // External force -> v1 (additive)
+    const fx = (mouse.diff.x / 2) * mouseForce;
+    const fy = (mouse.diff.y / 2) * mouseForce;
+    efU.force.value.set(fx, fy);
+    efU.center.value.set(mouse.coords.x, mouse.coords.y);
+    renderer.setRenderTarget(fbos.v1);
+    renderer.render(efScene, efCamera);
+    renderer.setRenderTarget(null);
+
+    // Swap v0, v1
+    const tmp = fbos.v0; fbos.v0 = fbos.v1; fbos.v1 = tmp;
+
+    // Divergence
+    divPass.material.uniforms.velocity.value = fbos.v0.texture;
+    divPass.render(fbos.div);
+
+    // Poisson (32 iterations)
+    for (let i = 0; i < 32; i++) {
+      const pIn = i % 2 === 0 ? fbos.p0 : fbos.p1;
+      const pOut = i % 2 === 0 ? fbos.p1 : fbos.p0;
+      poissonU.pressure.value = pIn.texture;
+      renderer.setRenderTarget(pOut);
+      renderer.render(poissonScene, poissonCamera);
+      renderer.setRenderTarget(null);
+    }
+
+    // Pressure subtract
+    pressPass.material.uniforms.pressure.value = fbos.p0.texture;
+    pressPass.material.uniforms.velocity.value = fbos.v0.texture;
+    pressPass.render(fbos.v0);
+  }
+
+  function render() {
+    renderer.setRenderTarget(null);
+    renderer.render(outScene, outCamera);
+  }
+
+  let running = true;
+  function loop() {
+    if (!running) return;
+    updateMouse();
+    simulate();
+    render();
+    requestAnimationFrame(loop);
+  }
+
+  // Visibility observer
+  let isVisible = true;
+  const io = new IntersectionObserver(entries => {
+    isVisible = entries[0].isIntersecting;
+    if (!isVisible) running = false; else if (!running) { running = true; loop(); }
+  }, { threshold: 0 });
+  io.observe(container);
+
+  // Resize handler
+  const ro = new ResizeObserver(() => {
+    const s = getSize();
+    if (s.width === width && s.height === height) return;
+    width = s.width; height = s.height;
+    renderer.setSize(width, height);
+    fboW = Math.max(1, Math.round(resolution * width));
+    fboH = Math.max(1, Math.round(resolution * height));
+    cellScale.set(1.0 / fboW, 1.0 / fboH);
+    fboSize.set(fboW, fboH);
+    for (let k in fbos) fbos[k].setSize(fboW, fboH);
+  });
+  ro.observe(container);
+
+  // Start
+  loop();
+})();
+</script>
+</body>
+</html>

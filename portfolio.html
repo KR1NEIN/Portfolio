@@ -1,0 +1,3946 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品集 — CS2 搭配推荐引擎</title>
+    <style id="theme-vars">
+/* ============================================
+   炭金精密设计系统 — Charcoal-Gold Precision Design System
+   CS2 搭配推荐引擎作品集
+   ============================================ */
+
+:root {
+  /* — Surface — */
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1e1e1e;
+
+  /* — Border — */
+  --color-border-default: #222222;
+  --color-border-subtle: #2a2a2a;
+  --color-border-accent: #3a3220;
+
+  /* — Text — */
+  --color-text-primary: #f0ede5;
+  --color-text-secondary: #e8e8e8;
+  --color-text-tertiary: #b8b8b8;
+  --color-text-disabled: #444444;
+
+  /* — Accent Gold — */
+  --color-accent: #e8a838;
+  --color-accent-dim: #b88828;
+  --color-accent-glow: rgba(232, 168, 56, 0.15);
+  --color-accent-border: rgba(232, 168, 56, 0.3);
+
+  /* — Functional — */
+  --color-good: #6abf69;
+  --color-bad: #e85d5d;
+  --color-warn: #e8c538;
+
+  /* — Radius — */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* — Font — */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Noto Sans Mono CJK SC', monospace;
+
+  /* — Spacing — */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* — Transition — */
+  --transition-default: 0.2s ease;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+    <script src="grainient.js" defer></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-accent: var(--color-accent);
+  }
+  @layer base {
+    body { background: transparent; color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      /* === bong-portfolio 风格导航栏 === */
+      .bong-nav {
+        position: fixed;
+        right: 16px;
+        top: 16px;
+        z-index: 100;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-family: var(--font-body);
+      }
+      @media (min-width: 640px) {
+        .bong-nav { right: 24px; top: 24px; }
+      }
+      .bong-nav-logo-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(20, 20, 20, 0.95);
+        padding: 10px 12px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+        text-decoration: none;
+        transition: border-color 0.2s ease;
+        cursor: default;
+        pointer-events: none;
+      }
+      @media (min-width: 640px) {
+        .bong-nav-logo-link { padding: 12px 16px; }
+      }
+      .bong-nav-logo-dot {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+      .bong-nav-logo-dot-inner {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        box-shadow: 0 0 8px rgba(232, 168, 56, 0.6);
+      }
+      .bong-nav-logo-text {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.025em;
+        color: rgba(240, 237, 229, 0.9);
+      }
+      @media (min-width: 640px) {
+        .bong-nav-logo-text { font-size: 15px; }
+      }
+      .bong-nav-toggle {
+        height: 42px;
+        width: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+      @media (min-width: 640px) {
+        .bong-nav-toggle { height: 46px; width: 46px; }
+      }
+      .bong-nav-toggle:hover {
+        background: rgba(30, 30, 30, 0.95);
+        border-color: rgba(232, 168, 56, 0.3);
+      }
+      .bong-nav-burger {
+        position: relative;
+        display: block;
+        width: 16px;
+        height: 14px;
+      }
+      .bong-nav-burger span {
+        position: absolute;
+        left: 0;
+        height: 1.5px;
+        width: 100%;
+        border-radius: 9999px;
+        background: rgba(240, 237, 229, 0.9);
+        transition: all 0.25s ease;
+      }
+      .bong-nav-burger span:nth-child(1) { top: 0; }
+      .bong-nav-burger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+      .bong-nav-burger span:nth-child(3) { bottom: 0; }
+      .bong-nav.open .bong-nav-burger span:nth-child(1) {
+        top: 50%; transform: translateY(-50%) rotate(45deg);
+      }
+      .bong-nav.open .bong-nav-burger span:nth-child(2) { opacity: 0; }
+      .bong-nav.open .bong-nav-burger span:nth-child(3) {
+        bottom: 50%; transform: translateY(50%) rotate(-45deg);
+      }
+      .bong-nav-menu {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 10px);
+        min-width: 200px;
+        overflow: hidden;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+        padding: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-6px);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+      }
+      .bong-nav.open .bong-nav-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .bong-nav-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .bong-nav-menu a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: rgba(240, 237, 229, 0.65);
+        text-decoration: none;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      .bong-nav-menu a:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(240, 237, 229, 0.95);
+      }
+      .bong-nav-menu a.active {
+        background: rgba(232, 168, 56, 0.12);
+        color: var(--color-accent);
+      }
+      .bong-nav-menu a.active::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background: var(--color-accent);
+        margin-left: 8px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bong-nav-burger span,
+        .bong-nav-menu,
+        .bong-nav-toggle,
+        .bong-nav-logo-link { transition: none; }
+      }
+      /* === GSAP 动画初始状态 === */
+      .gsap-reveal {
+        clip-path: inset(0 0 100% 0);
+        -webkit-clip-path: inset(0 0 100% 0);
+      }
+      .gsap-fade-up {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      .gsap-scale-in {
+        opacity: 0;
+        transform: scale(1.15);
+      }
+      .gsap-skew-in {
+        opacity: 0;
+        transform: translateY(60px) skewY(3deg);
+      }
+      .gsap-slide-left {
+        opacity: 0;
+        transform: translateX(-60px);
+      }
+      .gsap-reveal-img {
+        overflow: hidden;
+      }
+      .gsap-reveal-img > img,
+      .gsap-reveal-img > video,
+      .gsap-reveal-img > div {
+        transform: scale(1.15);
+      }
+      .hero-char {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(100%) rotateX(-80deg);
+        transform-origin: bottom center;
+      }
+      .hero-line {
+        overflow: hidden;
+      }
+      .hero-line-inner {
+        display: block;
+      }
+      /* 防止动画期间闪烁 */
+      .will-change-transform {
+        will-change: transform, opacity;
+      }
+      /* 性能优化：transform 层提升 */
+      .portfolio-section {
+        will-change: transform;
+      }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+
+      /* ===== SECTION DIVIDER ===== */
+      .portfolio-section {
+        padding-top: 80px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        position: relative;
+      }
+      .portfolio-section:last-child {
+        border-bottom: none;
+      }
+      .section-divider-label {
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(13, 13, 13, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 0 20px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--color-accent);
+        border-radius: 0 0 8px 8px;
+      }
+
+      /* ===== HERO VIDEO BACKGROUND ===== */
+      .hero-video-section {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border-radius: 0 0 24px 24px;
+        contain: layout style paint;
+      }
+      .hero-video-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        pointer-events: none;
+        border-radius: inherit;
+        will-change: transform;
+        transform: translateZ(0);
+      }
+      .hero-grain-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        /* 半透明暗化层，保证白色文字可读 */
+        background: linear-gradient(135deg, rgba(13, 13, 13, 0.55) 0%, rgba(13, 13, 13, 0.4) 100%);
+      }
+      .hero-grain-noise {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0.12;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        background-repeat: repeat;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 3;
+        max-width: 56rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* ===== PAGE GRAINIENT BACKGROUND ===== */
+      .page-bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        pointer-events: none;
+      }
+      .page-bg-darken {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+        background: rgba(13, 13, 13, 0.7);
+      }
+
+      /* ===== INDUSTRY PAGE STYLES ===== */
+      .float-bar {
+        height: 10px;
+        border-radius: var(--radius-full);
+        background: linear-gradient(to right, #6abf69 0%, #a8d86e 20%, #e8c538 45%, #e8a838 55%, #d97735 70%, #e85d5d 90%, #c0392b 100%);
+      }
+      .float-bar-labels {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+      }
+      .expand-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .expand-content.open {
+        max-height: 600px;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .data-table th {
+        background: #1e1e1e;
+        color: var(--color-accent);
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 12px 16px;
+        text-align: left;
+        border-bottom: 1px solid var(--color-border-default);
+      }
+      .data-table td {
+        padding: 12px 16px;
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        border-bottom: 1px solid var(--color-border-subtle);
+      }
+      .data-table tbody tr:nth-child(odd) {
+        background: #141414;
+      }
+      .data-table tbody tr:nth-child(even) {
+        background: #0d0d0d;
+      }
+      .data-table tbody tr:hover {
+        background: rgba(232, 168, 56, 0.04);
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: var(--radius-full);
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--color-accent-border);
+        color: var(--color-accent);
+        background: var(--color-accent-glow);
+        transition: all var(--transition-default);
+      }
+      .pill:hover {
+        border-color: var(--color-accent);
+        background: rgba(232, 168, 56, 0.25);
+      }
+      .factor-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 700;
+        background: var(--color-accent-glow);
+        border: 1px solid var(--color-accent-border);
+        color: var(--color-accent);
+        flex-shrink: 0;
+      }
+      .platform-cell-gold {
+        color: var(--color-accent);
+        font-weight: 600;
+      }
+      .platform-cell-neutral {
+        color: var(--color-text-secondary);
+      }
+      .platform-row-label {
+        color: var(--color-text-primary);
+        font-weight: 500;
+        min-width: 100px;
+      }
+      .section-card {
+        background: var(--color-bg-card);
+        border: 1px solid var(--color-border-default);
+        border-radius: var(--radius-lg);
+        padding: var(--space-xl);
+      }
+      .expand-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        user-select: none;
+      }
+      .expand-toggle .chevron {
+        transition: transform 0.3s ease;
+        color: var(--color-accent);
+      }
+      .expand-toggle.active .chevron {
+        transform: rotate(180deg);
+      }
+
+      /* ===== MVP PAGE STYLES ===== */
+      .gold-underline {
+        position: relative;
+        display: inline-block;
+      }
+      .gold-underline::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: var(--color-accent);
+        border-radius: 2px;
+      }
+      .flow-arrow {
+        color: var(--color-accent);
+        flex-shrink: 0;
+      }
+      .timeline-line {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-border-accent) 100%);
+      }
+
+      /* ===== DATA PAGE STYLES ===== */
+      .funnel-layer {
+        transition: filter 0.2s ease, transform 0.2s ease;
+        cursor: default;
+      }
+      .funnel-layer:hover {
+        filter: brightness(1.15);
+        transform: scaleX(1.02);
+      }
+
+      /* ===== PROTOTYPE PAGE STYLES ===== */
+      .outer-page {
+        max-width: 1700px;
+        margin: 0 auto;
+        padding: 40px 24px 60px;
+        min-height: 100vh;
+      }
+      .page-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--color-text-primary);
+        letter-spacing: 1px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--color-accent);
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      .page-subtitle {
+        font-size: 14px;
+        color: var(--color-text-tertiary);
+        margin-bottom: 36px;
+      }
+      .phone-row {
+        display: flex;
+        gap: 28px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 20px 0 30px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .phone-row::-webkit-scrollbar { height: 6px; }
+      .phone-row::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 3px; }
+      .phone-row::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+      /* ===== PHONE FRAME ===== */
+      .phone-frame {
+        flex-shrink: 0;
+        width: 320px;
+        scroll-snap-align: start;
+        position: relative;
+      }
+      .phone-outer {
+        width: 320px;
+        border: 3px solid #1c1c1c;
+        border-radius: 40px;
+        background: #1c1c1c;
+        padding: 12px 0 0;
+        position: relative;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+      }
+      .phone-notch {
+        width: 110px;
+        height: 28px;
+        background: #1c1c1c;
+        border-radius: 999px;
+        margin: 0 auto -6px;
+        position: relative;
+        z-index: 2;
+      }
+      .phone-screen {
+        background: #f5f5f7;
+        border-radius: 28px;
+        overflow: hidden;
+        height: 695px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .phone-screen-label {
+        text-align: center;
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        margin-top: 14px;
+        letter-spacing: 0.5px;
+      }
+
+      /* ===== STATUS BAR ===== */
+      .status-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 20px 4px;
+        background: #ffffff;
+        font-size: 11px;
+        font-weight: 500;
+        color: #333;
+        flex-shrink: 0;
+      }
+      .status-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* ===== SCREEN CONTENT ===== */
+      .screen-body {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      .screen-body::-webkit-scrollbar { width: 0; }
+
+      /* ===== STATUS BAR (悠悠有品 style) ===== */
+      .status-bar-yy {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 16px 6px;
+        background: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        flex-shrink: 0;
+      }
+      .sb-time {
+        font-weight: 700;
+        font-size: 15px;
+        min-width: 50px;
+      }
+      .sb-location {
+        display: flex;
+        align-items: center;
+        color: #000;
+      }
+      .sb-center-logo {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-top: 2px;
+      }
+      .sb-logo-circle {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sb-logo-text {
+        color: #ffd700;
+        font-weight: 800;
+        font-size: 14px;
+        font-style: italic;
+      }
+      .sb-brand-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000;
+      }
+      .sb-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .sb-5g {
+        font-size: 11px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      /* ===== TOP NAV (悠悠有品 style) ===== */
+      .yy-top-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px 8px;
+        background: #ffffff;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .yy-top-tabs {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        overflow-x: auto;
+        flex: 1;
+        padding-right: 8px;
+      }
+      .yy-top-tabs::-webkit-scrollbar { display: none; }
+      .yy-top-tab {
+        font-size: 15px;
+        color: #b8b8b8;
+        white-space: nowrap;
+        cursor: pointer;
+        position: relative;
+        font-weight: 500;
+      }
+      .yy-top-tab.active {
+        color: #000;
+        font-weight: 700;
+        font-size: 17px;
+      }
+      .yy-top-tab.active::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 3px;
+        background: #ffd700;
+        border-radius: 2px;
+      }
+      .yy-top-icons {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-shrink: 0;
+      }
+      .yy-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ===== SEARCH BAR ===== */
+      .yy-search-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px 10px;
+        background: #ffffff;
+        flex-shrink: 0;
+      }
+      .yy-search-input {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 36px;
+        background: #f5f5f7;
+        border-radius: 999px;
+        padding: 0 14px;
+      }
+      .yy-search-placeholder {
+        font-size: 13px;
+        color: #e8e8e8;
+        flex: 1;
+      }
+      .yy-order-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: #333;
+        font-weight: 500;
+        flex-shrink: 0;
+      }
+
+      /* ===== FILTER ROW ===== */
+      .yy-filter-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        background: #ffffff;
+        border-top: 1px solid #f0f0f0;
+        flex-shrink: 0;
+      }
+      .yy-filter-item {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 14px;
+        color: #333;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      /* ===== STYLE TAGS ===== */
+      .yy-style-tags {
+        display: flex;
+        gap: 10px;
+        padding: 8px 14px 12px;
+        background: #ffffff;
+        overflow-x: auto;
+        flex-shrink: 0;
+      }
+      .yy-style-tags::-webkit-scrollbar { display: none; }
+      .yy-style-tag {
+        flex-shrink: 0;
+        padding: 6px 14px;
+        background: #f5f5f7;
+        border-radius: 999px;
+        font-size: 13px;
+        color: #b8b8b8;
+        cursor: pointer;
+        border: 1px solid #e8e8e8;
+      }
+      .yy-style-tag.active {
+        background: #fff7e6;
+        color: #d48806;
+        border-color: #ffd591;
+        font-weight: 500;
+      }
+
+      /* ===== LIST BODY ===== */
+      .yy-list-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px 12px 12px;
+        background: #f5f5f7;
+      }
+      .yy-list-body::-webkit-scrollbar { width: 0; }
+
+      /* ===== LISTING CARD ===== */
+      .yy-listing-card {
+        background: #ffffff;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .yy-skin-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        padding: 10px;
+        background: #e8f4ff;
+        border-radius: 12px 12px 0 0;
+      }
+      .yy-skin-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .yy-skin-img {
+        width: 100%;
+        aspect-ratio: 1.2/1;
+        border-radius: 6px;
+        position: relative;
+      }
+      .yy-skin-img.yy-skin-overlay {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .yy-skin-img.yy-skin-overlay::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        border-radius: 6px;
+      }
+      .yy-more-badge {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .yy-skin-price {
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      /* ===== CARD BOTTOM ===== */
+      .yy-card-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 10px 12px 12px;
+        gap: 10px;
+      }
+      .yy-card-left {
+        flex: 1;
+        min-width: 0;
+      }
+      .yy-total-value {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+      .yy-value-label {
+        font-size: 13px;
+        color: #ff6b00;
+        font-weight: 600;
+        background: #fff7e6;
+        padding: 2px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+      }
+      .yy-value-num {
+        font-size: 15px;
+        font-weight: 700;
+        color: #ff6b00;
+      }
+      .yy-card-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .yy-card-tag {
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: #f0f5ff;
+        color: #1677ff;
+        border: 1px solid #bae0ff;
+        white-space: nowrap;
+      }
+      .yy-tag-orange {
+        background: #fff7e6;
+        color: #d46b08;
+        border-color: #ffd591;
+      }
+      .yy-tag-blue {
+        background: #e6f4ff;
+        color: #1677ff;
+        border-color: #91caff;
+      }
+      .yy-card-right {
+        flex-shrink: 0;
+        text-align: right;
+      }
+      .yy-rent-btn {
+        background: #1677ff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 16px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* ===== BOTTOM TAB BAR (悠悠有品 style) ===== */
+      .yy-tab-bar {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-around;
+        height: 56px;
+        background: #ffffff;
+        border-top: 1px solid #f0f0f0;
+        flex-shrink: 0;
+        padding-top: 6px;
+        padding-bottom: 4px;
+        position: relative;
+      }
+      .yy-tab-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        font-size: 10px;
+        color: #e8e8e8;
+        cursor: pointer;
+        flex: 1;
+      }
+      .yy-tab-item.active {
+        color: #1677ff;
+      }
+      .yy-tab-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .yy-tab-icon-center {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #ffd700, #ffb800);
+        border-radius: 50%;
+        color: #fff;
+        margin-top: -10px;
+        box-shadow: 0 2px 8px rgba(255, 184, 0, 0.4);
+      }
+      .yy-tab-label {
+        font-size: 11px;
+      }
+
+      /* ===== FILTER RESULTS ===== */
+      .filter-result-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 12px;
+        background: #fff;
+        border-bottom: 1px solid #e8e8e8;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .filter-result-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+      }
+      .filter-result-back {
+        position: absolute;
+        left: 12px;
+        color: #333;
+        cursor: pointer;
+      }
+      .filter-chips {
+        display: flex;
+        gap: 8px;
+        padding: 8px 12px;
+        overflow-x: auto;
+        background: #fff;
+        flex-shrink: 0;
+      }
+      .filter-chips::-webkit-scrollbar { display: none; }
+      .filter-chip {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        background: #e6f4ff;
+        color: #1677ff;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+      .filter-chip-close {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        line-height: 1;
+      }
+      .sort-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        font-size: 12px;
+        flex-shrink: 0;
+      }
+      .sort-count { color: #b8b8b8; }
+      .sort-select {
+        background: #f5f5f5;
+        border: none;
+        border-radius: 999px;
+        padding: 4px 12px;
+        font-size: 11px;
+        color: #b8b8b8;
+        cursor: pointer;
+      }
+
+      /* ===== RESULT CARD ===== */
+      .result-card {
+        background: #ffffff;
+        border-radius: 12px;
+        margin: 0 12px 10px;
+        padding: 12px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      }
+      .result-thumbs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+      .result-thumb {
+        flex: 1;
+        height: 56px;
+        border-radius: 8px;
+      }
+      .result-score-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 6px;
+      }
+      .result-score-track {
+        flex: 1;
+        height: 4px;
+        background: #e8e8e8;
+        border-radius: 2px;
+        margin: 0 10px;
+        overflow: hidden;
+      }
+      .result-score-fill {
+        height: 100%;
+        background: #1677ff;
+        border-radius: 2px;
+      }
+      .result-score-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1677ff;
+        white-space: nowrap;
+      }
+      .result-price {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap;
+      }
+      .result-btn {
+        display: block;
+        width: 100%;
+        background: #f5f5f5;
+        color: #1677ff;
+        border: none;
+        border-radius: 8px;
+        padding: 7px 0;
+        font-size: 12px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      /* ===== DETAIL SCREEN ===== */
+      .detail-nav {
+        display: flex;
+        align-items: center;
+        padding: 10px 12px;
+        background: #fff;
+        border-bottom: 1px solid #e8e8e8;
+        flex-shrink: 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: #333;
+        gap: 8px;
+      }
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 12px;
+      }
+      .detail-grid-item {
+        height: 90px;
+        border-radius: 10px;
+        transform: rotate(-1deg);
+      }
+      .detail-grid-item:nth-child(even) { transform: rotate(1deg); }
+      .score-card {
+        background: #fff;
+        border-radius: 12px;
+        margin: 4px 12px 10px;
+        padding: 16px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      }
+      .score-label {
+        font-size: 12px;
+        color: #e8e8e8;
+        margin-bottom: 4px;
+      }
+      .score-big {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1677ff;
+        margin-bottom: 16px;
+      }
+      .score-dim {
+        margin-bottom: 10px;
+      }
+      .score-dim-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+      }
+      .score-dim-name {
+        font-size: 12px;
+        color: #b8b8b8;
+        width: 50px;
+      }
+      .score-dim-track {
+        flex: 1;
+        height: 6px;
+        background: #f0f0f0;
+        border-radius: 3px;
+        margin: 0 8px;
+        overflow: hidden;
+      }
+      .score-dim-fill {
+        height: 100%;
+        background: #1677ff;
+        border-radius: 3px;
+      }
+      .score-dim-value {
+        font-size: 12px;
+        color: #333;
+        font-weight: 600;
+        width: 28px;
+        text-align: right;
+      }
+      .detail-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        border-radius: 8px;
+        margin: 0 12px 6px;
+        padding: 10px 12px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      }
+      .detail-item-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+      }
+      .detail-item-wear {
+        font-size: 11px;
+        color: #e8e8e8;
+      }
+      .detail-item-price {
+        font-size: 13px;
+        color: #b8b8b8;
+      }
+      .detail-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: #fff;
+        border-top: 1px solid #e8e8e8;
+        margin-top: auto;
+        flex-shrink: 0;
+      }
+      .detail-total-label {
+        font-size: 13px;
+        color: #b8b8b8;
+      }
+      .detail-total-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+      }
+      .detail-buy-btn {
+        background: #1677ff;
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        padding: 8px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      /* ===== CART SCREEN ===== */
+      .cart-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        background: #fff;
+        border-bottom: 1px solid #e8e8e8;
+        flex-shrink: 0;
+      }
+      .cart-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+      }
+      .cart-edit {
+        font-size: 13px;
+        color: #e8e8e8;
+        cursor: pointer;
+      }
+      .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border-radius: 12px;
+        margin: 0 12px 8px;
+        padding: 10px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        position: relative;
+      }
+      .cart-thumb {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        flex-shrink: 0;
+      }
+      .cart-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .cart-item-name {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .cart-item-wear {
+        font-size: 11px;
+        color: #e8e8e8;
+        margin-bottom: 2px;
+      }
+      .cart-item-price {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+      }
+      .cart-qty {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .cart-qty-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+        border: none;
+        background: #f5f5f5;
+        color: #b8b8b8;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .cart-qty-btn.plus { color: #1677ff; }
+      .cart-qty-num {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        width: 16px;
+        text-align: center;
+      }
+      .cart-delete {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        color: #ccc;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: #ff4d4f;
+        color: #fff;
+        font-size: 9px;
+        padding: 1px 6px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .cart-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 16px;
+        background: #fff;
+        border-top: 1px solid #e8e8e8;
+        margin-top: auto;
+        flex-shrink: 0;
+      }
+      .cart-total-label {
+        font-size: 13px;
+        color: #b8b8b8;
+      }
+      .cart-total-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+      }
+      .cart-checkout-btn {
+        background: #1677ff;
+        color: #fff;
+        border: none;
+        border-radius: 999px;
+        padding: 8px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      /* ========== TOC Card Glow Border Effect ========== */
+      .toc-glow-card {
+        position: relative;
+        isolation: isolate;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                    box-shadow 0.35s ease;
+        overflow: hidden;
+      }
+      .toc-glow-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1.5px;
+        background: linear-gradient(
+          135deg,
+          rgba(232, 168, 56, 0.85) 0%,
+          rgba(184, 136, 40, 0.6) 25%,
+          rgba(255, 200, 100, 0.5) 50%,
+          rgba(184, 136, 40, 0.6) 75%,
+          rgba(232, 168, 56, 0.85) 100%
+        );
+        background-size: 300% 300%;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        animation: toc-glow-rotate 4s linear infinite;
+        animation-play-state: paused;
+        z-index: 2;
+      }
+      .toc-glow-card::after {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        border-radius: inherit;
+        background: radial-gradient(
+          600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          rgba(232, 168, 56, 0.22),
+          rgba(184, 136, 40, 0.12),
+          transparent 40%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .toc-glow-card:hover::before {
+        opacity: 1;
+        animation-play-state: running;
+      }
+      .toc-glow-card:hover::after {
+        opacity: 1;
+      }
+      .toc-glow-card:hover {
+        transform: scale(1.03) translateY(-2px);
+        box-shadow: 0 0 28px rgba(232, 168, 56, 0.20),
+                    0 0 56px rgba(184, 136, 40, 0.10);
+      }
+      @keyframes toc-glow-rotate {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased" style="font-family: var(--font-body);">
+    <div class="page-bg-canvas" id="pageBgCanvas"></div>
+    <div class="page-bg-darken"></div>
+    <nav class="bong-nav" id="bongNav" aria-label="主导航">
+      <div class="bong-nav-logo-link">
+        <span class="bong-nav-logo-dot"><span class="bong-nav-logo-dot-inner"></span></span>
+        <span class="bong-nav-logo-text" id="bongNavCurrent">作品首页</span>
+      </div>
+      <button class="bong-nav-toggle" id="bongNavToggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="bongNavMenu">
+        <span class="bong-nav-burger"><span></span><span></span><span></span></span>
+      </button>
+      <div class="bong-nav-menu" id="bongNavMenu">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="#hero" data-page="hero">作品首页</a></li>
+          <li><a href="#mvp" data-page="mvp">MVP方案</a></li>
+          <li><a href="#data" data-page="data">数据分析</a></li>
+          <li><a href="#prototype" data-page="prototype">产品原型</a></li>
+          <li><a href="resume.html" data-page="resume">简历</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="max-w-[1700px] mx-auto px-6">
+
+      <!-- ========== HERO ========== -->
+      <section id="hero" class="hero-video-section portfolio-section" style="padding-top: 80px;">
+        <video class="hero-video-bg" autoplay muted loop playsinline preload="metadata">
+          <source src="背景视频.mp4" type="video/mp4">
+        </video>
+        <div class="hero-grain-overlay"></div>
+        <div class="hero-grain-noise"></div>
+        <div class="hero-content">
+          <div class="hero-line gsap-hero-title">
+            <h1 class="hero-line-inner text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6" style="color: #ffffff;">
+              CS2 搭配推荐引擎
+            </h1>
+          </div>
+          <div class="hero-line gsap-hero-sub">
+            <p class="hero-line-inner text-xl md:text-2xl mb-8" style="color: #ffffff;">
+              悠悠有品产品实习求职作品
+            </p>
+          </div>
+          <div class="hero-line gsap-hero-desc">
+            <p class="hero-line-inner text-base md:text-lg leading-relaxed max-w-2xl" style="color: #ffffff;">
+              从买单品到买搭配——基于搭配推荐提升客单价的CS2饰品交易创新方案
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SECTION 1: MVP 方案 ========== -->
+      <section id="mvp" class="portfolio-section">
+        <span class="section-divider-label gsap-section-label">01 / MVP 方案</span>
+
+        <div class="mt-8 mb-12">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="inline-flex items-center justify-center px-2.5 py-1 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">PRD</span>
+          </div>
+          <h1 class="text-3xl font-bold tracking-tight gold-underline gsap-section-title" style="color: var(--color-text-primary);">
+            CS2 饰品搭配引擎 — 产品需求文档
+          </h1>
+          <p class="mt-6 text-sm leading-relaxed max-w-3xl gsap-section-desc" style="color: var(--color-text-secondary);">
+            嵌入已有 App 的饰品搭配功能模块。V1 即开放自由搭配工具采集用户行为数据，驱动协同推荐飞轮，并支持快捷匹配与一键结算闭环。
+          </p>
+        </div>
+
+        <!-- CORE CONTEXT -->
+        <div class="mt-8 mb-12">
+          <div class="rounded-lg px-4 py-3 flex items-start gap-3" style="background: var(--color-accent-glow); border: 1px solid var(--color-accent-border);">
+            <i data-icon="refresh-cw" style="width:16px;height:16px;color:var(--color-accent);flex-shrink:0;margin-top:2px;"></i>
+            <div>
+              <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">核心飞轮</p>
+              <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">
+                自由搭配工具吸引用户 → 用户搭配行为产生数据 → 数据驱动协同推荐 → 推荐质量提升吸引更多用户。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOC -->
+        <section class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">目录</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <a href="#flywheel-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">01</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">数据飞轮</p>
+            </a>
+            <a href="#personas-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">02</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">用户画像</p>
+            </a>
+            <a href="#journey-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">03</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">核心旅程</p>
+            </a>
+            <a href="#features-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">04</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">功能架构</p>
+            </a>
+            <a href="#matching-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">05</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">自由搭配</p>
+            </a>
+            <a href="#engine-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">06</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">推荐引擎</p>
+            </a>
+            <a href="#checkout-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">07</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">购买闭环</p>
+            </a>
+            <a href="#acceptance-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">08</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">验收标准</p>
+            </a>
+            <a href="#roadmap-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">09</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">版本规划</p>
+            </a>
+            <a href="#metrics-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">10</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">数据指标</p>
+            </a>
+            <a href="#risks-mvp" class="toc-glow-card block rounded-lg p-4" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <span class="text-xs font-mono font-bold" style="color: var(--color-accent);">11</span>
+              <p class="mt-2 text-sm font-medium" style="color: var(--color-text-primary);">风险与依赖</p>
+            </a>
+          </div>
+        </section>
+
+        <!-- 01 DATA FLYWHEEL -->
+        <section id="flywheel-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">01 / 数据飞轮</h2>
+
+          <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+            <p class="text-xs font-medium mb-5" style="color: var(--color-text-tertiary);">自由搭配是工具，也是数据采集引擎</p>
+
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+              <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+                <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">自由搭配工具</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">用户主动选配</p>
+              </div>
+              <i data-icon="arrow-right" class="flow-arrow" style="width:20px;height:20px;"></i>
+              <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+                <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">搭配行为数据</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">谁选了 A+B+C</p>
+              </div>
+              <i data-icon="arrow-right" class="flow-arrow" style="width:20px;height:20px;"></i>
+              <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+                <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">协同推荐</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">高频组合提取</p>
+              </div>
+              <i data-icon="arrow-right" class="flow-arrow" style="width:20px;height:20px;"></i>
+              <div class="rounded-lg px-5 py-4 text-center min-w-[140px]" style="background: var(--color-bg-card); border: 2px solid var(--color-accent-border);">
+                <p class="text-xs font-semibold mb-1" style="color: var(--color-accent);">推荐反哺用户</p>
+                <p class="text-[10px]" style="color: var(--color-text-tertiary);">更好搭配 → 更多人来</p>
+              </div>
+            </div>
+
+            <div class="mt-5 flex items-center justify-center">
+              <div class="flex items-center gap-2 px-3 py-1.5 rounded-full" style="background: var(--color-accent-glow); border: 1px solid var(--color-accent-border);">
+                <i data-icon="refresh-cw" style="width:12px;height:12px;color:var(--color-accent);"></i>
+                <p class="text-[10px] font-medium" style="color: var(--color-accent);">飞轮：每多一个用户搭配，推荐就更准一点</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <p class="text-xs font-semibold mb-2" style="color: var(--color-accent);">为什么自由搭配必须 V1 上线</p>
+              <ul class="space-y-2">
+                <li class="text-xs flex items-start gap-2" style="color: var(--color-text-secondary);">
+                  <i data-icon="check" style="width:12px;height:12px;color:var(--color-good);flex-shrink:0;margin-top:2px;"></i>
+                  没有自由搭配就没有搭配行为数据，协同推荐无从启动
+                </li>
+                <li class="text-xs flex items-start gap-2" style="color: var(--color-text-secondary);">
+                  <i data-icon="check" style="width:12px;height:12px;color:var(--color-good);flex-shrink:0;margin-top:2px;"></i>
+                  自由搭配本身就是用户价值——即使没有推荐，工具也好用
+                </li>
+                <li class="text-xs flex items-start gap-2" style="color: var(--color-text-secondary);">
+                  <i data-icon="check" style="width:12px;height:12px;color:var(--color-good);flex-shrink:0;margin-top:2px;"></i>
+                  人工种子方案有上限，用户创造力的数据才是长期壁垒
+                </li>
+              </ul>
+            </div>
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <p class="text-xs font-semibold mb-2" style="color: var(--color-text-secondary);">数据采集的关键字段</p>
+              <div class="space-y-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">user_id</span>
+                  <span class="text-[10px]" style="color: var(--color-text-tertiary);">谁在搭配</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">items[]</span>
+                  <span class="text-[10px]" style="color: var(--color-text-tertiary);">选了哪些饰品（含顺序）</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">action</span>
+                  <span class="text-[10px]" style="color: var(--color-text-tertiary);">保存 / 加购 / 仅浏览（权重不同）</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded" style="background: var(--color-bg-elevated); color: var(--color-accent);">timestamp</span>
+                  <span class="text-[10px]" style="color: var(--color-text-tertiary);">搭配时间（用于时间窗口过滤）</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 PERSONAS -->
+        <section id="personas-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">02 / 用户画像</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">王</div>
+                <div>
+                  <p class="text-sm font-semibold" style="color: var(--color-accent);">休闲玩家小王</p>
+                  <p class="text-[10px]" style="color: var(--color-text-tertiary);">搭配消费者 / 低决策成本</p>
+                </div>
+              </div>
+              <p class="text-sm leading-relaxed mb-3" style="color: var(--color-text-secondary);">
+                想快速找到好看的搭配方案直接买，不想花时间研究。主要使用推荐路径。
+              </p>
+              <div class="pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+                <p class="text-xs font-medium mb-1.5" style="color: var(--color-text-tertiary);">核心需求</p>
+                <ul class="space-y-1">
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">看别人都在买什么搭配，直接抄作业</li>
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">一键加购整套方案，统一结算</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">李</div>
+                <div>
+                  <p class="text-sm font-semibold" style="color: var(--color-accent);">搭配爱好者小李</p>
+                  <p class="text-[10px]" style="color: var(--color-text-tertiary);">自由搭配主力用户 / 数据贡献者</p>
+                </div>
+              </div>
+              <p class="text-sm leading-relaxed mb-3" style="color: var(--color-text-secondary);">
+                喜欢自己动手搭配，享受创造独特组合的过程。是自由搭配工具的核心用户，也是搭配数据的主要贡献者。
+              </p>
+              <div class="pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+                <p class="text-xs font-medium mb-1.5" style="color: var(--color-text-tertiary);">核心需求</p>
+                <ul class="space-y-1">
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">自由选配，实时看到搭配效果</li>
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">保存搭配方案，随时调整</li>
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">在热门方案基础上替换单件，个性化微调</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">张</div>
+                <div>
+                  <p class="text-sm font-semibold" style="color: var(--color-accent);">饰品商人小张</p>
+                  <p class="text-[10px]" style="color: var(--color-text-tertiary);">高频用户 / 趋势敏感</p>
+                </div>
+              </div>
+              <p class="text-sm leading-relaxed mb-3" style="color: var(--color-text-secondary);">
+                关注搭配趋势预判市场热点，利用热门搭配组合进行囤货或套利。
+              </p>
+              <div class="pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+                <p class="text-xs font-medium mb-1.5" style="color: var(--color-text-tertiary);">核心需求</p>
+                <ul class="space-y-1">
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">追踪热门搭配趋势，发现潜力组合</li>
+                  <li class="text-xs" style="color: var(--color-text-tertiary);">批量操作效率（快速加购/结算）</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 03 JOURNEY -->
+        <section id="journey-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">03 / 核心旅程</h2>
+          <p class="text-sm mb-8" style="color: var(--color-text-secondary);">V1 同时提供两条路径，覆盖"消费数据"和"创造数据"两种用户</p>
+
+          <!-- Path A -->
+          <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-accent-border);">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">路径 A</span>
+              <p class="text-xs font-semibold" style="color: var(--color-accent);">从推荐方案出发（消费数据）</p>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-accent);">A1</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">浏览热门方案</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">按武器/预算/热度</p>
+              </div>
+              <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-accent);">A2</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">快捷匹配微调</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">替换单件饰品</p>
+              </div>
+              <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-accent);">A3</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">一键加购结算</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">整套 → 购物车</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Path B -->
+          <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-card); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">路径 B</span>
+              <p class="text-xs font-semibold" style="color: var(--color-text-secondary);">自由搭配（创造数据）</p>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B1</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">选择起始饰品</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">或从已有库存出发</p>
+              </div>
+              <i data-icon="chevron-right" style="width:16px;height:16px;color:var(--color-text-disabled);"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B2</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">逐件添加搭配</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">系统推荐互补件</p>
+              </div>
+              <i data-icon="chevron-right" style="width:16px;height:16px;color:var(--color-text-disabled);"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B3</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">保存或加购</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">行为数据入库</p>
+              </div>
+              <i data-icon="chevron-right" style="width:16px;height:16px;color:var(--color-text-disabled);"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-[10px] font-mono mb-1" style="color: var(--color-text-tertiary);">B4</p>
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">反哺推荐池</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">高频组合浮现</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Path intersection -->
+          <div class="rounded-lg px-4 py-3 flex items-start gap-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+            <i data-icon="git-merge" style="width:14px;height:14px;color:var(--color-accent);flex-shrink:0;margin-top:2px;"></i>
+            <p class="text-xs" style="color: var(--color-text-secondary);">
+              <span class="font-medium" style="color: var(--color-text-primary);">路径交叉点：</span>
+              路径 B 中系统推荐的"互补件"来自路径 A 的协同数据；路径 A 中用户替换饰品后的最终方案也回流为搭配数据。两条路径共享同一个数据池。
+            </p>
+          </div>
+        </section>
+
+        <!-- 04 FEATURES -->
+        <section id="features-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">04 / 功能架构与优先级</h2>
+
+          <!-- P0 -->
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">P0</span>
+              <span class="text-xs font-medium" style="color: var(--color-text-secondary);">必须实现 — 飞轮转起来的最小闭环</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="palette" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">自由搭配工具</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">浏览饰品库 → 逐件选配 → 实时预览搭配效果 → 保存方案。同时采集搭配行为数据。</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="sparkles" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">协同推荐引擎</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">基于搭配行为数据提取高频组合，生成推荐方案。V1 初期用种子数据 + 简单规则，逐步过渡到数据驱动。</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="shuffle" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">快捷匹配替换</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">方案中任一饰品可替换为同类别热门选择，替换建议基于协同数据。</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="shopping-cart" style="width:16px;height:16px;color:var(--color-accent);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">购物车 + 统一结算</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">整套方案一键加购，支持移除/替换单件，复用已有 App 的结算能力。</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- P1 -->
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">P1</span>
+              <span class="text-xs font-medium" style="color: var(--color-text-secondary);">应该实现 — 提升转化率与留存</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="bookmark" style="width:16px;height:16px;color:var(--color-text-secondary);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">方案收藏</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">收藏搭配方案，价格变动时标记提示</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="refresh-cw" style="width:16px;height:16px;color:var(--color-text-secondary);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">买/租混合切换</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">每件饰品独立切换买/租，实时更新总成本</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <i data-icon="share-2" style="width:16px;height:16px;color:var(--color-text-secondary);"></i>
+                  <p class="text-sm font-medium" style="color: var(--color-text-primary);">搭配分享</p>
+                </div>
+                <p class="text-xs" style="color: var(--color-text-tertiary);">生成可购买的分享链接，链接内可直接加购</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- P2 -->
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">P2</span>
+              <span class="text-xs font-medium" style="color: var(--color-text-secondary);">可选实现 — 需要数据量支撑</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">趋势看板</p>
+                <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">热门搭配趋势变化</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">价格提醒</p>
+                <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">整套方案降价时通知</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">搭配排行榜</p>
+                <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">用户方案热度排名</p>
+              </div>
+              <div class="rounded-lg px-4 py-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-sm font-medium" style="color: var(--color-text-primary);">个性化推荐</p>
+                <p class="text-xs mt-1" style="color: var(--color-text-tertiary);">基于用户历史偏好</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 05 MATCHING -->
+        <section id="matching-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">05 / 自由搭配工具详细设计</h2>
+
+          <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+            <p class="text-xs font-medium mb-4" style="color: var(--color-text-tertiary);">搭配流程</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <p class="text-xs font-semibold mb-3" style="color: var(--color-accent);">交互步骤</p>
+                <div class="space-y-3">
+                  <div class="flex items-start gap-3">
+                    <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">1</span>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">选择起始饰品（从饰品库浏览或从"我的库存"选择）</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">2</span>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">系统自动推荐互补饰品（基于协同数据：选了 A 的人还选了 B）</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">3</span>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">用户逐件添加/替换/移除，搭配方案实时更新</p>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <span class="text-[10px] font-mono font-bold flex-shrink-0 mt-0.5" style="color: var(--color-accent);">4</span>
+                    <p class="text-xs" style="color: var(--color-text-secondary);">完成后保存方案 / 加入购物车 / 仅浏览离开（每种行为都记录）</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-semibold mb-3" style="color: var(--color-accent);">数据采集规则</p>
+                <div class="space-y-3">
+                  <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                    <p class="text-xs font-medium mb-1" style="color: var(--color-text-primary);">高权重行为</p>
+                    <p class="text-[10px]" style="color: var(--color-text-tertiary);">保存方案、加入购物车 — 说明用户认可这个组合</p>
+                  </div>
+                  <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                    <p class="text-xs font-medium mb-1" style="color: var(--color-text-primary);">中权重行为</p>
+                    <p class="text-[10px]" style="color: var(--color-text-tertiary);">搭配超过 30 秒且包含 ≥3 件饰品 — 说明用户认真搭配过</p>
+                  </div>
+                  <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                    <p class="text-xs font-medium mb-1" style="color: var(--color-text-primary);">低权重行为</p>
+                    <p class="text-[10px]" style="color: var(--color-text-tertiary);">快速浏览、仅添加 1 件后离开 — 噪音数据，降权处理</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 ENGINE -->
+        <section id="engine-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">06 / 推荐引擎逻辑</h2>
+
+          <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+            <p class="text-xs font-medium mb-4" style="color: var(--color-text-tertiary);">协同过滤逻辑（随数据量渐进增强）</p>
+
+            <div class="rounded-lg p-5 mb-5" style="background: var(--color-bg-primary); border: 1px solid var(--color-border-subtle);">
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 1</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">采集用户搭配行为：保存/加购的组合视为有效搭配，按时间窗口聚合</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 2</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">跨用户聚合，统计饰品共现频率：饰品 A 和 B 被不同用户搭配在一起的次数</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 3</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">过滤噪音：共现次数 < 阈值的组合不进入推荐池</p>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="text-xs font-mono font-bold flex-shrink-0" style="color: var(--color-accent);">STEP 4</span>
+                  <p class="text-xs" style="color: var(--color-text-secondary);">按热度排序（共现人数、保存/加购率），生成搭配方案卡片</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Progressive Enhancement -->
+            <p class="text-xs font-medium mb-3" style="color: var(--color-text-tertiary);">渐进增强策略</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-xs font-semibold mb-2" style="color: var(--color-accent);">V1 初期</p>
+                <p class="text-[10px] leading-relaxed" style="color: var(--color-text-secondary);">种子方案（人工策划 + 社区热门）+ 简单共现规则。推荐池 ≈50 套。</p>
+              </div>
+              <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-xs font-semibold mb-2" style="color: var(--color-text-secondary);">V1 中期</p>
+                <p class="text-[10px] leading-relaxed" style="color: var(--color-text-tertiary);">用户搭配数据达到一定量级后，自动提取高频组合替代种子方案。推荐池持续增长。</p>
+              </div>
+              <div class="rounded-lg p-3" style="background: var(--color-bg-card); border: 1px solid var(--color-border-subtle);">
+                <p class="text-xs font-semibold mb-2" style="color: var(--color-text-secondary);">V2+</p>
+                <p class="text-[10px] leading-relaxed" style="color: var(--color-text-tertiary);">引入个性化推荐（基于用户历史偏好）、时间衰减（近期搭配权重更高）、场景标签。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-lg p-5" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+            <p class="text-xs font-semibold mb-2" style="color: var(--color-accent);">热度分</p>
+            <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">
+              共现人数 x 行为权重（加购 > 保存 > 仅浏览）x 时间衰减。客观、可解释。用户看到的是"有 XX 人搭配了这套"。
+            </p>
+          </div>
+        </section>
+
+        <!-- 07 CHECKOUT -->
+        <section id="checkout-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">07 / 购买闭环设计</h2>
+
+          <div class="rounded-lg p-6 mb-4" style="background: var(--color-bg-elevated); border: 1px solid var(--color-border-default);">
+            <p class="text-xs font-medium mb-4" style="color: var(--color-text-tertiary);">结算流程（复用已有 App 交易能力）</p>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">搭配完成</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">自由搭配 / 推荐方案</p>
+              </div>
+              <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">一键加入购物车</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">整套方案批量加入</p>
+              </div>
+              <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">购物车调整</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">移除/替换单件</p>
+              </div>
+              <i data-icon="chevron-right" class="flow-arrow" style="width:16px;height:16px;"></i>
+              <div class="flex-1 min-w-[100px] rounded-lg px-3 py-3 text-center" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border);">
+                <p class="text-xs font-medium" style="color: var(--color-text-primary);">调用 App 结算</p>
+                <p class="text-[10px] mt-1" style="color: var(--color-text-tertiary);">复用已有支付能力</p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- 08 ACCEPTANCE -->
+        <section id="acceptance-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">08 / 验收标准总表</h2>
+
+          <!-- P0 -->
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-accent); color: var(--color-bg-primary);">P0</span>
+              <span class="text-xs" style="color: var(--color-text-secondary);">必须通过，否则不可上线</span>
+            </div>
+
+            <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <table class="w-full text-xs">
+                <thead>
+                  <tr style="background: var(--color-bg-elevated);">
+                    <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary); width:18%;">功能</th>
+                    <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">验收条件</th>
+                    <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary); width:20%;">度量方式</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">自由搭配工具</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 用户可从饰品库浏览并逐件添加至搭配方案<br>
+                      2) 支持按武器类型/稀有度/价格/颜色筛选饰品<br>
+                      3) 添加/移除饰品时总价实时更新，延迟 ≤500ms<br>
+                      4) 搭配方案可保存，保存后行为数据入库<br>
+                      5) 支持从"我的库存"选择已有饰品作为起点
+                    </td>
+                    <td class="px-4 py-3" style="color: var(--color-text-tertiary);">交互回归测试 + 数据入库验证 + 响应时间测量</td>
+                  </tr>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">协同推荐引擎</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 推荐池 ≥50 套方案（初期含种子方案）<br>
+                      2) 每套方案展示：饰品列表 + 总价 + 热度标签<br>
+                      3) 支持按武器类型/价格区间/热度筛选<br>
+                      4) 用户搭配数据达到阈值后，自动提取的组合逐步替代种子方案
+                    </td>
+                    <td class="px-4 py-3" style="color: var(--color-text-tertiary);">推荐池数据验证 + 前端展示回归</td>
+                  </tr>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">快捷匹配替换</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 方案中任一饰品可点击替换<br>
+                      2) 展示同类别 Top 3 替换候选（基于协同数据）<br>
+                      3) 替换后总价实时更新<br>
+                      4) 自由搭配过程中也展示"其他用户常搭配的饰品"推荐
+                    </td>
+                    <td class="px-4 py-3" style="color: var(--color-text-tertiary);">交互测试 + 推荐候选数据验证</td>
+                  </tr>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">购物车 + 结算</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 整套方案一键加入购物车<br>
+                      2) 购物车内可移除/替换单件饰品<br>
+                      3) 结算时正确调用 App 已有支付接口<br>
+                      4) 加购行为本身也被记录为搭配数据
+                    </td>
+                    <td class="px-4 py-3" style="color: var(--color-text-tertiary);">端到端流程测试 + 接口联调验证</td>
+                  </tr>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">数据采集层</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 每次搭配行为（保存/加购/浏览）均记录 user_id + items[] + action + timestamp<br>
+                      2) 数据写入延迟 ≤1 秒<br>
+                      3) 支持按行为权重过滤（加购 > 保存 > 浏览）<br>
+                      4) 推荐引擎能消费采集到的数据并更新推荐池
+                    </td>
+                    <td class="px-4 py-3" style="color: var(--color-text-tertiary);">数据管道端到端验证 + 推荐池更新验证</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- P1 -->
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold font-mono" style="background: var(--color-bg-elevated); color: var(--color-text-secondary); border: 1px solid var(--color-border-subtle);">P1</span>
+              <span class="text-xs" style="color: var(--color-text-secondary);">V1.5 交付前通过</span>
+            </div>
+
+            <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <table class="w-full text-xs">
+                <thead>
+                  <tr style="background: var(--color-bg-elevated);">
+                    <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary); width:18%;">功能</th>
+                    <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">验收条件</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">方案收藏</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 登录用户可收藏/取消收藏方案 2) 收藏夹上限 ≥50 3) 价格变动 ≥5% 时标记提示
+                    </td>
+                  </tr>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">买/租混合切换</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 每件饰品可独立切换"购买"/"租赁" 2) 切换后总成本实时更新 3) 租赁显示日均成本
+                    </td>
+                  </tr>
+                  <tr style="border-top: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">搭配分享</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">
+                      1) 生成唯一分享链接 2) 链接打开后可查看方案详情 3) 链接内支持一键加购 4) 未登录用户可查看但需登录后加购
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 09 ROADMAP -->
+        <section id="roadmap-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">09 / 版本规划</h2>
+
+          <div class="relative px-4 md:px-12 py-8">
+            <div class="timeline-line"></div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+
+              <div class="flex flex-col items-center text-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-accent); border: 3px solid var(--color-bg-primary);">
+                  <span class="text-xs font-bold font-mono" style="color: var(--color-bg-primary);">V1</span>
+                </div>
+                <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V1.0 飞轮启动</p>
+                <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">自由搭配工具 + 种子推荐 + 快捷匹配 + 购物车 + 数据采集层</p>
+                <p class="text-[10px] mt-2 font-mono" style="color: var(--color-accent);">P0 全部</p>
+              </div>
+
+              <div class="flex flex-col items-center text-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-bg-card); border: 3px solid var(--color-accent-border);">
+                  <span class="text-xs font-bold font-mono" style="color: var(--color-accent);">V1.5</span>
+                </div>
+                <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V1.5 转化优化</p>
+                <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">方案收藏 + 买/租混合 + 搭配分享 + 数据驱动推荐替代种子</p>
+                <p class="text-[10px] mt-2 font-mono" style="color: var(--color-text-secondary);">P1 全部</p>
+              </div>
+
+              <div class="flex flex-col items-center text-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-bg-card); border: 3px solid var(--color-border-subtle);">
+                  <span class="text-xs font-bold font-mono" style="color: var(--color-text-secondary);">V2</span>
+                </div>
+                <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V2.0 数据深化</p>
+                <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">趋势看板 + 价格提醒 + 搭配排行榜 + 个性化推荐</p>
+                <p class="text-[10px] mt-2 font-mono" style="color: var(--color-text-secondary);">P2 全部</p>
+              </div>
+
+              <div class="flex flex-col items-center text-center">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: var(--color-bg-card); border: 3px solid var(--color-border-subtle);">
+                  <span class="text-xs font-bold font-mono" style="color: var(--color-text-secondary);">V3</span>
+                </div>
+                <p class="text-sm font-semibold mb-1" style="color: var(--color-text-primary);">V3.0 平台化</p>
+                <p class="text-xs leading-relaxed" style="color: var(--color-text-secondary);">开放 API + UGC 搭配社区 + 主播/创作者入驻</p>
+                <p class="text-[10px] mt-2 font-mono" style="color: var(--color-text-secondary);">新功能</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- 10 METRICS -->
+        <section id="metrics-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">10 / 数据指标与目标</h2>
+
+          <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <table class="w-full text-xs">
+              <thead>
+                <tr style="background: var(--color-bg-elevated);">
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">指标</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">定义</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">V1 目标</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">说明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">搭配创建数/日</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">每日用户创建搭配方案的次数</td>
+                  <td class="px-4 py-3" style="color: var(--color-good);">飞轮核心指标</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">反映工具价值和数据采集效率</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">方案浏览→加购率</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">查看推荐方案后加入购物车的比例</td>
+                  <td class="px-4 py-3" style="color: var(--color-good);">≥ 15%</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量推荐质量</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">替换使用率</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">使用快捷匹配替换至少一件饰品的比例</td>
+                  <td class="px-4 py-3" style="color: var(--color-good);">≥ 30%</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量匹配替换功能价值</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">加购→结算率</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">加入购物车后完成结算的比例</td>
+                  <td class="px-4 py-3" style="color: var(--color-good);">≥ 40%</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量购买闭环效率</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">7 日留存</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">首次使用后 7 天内回访的比例</td>
+                  <td class="px-4 py-3" style="color: var(--color-good);">≥ 25%</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量整体用户价值</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-bold font-mono" style="color: var(--color-accent);">推荐池覆盖率</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">数据驱动方案占推荐池的比例</td>
+                  <td class="px-4 py-3" style="color: var(--color-good);">V1 末 ≥ 60%</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">衡量飞轮是否真正转起来</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 11 RISKS -->
+        <section id="risks-mvp" class="mb-16">
+          <h2 class="text-xs font-semibold uppercase tracking-widest mb-6" style="color: var(--color-text-tertiary);">11 / 风险与依赖</h2>
+
+          <div class="rounded-lg overflow-hidden" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <table class="w-full text-xs">
+              <thead>
+                <tr style="background: var(--color-bg-elevated);">
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">风险</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">影响</th>
+                  <th class="px-4 py-3 text-left font-medium" style="color: var(--color-text-secondary);">缓解措施</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-bad);">冷启动数据不足</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">初期用户搭配行为数据不足，推荐池质量依赖种子方案</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">人工策划高质量种子方案；自由搭配工具本身即是数据采集器，数据量会自然增长</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-bad);">App 接口依赖</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">购物车/结算/用户体系依赖 App 已有接口，接口变更或不可用会影响功能</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">提前与 App 团队对齐接口契约；设计降级方案（如跳转外部链接）</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-warn);">搭配数据噪音</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">随意搭配、测试行为产生大量低质量数据</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">行为权重分层（加购 > 保存 > 浏览）；设置最低搭配时长和件数阈值</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-warn);">自由搭配工具吸引力</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">如果搭配工具体验不好，用户不愿使用，飞轮无法启动</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">V1 聚焦搭配工具的核心体验流畅度；搭配过程中的实时推荐也能提升工具价值</td>
+                </tr>
+                <tr style="border-top: 1px solid var(--color-border-subtle);">
+                  <td class="px-4 py-3 font-medium" style="color: var(--color-warn);">饰品库数据同步</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-secondary);">饰品价格/库存变动频繁，搭配方案中的饰品可能下架或价格大变</td>
+                  <td class="px-4 py-3" style="color: var(--color-text-tertiary);">定期巡检方案有效性；失效饰品自动替换为同类推荐；标注价格更新时间</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <!-- ========== SECTION 2: DATA 数据分析 ========== -->
+      <section id="data" class="portfolio-section">
+        <span class="section-divider-label gsap-section-label">02 / 数据分析</span>
+
+        <div class="mt-8 mb-10">
+          <h1 class="text-3xl font-bold text-[var(--color-text-primary)] mb-2 pb-3 gsap-section-title" style="border-bottom: 2px solid var(--color-accent); display: inline-block;">
+            数据分析
+          </h1>
+          <p class="text-[var(--color-text-secondary)] text-sm mt-2 mb-12 gsap-section-desc">围绕"数据飞轮"核心假设，定义度量指标、验证节奏与决策规则</p>
+        </div>
+
+        <!-- Core Hypothesis Callout -->
+        <div class="rounded-lg p-5 mb-14 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-accent-border); border-left: 3px solid var(--color-accent);">
+          <div class="text-xs uppercase tracking-wider mb-2" style="color: var(--color-accent);">Core Hypothesis</div>
+          <p class="text-sm leading-relaxed" style="color: var(--color-text-primary);">
+            免费搭配工具吸引用户生产搭配数据 → 协同过滤引擎消费数据生成推荐方案 → 推荐方案带动更多购买 → 更多用户贡献数据。度量体系围绕<strong style="color: var(--color-accent);">飞轮是否转起来</strong>设计，而非单纯追踪 GMV。
+          </p>
+        </div>
+
+        <!-- 1. Dual-Path Funnel 双路径转化漏斗 -->
+        <section class="mb-14">
+          <h2 class="text-lg font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2 gsap-section-subtitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            双路径转化漏斗
+          </h2>
+          <p class="text-xs mb-8 gsap-section-desc" style="color: var(--color-text-tertiary);">产品存在两条核心用户路径，需分别度量转化效率与数据产出</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 gsap-stagger-cards">
+            <!-- Path A: 消费推荐 -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">PATH A</span>
+                <span class="text-sm font-semibold" style="color: var(--color-text-primary);">消费推荐数据</span>
+              </div>
+              <p class="text-xs mb-5" style="color: var(--color-text-tertiary);">目标：提升搭配采用率与客单价</p>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">看到推荐方案</span>
+                    <span style="color: var(--color-text-tertiary);">基准 100%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: #2a2a2a;"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">点击查看详情</span>
+                    <span style="color: var(--color-accent); font-weight: 600;">目标 ≥ 60%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: #3a3220; width: 72%;"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">收藏 / 加入购物车</span>
+                    <span style="color: var(--color-accent); font-weight: 600;">目标 ≥ 30%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: #4a3a20; width: 45%;"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">完成购买</span>
+                    <span style="color: var(--color-accent); font-weight: 600;">目标 ≥ 12%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: var(--color-accent); width: 25%; opacity: 0.85;"></div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 text-xs" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                <span style="color: var(--color-text-secondary);">关键流失监控：</span>推荐 → 详情点击（方案吸引力）&nbsp;·&nbsp;购物车 → 支付（价格阻力）
+              </div>
+            </div>
+
+            <!-- Path B: 生产搭配数据 -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good); border: 1px solid rgba(106, 191, 105, 0.3);">PATH B</span>
+                <span class="text-sm font-semibold" style="color: var(--color-text-primary);">自由搭配 · 生产数据</span>
+              </div>
+              <p class="text-xs mb-5" style="color: var(--color-text-tertiary);">目标：最大化有效搭配数据产出</p>
+
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">进入自由搭配</span>
+                    <span style="color: var(--color-text-tertiary);">基准 100%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: #2a2a2a;"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">添加 ≥ 2 件饰品</span>
+                    <span style="color: var(--color-good); font-weight: 600;">目标 ≥ 55%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: #1e2e1e; width: 68%;"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">保存搭配方案</span>
+                    <span style="color: var(--color-good); font-weight: 600;">目标 ≥ 25%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: #2a3e2a; width: 40%;"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">数据入引擎（≥ 3 件 · 跨品类）</span>
+                    <span style="color: var(--color-good); font-weight: 600;">目标 ≥ 15%</span>
+                  </div>
+                  <div class="h-6 rounded" style="background: var(--color-good); width: 28%; opacity: 0.7;"></div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 text-xs" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                <span style="color: var(--color-text-secondary);">关键流失监控：</span>添加入口曝光 → 进入（入口可见性）&nbsp;·&nbsp;保存 → 数据入引擎（方案质量门槛）
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Core Metric Definitions 核心指标定义 -->
+        <section class="mb-14">
+          <h2 class="text-lg font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2 gsap-section-subtitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            核心指标定义
+          </h2>
+          <p class="text-xs mb-6 gsap-section-desc" style="color: var(--color-text-tertiary);">每个指标明确计算公式、数据来源、V1 目标值及对应决策规则</p>
+
+          <div class="rounded-lg overflow-hidden gsap-reveal-card" style="border: 1px solid var(--color-border-default);">
+            <div class="overflow-x-auto no-scrollbar">
+              <table class="w-full text-sm" style="border-collapse: collapse; min-width: 700px;">
+                <thead>
+                  <tr style="background: var(--color-bg-elevated);">
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider" style="width: 14%;">指标</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider" style="width: 24%;">计算公式</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider" style="width: 12%;">数据源</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider" style="width: 10%;">V1 目标</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider" style="width: 40%;">决策规则</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">搭配采用率</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">被收藏或加购的方案数 ÷ 推荐方案曝光数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">推荐引擎</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-accent);">≥ 20%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">&lt; 15% → 检查推荐算法权重与种子方案质量；15-25% → 优化展示形式；&gt; 25% → 扩大推荐覆盖范围</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">推荐购买转化率</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">通过推荐路径完成的订单数 ÷ 推荐方案曝光数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">交易系统</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-accent);">≥ 8%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">&lt; 5% → 排查价格阻力与购物车体验；5-8% → 优化方案内价格区间匹配；&gt; 8% → 验证飞轮商业可行性</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">搭配客单价</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">推荐路径订单总金额 ÷ 推荐路径订单数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">交易系统</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-accent);">高于均值 30%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">低于非推荐订单 → 推荐方案偏向低价品，需调整价格带匹配策略</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">自由搭配使用率</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">进入自由搭配的用户数 ÷ 功能入口曝光用户数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">行为埋点</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-good);">≥ 40%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">&lt; 25% → 入口设计或引导不足，优化曝光位置与 CTA；&gt; 40% → 数据飞轮供给充足</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">有效数据产出率</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">符合入引擎条件的方案数 ÷ 总搭配方案数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">搭配工具</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-good);">≥ 60%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">&lt; 40% → 降低入引擎门槛或引导用户添加更多跨品类饰品；&gt; 60% → 数据质量健康</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">数据驱动覆盖率</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">协同过滤生成方案数 ÷ 总推荐方案数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">推荐引擎</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-accent);">V1 末 ≥ 50%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">&lt; 30% → 种子方案占比过高，需加大搭配工具推广以积累数据；&gt; 50% → 飞轮初步转动</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card);">
+                    <td class="px-4 py-3 font-medium" style="color: var(--color-text-primary);">跨用户被采用率</td>
+                    <td class="px-4 py-3" style="color: var(--color-text-secondary);">被其他用户采纳的 UGC 方案数 ÷ 总 UGC 方案数</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">推荐引擎</span></td>
+                    <td class="px-4 py-3 font-bold" style="color: var(--color-good);">≥ 10%</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">&lt; 5% → UGC 方案质量参差，需增加筛选或排序机制；&gt; 10% → 社区共创价值验证</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Flywheel Health 数据飞轮健康度 -->
+        <section class="mb-14">
+          <h2 class="text-lg font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2 gsap-section-subtitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            数据飞轮健康度
+          </h2>
+          <p class="text-xs mb-6 gsap-section-desc" style="color: var(--color-text-tertiary);">监控飞轮三个关键环节的运转状态，任一环节停滞需立即干预</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 gsap-stagger-cards">
+            <!-- Supply -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-top: 3px solid var(--color-good);">
+              <div class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-good);">SUPPLY · 数据供给</div>
+              <div class="text-sm font-semibold mb-4" style="color: var(--color-text-primary);">自由搭配数据产出</div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">周搭配方案产出量</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 5,000</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-good);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">人均搭配件数</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 3.5 件</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-good);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">跨品类搭配占比</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 70%</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-good);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 pt-3 text-[10px]" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                低于目标 → 优化搭配工具引导、增加入口曝光、提供搭配模板
+              </div>
+            </div>
+
+            <!-- Process -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-top: 3px solid var(--color-accent);">
+              <div class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-accent);">PROCESS · 引擎转化</div>
+              <div class="text-sm font-semibold mb-4" style="color: var(--color-text-primary);">推荐引擎消费数据</div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">数据驱动方案占比</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 50%</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-accent);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">推荐覆盖率</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 80%</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-accent);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">方案平均热度分</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 60</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-accent);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 pt-3 text-[10px]" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                覆盖率低 → 数据量不足以支撑协同过滤，回退种子方案补充
+              </div>
+            </div>
+
+            <!-- Outcome -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-top: 3px solid var(--color-text-secondary);">
+              <div class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-text-secondary);">OUTCOME · 价值产出</div>
+              <div class="text-sm font-semibold mb-4" style="color: var(--color-text-primary);">推荐驱动的业务结果</div>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">推荐路径 GMV 占比</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 15%</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-text-tertiary);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">搭配复访率（7 日）</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 25%</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-text-tertiary);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--color-text-secondary);">UGC 跨用户采用率</span>
+                    <span style="color: var(--color-text-tertiary);">目标 ≥ 10%</span>
+                  </div>
+                  <div class="h-2 rounded-full" style="background: var(--color-bg-primary);">
+                    <div class="h-2 rounded-full" style="width: 0%; background: var(--color-text-tertiary);"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 pt-3 text-[10px]" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                复访率低 → 推荐结果缺乏新鲜感，需引入趋势与季节因子
+              </div>
+            </div>
+          </div>
+
+          <!-- Flywheel loop diagram -->
+          <div class="mt-6 rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+            <div class="text-xs uppercase tracking-wider mb-4 text-center" style="color: var(--color-text-tertiary);">飞轮运转逻辑</div>
+            <div class="flex items-center justify-center gap-2 flex-wrap text-xs">
+              <span class="px-3 py-1.5 rounded-full" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good); border: 1px solid rgba(106, 191, 105, 0.3);">用户自由搭配</span>
+              <span style="color: var(--color-text-disabled);">→</span>
+              <span class="px-3 py-1.5 rounded-full" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good); border: 1px solid rgba(106, 191, 105, 0.3);">搭配数据入库</span>
+              <span style="color: var(--color-text-disabled);">→</span>
+              <span class="px-3 py-1.5 rounded-full" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">协同过滤生成推荐</span>
+              <span style="color: var(--color-text-disabled);">→</span>
+              <span class="px-3 py-1.5 rounded-full" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">用户采纳购买</span>
+              <span style="color: var(--color-text-disabled);">→</span>
+              <span class="px-3 py-1.5 rounded-full" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good); border: 1px solid rgba(106, 191, 105, 0.3);">更多用户参与搭配</span>
+              <span style="color: var(--color-text-disabled);">↻</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. V1 Experiment Plan V1 实验计划 -->
+        <section class="mb-14">
+          <h2 class="text-lg font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2 gsap-section-subtitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4"/></svg>
+            V1 实验计划
+          </h2>
+          <p class="text-xs mb-6 gsap-section-desc" style="color: var(--color-text-tertiary);">V1 阶段聚焦验证飞轮假设，实验设计围绕"推荐是否有效"和"数据驱动是否优于种子"</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 gsap-stagger-cards">
+            <!-- Experiment 1 -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-semibold" style="color: var(--color-text-primary);">实验一：协同过滤 vs 种子方案</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-medium" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">待启动</span>
+              </div>
+              <div class="space-y-3 mb-4">
+                <div class="flex items-center justify-between py-2" style="border-bottom: 1px solid var(--color-border-subtle);">
+                  <div>
+                    <div class="text-[10px]" style="color: var(--color-text-tertiary);">对照组 A</div>
+                    <div class="text-sm font-medium" style="color: var(--color-text-primary);">种子方案（运营编辑）</div>
+                  </div>
+                  <div class="text-xs" style="color: var(--color-text-tertiary);">基线</div>
+                </div>
+                <div class="flex items-center justify-between py-2" style="border-bottom: 1px solid var(--color-border-subtle);">
+                  <div>
+                    <div class="text-[10px]" style="color: var(--color-text-tertiary);">实验组 B</div>
+                    <div class="text-sm font-medium" style="color: var(--color-text-primary);">协同过滤推荐</div>
+                  </div>
+                  <div class="text-xs font-semibold" style="color: var(--color-accent);">待测量</div>
+                </div>
+              </div>
+              <div class="space-y-2 text-xs" style="color: var(--color-text-secondary);">
+                <div class="flex justify-between"><span>主指标</span><span style="color: var(--color-accent);">搭配采用率</span></div>
+                <div class="flex justify-between"><span>辅指标</span><span>购买转化率、客单价</span></div>
+                <div class="flex justify-between"><span>启动条件</span><span>搭配数据 ≥ 10,000 条</span></div>
+                <div class="flex justify-between"><span>实验周期</span><span>2 周（含周末）</span></div>
+                <div class="flex justify-between"><span>显著性要求</span><span>p &lt; 0.05</span></div>
+              </div>
+              <div class="mt-4 pt-3 text-[10px]" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                决策：B 显著优于 A → 全量切换协同过滤；无显著差异 → 优化算法权重后重测
+              </div>
+            </div>
+
+            <!-- Experiment 2 -->
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default);">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-semibold" style="color: var(--color-text-primary);">实验二：推荐展示 vs 无推荐</h3>
+                <span class="px-2 py-0.5 rounded text-[10px] font-medium" style="background: var(--color-accent-glow); color: var(--color-accent); border: 1px solid var(--color-accent-border);">待启动</span>
+              </div>
+              <div class="space-y-3 mb-4">
+                <div class="flex items-center justify-between py-2" style="border-bottom: 1px solid var(--color-border-subtle);">
+                  <div>
+                    <div class="text-[10px]" style="color: var(--color-text-tertiary);">对照组 A</div>
+                    <div class="text-sm font-medium" style="color: var(--color-text-primary);">仅展示饰品列表</div>
+                  </div>
+                  <div class="text-xs" style="color: var(--color-text-tertiary);">基线</div>
+                </div>
+                <div class="flex items-center justify-between py-2" style="border-bottom: 1px solid var(--color-border-subtle);">
+                  <div>
+                    <div class="text-[10px]" style="color: var(--color-text-tertiary);">实验组 B</div>
+                    <div class="text-sm font-medium" style="color: var(--color-text-primary);">展示搭配推荐模块</div>
+                  </div>
+                  <div class="text-xs font-semibold" style="color: var(--color-accent);">待测量</div>
+                </div>
+              </div>
+              <div class="space-y-2 text-xs" style="color: var(--color-text-secondary);">
+                <div class="flex justify-between"><span>主指标</span><span style="color: var(--color-accent);">平均客单价</span></div>
+                <div class="flex justify-between"><span>辅指标</span><span>跨品类购买率、人均购买件数</span></div>
+                <div class="flex justify-between"><span>启动条件</span><span>推荐功能上线即启动</span></div>
+                <div class="flex justify-between"><span>实验周期</span><span>3 周</span></div>
+                <div class="flex justify-between"><span>显著性要求</span><span>p &lt; 0.05</span></div>
+              </div>
+              <div class="mt-4 pt-3 text-[10px]" style="border-top: 1px solid var(--color-border-subtle); color: var(--color-text-tertiary);">
+                决策：B 客单价显著高于 A → 验证推荐带动关联购买；无差异 → 推荐模块价值需重新评估
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Key Tracking Events 关键埋点清单 -->
+        <section class="mb-14">
+          <h2 class="text-lg font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2 gsap-section-subtitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            关键埋点清单
+          </h2>
+          <p class="text-xs mb-6 gsap-section-desc" style="color: var(--color-text-tertiary);">覆盖双路径核心节点，每个事件携带分析所需的关键参数</p>
+
+          <div class="rounded-lg overflow-hidden gsap-reveal-card" style="border: 1px solid var(--color-border-default);">
+            <div class="overflow-x-auto no-scrollbar">
+              <table class="w-full text-sm" style="border-collapse: collapse; min-width: 600px;">
+                <thead>
+                  <tr style="background: var(--color-bg-elevated);">
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">事件名</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">触发时机</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">路径</th>
+                    <th class="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">携带参数</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-accent);">rec_scheme_view</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">推荐方案进入可视区域</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">A</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">scheme_id, source_type(seed/cf), position</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-accent);">rec_scheme_click</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">点击推荐方案查看详情</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">A</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">scheme_id, source_type, filter_conditions</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-accent);">rec_scheme_save</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">收藏推荐方案</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">A</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">scheme_id, item_count, total_price</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-accent);">rec_cart_add</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">将推荐方案中的饰品加入购物车</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">A</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">scheme_id, item_id, item_price, from_path</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-accent);">rec_purchase_done</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">通过推荐路径完成支付</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: var(--color-accent-glow); color: var(--color-accent);">A</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">order_id, scheme_id, total_amount, item_count</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-good);">free_match_enter</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">进入自由搭配页面</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">B</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">entry_source, user_type</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-good);">free_match_item_add</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">在自由搭配中添加一件饰品</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">B</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">session_id, item_id, weapon_type, rarity, color</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-primary); border-bottom: 1px solid var(--color-border-subtle);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-good);">free_match_save</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">保存搭配方案</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">B</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">session_id, item_count, total_price, weapon_types[], cross_category</td>
+                  </tr>
+                  <tr style="background: var(--color-bg-card);">
+                    <td class="px-4 py-3 font-mono text-xs" style="color: var(--color-good);">ugc_adopted</td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-secondary);">UGC 搭配方案被其他用户采纳</td>
+                    <td class="px-4 py-3"><span class="px-1.5 py-0.5 rounded text-[10px]" style="background: rgba(106, 191, 105, 0.15); color: var(--color-good);">B→A</span></td>
+                    <td class="px-4 py-3 text-xs" style="color: var(--color-text-tertiary);">ugc_scheme_id, adopter_id, creator_id, action(save/cart)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Measurement Cadence 度量节奏 -->
+        <section class="mb-10">
+          <h2 class="text-lg font-semibold text-[var(--color-text-primary)] mb-2 flex items-center gap-2 gsap-section-subtitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+            度量节奏
+          </h2>
+          <p class="text-xs mb-6 gsap-section-desc" style="color: var(--color-text-tertiary);">不同阶段关注不同指标集合，避免过早优化次要指标</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 gsap-stagger-cards">
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-text-tertiary);">
+              <div class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-text-tertiary);">WEEK 1-2</div>
+              <div class="text-sm font-semibold mb-3" style="color: var(--color-text-primary);">数据采集验证</div>
+              <ul class="space-y-1.5 text-xs" style="color: var(--color-text-secondary);">
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 埋点完整性校验</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 自由搭配使用率</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 搭配方案产出量</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-text-tertiary);">—</span> <span style="color: var(--color-text-tertiary);">暂不关注转化率</span></li>
+              </ul>
+            </div>
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-accent);">
+              <div class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-accent);">WEEK 3-4</div>
+              <div class="text-sm font-semibold mb-3" style="color: var(--color-text-primary);">飞轮启动验证</div>
+              <ul class="space-y-1.5 text-xs" style="color: var(--color-text-secondary);">
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 搭配采用率</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 有效数据产出率</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 数据驱动覆盖率</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 实验二启动（推荐 vs 无推荐）</li>
+              </ul>
+            </div>
+            <div class="rounded-lg p-5 gsap-reveal-card" style="background: var(--color-bg-card); border: 1px solid var(--color-border-default); border-left: 3px solid var(--color-good);">
+              <div class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-good);">WEEK 5+</div>
+              <div class="text-sm font-semibold mb-3" style="color: var(--color-text-primary);">算法效果验证</div>
+              <ul class="space-y-1.5 text-xs" style="color: var(--color-text-secondary);">
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 实验一启动（CF vs 种子）</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 推荐购买转化率</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 搭配客单价</li>
+                <li class="flex items-start gap-1.5"><span style="color: var(--color-good);">&#10003;</span> 跨用户被采用率</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- ========== SECTION 3: PROTOTYPE 产品原型 ========== -->
+      <section id="prototype" class="portfolio-section">
+        <span class="section-divider-label gsap-section-label">03 / 产品原型</span>
+
+        <div class="outer-page" style="padding-top: 40px;">
+          <div class="page-title gsap-section-title">产品原型</div>
+          <div class="page-subtitle gsap-section-desc">悠悠有品 App — CS2 搭配推荐功能原型</div>
+
+          <div class="phone-row">
+            <div class="phone-frame">
+              <div class="phone-outer">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <div class="status-bar-yy">
+                    <span class="sb-time">17:01</span>
+                    <span class="sb-location">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.5 7 12 7 12s7-6.5 7-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <div class="sb-center-logo">
+                      <div class="sb-logo-circle">
+                        <span class="sb-logo-text">Y</span>
+                      </div>
+                      <span class="sb-brand-name">悠悠有品</span>
+                    </div>
+                    <div class="sb-right">
+                      <svg width="16" height="12" viewBox="0 0 16 12"><path d="M1 5l1.5 1.5C4 4 7.5 2 12 2s8 2 9.5 4.5L24 5C22 2 17.5 0 12 0S2 2 0 5z" fill="#333"/><path d="M4 8l1.5 1.5C7 6.5 9.5 5 12 5s5 1.5 6.5 3L20 8C18.5 6 15.5 4.5 12 4.5S5.5 6 4 8z" fill="#333"/><circle cx="12" cy="11" r="1.5" fill="#333"/></svg>
+                      <span class="sb-5g">5G</span>
+                      <svg width="24" height="12" viewBox="0 0 24 12"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="21" y="3.5" width="2" height="5" rx="1" fill="#333"/><rect x="2" y="3" width="15" height="6" rx="1" fill="#333"/><text x="10" y="10" font-size="7" fill="#fff" text-anchor="middle" font-weight="bold">74</text></svg>
+                    </div>
+                  </div>
+                  <div class="yy-top-nav">
+                    <div class="yy-top-tabs">
+                      <span class="yy-top-tab">饰品</span>
+                      <span class="yy-top-tab">租饰品</span>
+                      <span class="yy-top-tab">免费租</span>
+                      <span class="yy-top-tab">竞拍</span>
+                      <span class="yy-top-tab active">CS2搭配</span>
+                    </div>
+                    <div class="yy-top-icons">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM9 9h6v6H9z"/></svg>
+                      <div class="yy-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="yy-search-bar">
+                    <div class="yy-search-input">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                      <span class="yy-search-placeholder">按风格找搭配套装</span>
+                    </div>
+                    <div class="yy-order-btn">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="10"/></svg>
+                      <span>订单</span>
+                    </div>
+                  </div>
+                  <div class="yy-filter-row">
+                    <div class="yy-filter-item">
+                      <span>排序</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="yy-filter-item">
+                      <span>武器</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="yy-filter-item">
+                      <span>手套</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="yy-filter-item">
+                      <span>风格筛选</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                  </div>
+                  <div class="yy-style-tags">
+                    <span class="yy-style-tag active">红色系</span>
+                    <span class="yy-style-tag">蓝色系</span>
+                    <span class="yy-style-tag">金色系</span>
+                    <span class="yy-style-tag">多普勒</span>
+                    <span class="yy-style-tag">印花集</span>
+                  </div>
+                  <div class="yy-list-body">
+                    <div class="yy-listing-card">
+                      <div class="yy-skin-grid">
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                          <div class="yy-skin-price">¥4.33万</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#7B241C,#CB4335);"></div>
+                          <div class="yy-skin-price">¥3.49万</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#922B21,#C0392B);"></div>
+                          <div class="yy-skin-price">¥1.55万</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#E74C3C,#F1948A);"></div>
+                          <div class="yy-skin-price">¥4198.99</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#A93226,#D35400);"></div>
+                          <div class="yy-skin-price">¥1982.4</div>
+                        </div>
+                        <div class="yy-skin-item yy-skin-more">
+                          <div class="yy-skin-img yy-skin-overlay" style="background:linear-gradient(135deg,#641E16,#922B21);">
+                            <span class="yy-more-badge">+2件</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="yy-card-bottom">
+                        <div class="yy-card-left">
+                          <div class="yy-card-tags">
+                            <span class="yy-card-tag">全套搭配</span>
+                          </div>
+                        </div>
+                        <div class="yy-card-right">
+                          <div class="yy-total-value">
+                            <span class="yy-value-label">搭配总价</span>
+                            <span class="yy-value-num">¥10.23万</span>
+                          </div>
+                          <button class="yy-rent-btn">查看搭配</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="yy-listing-card">
+                      <div class="yy-skin-grid">
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#E67E22,#F39C12);"></div>
+                          <div class="yy-skin-price">¥1.32万</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#1ABC9C,#16A085);"></div>
+                          <div class="yy-skin-price">¥8847</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#2C3E50,#34495E);"></div>
+                          <div class="yy-skin-price">¥3370</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#D35400,#E67E22);"></div>
+                          <div class="yy-skin-price">¥2009</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#BDC3C7,#95A5A6);"></div>
+                          <div class="yy-skin-price">¥892.5</div>
+                        </div>
+                        <div class="yy-skin-item yy-skin-more">
+                          <div class="yy-skin-img yy-skin-overlay" style="background:linear-gradient(135deg,#2C3E50,#34495E);">
+                            <span class="yy-more-badge">+2件</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="yy-card-bottom">
+                        <div class="yy-card-left">
+                          <div class="yy-card-tags">
+                            <span class="yy-card-tag">官方平台</span>
+                            <span class="yy-card-tag yy-tag-blue">100%免押金</span>
+                            <span class="yy-card-tag">全套搭配</span>
+                          </div>
+                        </div>
+                        <div class="yy-card-right">
+                          <div class="yy-total-value">
+                            <span class="yy-value-label">搭配总价</span>
+                            <span class="yy-value-num">¥2.85万</span>
+                          </div>
+                          <button class="yy-rent-btn">查看搭配</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="yy-listing-card">
+                      <div class="yy-skin-grid">
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#27AE60,#2ECC71);"></div>
+                          <div class="yy-skin-price">¥9860</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#E67E22,#F39C12);"></div>
+                          <div class="yy-skin-price">¥7650</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#8E44AD,#9B59B6);"></div>
+                          <div class="yy-skin-price">¥4280</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#2980B9,#3498DB);"></div>
+                          <div class="yy-skin-price">¥3200</div>
+                        </div>
+                        <div class="yy-skin-item">
+                          <div class="yy-skin-img" style="background:linear-gradient(135deg,#E74C3C,#C0392B);"></div>
+                          <div class="yy-skin-price">¥1680</div>
+                        </div>
+                        <div class="yy-skin-item yy-skin-more">
+                          <div class="yy-skin-img yy-skin-overlay" style="background:linear-gradient(135deg,#1A1A2E,#16213E);">
+                            <span class="yy-more-badge">+3件</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="yy-card-bottom">
+                        <div class="yy-card-left">
+                          <div class="yy-card-tags">
+                            <span class="yy-card-tag">官方</span>
+                            <span class="yy-card-tag yy-tag-orange">信用免押</span>
+                            <span class="yy-card-tag">彩虹系列</span>
+                          </div>
+                        </div>
+                        <div class="yy-card-right">
+                          <div class="yy-total-value">
+                            <span class="yy-value-label">搭配总价</span>
+                            <span class="yy-value-num">¥3.68万</span>
+                          </div>
+                          <button class="yy-rent-btn">查看搭配</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="yy-tab-bar">
+                    <div class="yy-tab-item active">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                      </div>
+                      <span class="yy-tab-label">悠悠</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                      </div>
+                      <span class="yy-tab-label">库存</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon yy-tab-icon-center">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+                      </div>
+                      <span class="yy-tab-label">出售</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                      </div>
+                      <span class="yy-tab-label">求购</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+                      </div>
+                      <span class="yy-tab-label">我的</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-screen-label">搭配推荐列表</div>
+            </div>
+
+            <div class="phone-frame">
+              <div class="phone-outer">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-bar-right">
+                      <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                      <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                      <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                    </div>
+                  </div>
+                  <div class="filter-result-nav">
+                    <span class="filter-result-back">
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round"><path d="M12 15L6 9l6-6"/></svg>
+                    </span>
+                    <span class="filter-result-title">搭配结果</span>
+                  </div>
+                  <div class="filter-chips">
+                    <span class="filter-chip">AK-47 <span class="filter-chip-close">×</span></span>
+                    <span class="filter-chip">¥1000-3000 <span class="filter-chip-close">×</span></span>
+                    <span class="filter-chip">崭新出厂 <span class="filter-chip-close">×</span></span>
+                  </div>
+                  <div class="sort-bar">
+                    <span class="sort-count">共 36 套搭配</span>
+                    <span class="sort-select">综合排序 ▼</span>
+                  </div>
+                  <div class="screen-body">
+                    <div class="result-card">
+                      <div class="result-thumbs">
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#922B21,#C0392B);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#E74C3C,#F1948A);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#7B241C,#CB4335);"></div>
+                      </div>
+                      <div class="result-score-row">
+                        <span class="result-score-text">9.0/10</span>
+                        <div class="result-score-track"><div class="result-score-fill" style="width:90%;"></div></div>
+                        <span class="result-price">¥3,862</span>
+                      </div>
+                      <button class="result-btn">查看详情</button>
+                    </div>
+                    <div class="result-card">
+                      <div class="result-thumbs">
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#2471A3,#2E86C1);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#1A5276,#2980B9);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#3498DB,#85C1E9);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#154360,#1F618D);"></div>
+                      </div>
+                      <div class="result-score-row">
+                        <span class="result-score-text">7.8/10</span>
+                        <div class="result-score-track"><div class="result-score-fill" style="width:78%;"></div></div>
+                        <span class="result-price">¥2,340</span>
+                      </div>
+                      <button class="result-btn">查看详情</button>
+                    </div>
+                    <div class="result-card">
+                      <div class="result-thumbs">
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#B7950B,#D4AC0D);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#F1C40F,#F9E79F);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#D4AC0D,#F4D03F);"></div>
+                        <div class="result-thumb" style="background:linear-gradient(135deg,#7D6608,#B7950B);"></div>
+                      </div>
+                      <div class="result-score-row">
+                        <span class="result-score-text">7.2/10</span>
+                        <div class="result-score-track"><div class="result-score-fill" style="width:72%;"></div></div>
+                        <span class="result-price">¥2,980</span>
+                      </div>
+                      <button class="result-btn">查看详情</button>
+                    </div>
+                  </div>
+                  <div class="yy-tab-bar">
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                      </div>
+                      <span class="yy-tab-label">悠悠</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                      </div>
+                      <span class="yy-tab-label">库存</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon yy-tab-icon-center">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>
+                      </div>
+                      <span class="yy-tab-label">出售</span>
+                    </div>
+                    <div class="yy-tab-item">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                      </div>
+                      <span class="yy-tab-label">求购</span>
+                    </div>
+                    <div class="yy-tab-item active">
+                      <div class="yy-tab-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+                      </div>
+                      <span class="yy-tab-label">我的</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-screen-label">筛选结果</div>
+            </div>
+
+            <div class="phone-frame">
+              <div class="phone-outer">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-bar-right">
+                      <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                      <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                      <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                    </div>
+                  </div>
+                  <div class="detail-nav">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round"><path d="M12 15L6 9l6-6"/></svg>
+                    搭配详情
+                  </div>
+                  <div class="screen-body">
+                    <div class="detail-grid">
+                      <div class="detail-grid-item" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                      <div class="detail-grid-item" style="background:linear-gradient(135deg,#922B21,#C0392B);"></div>
+                      <div class="detail-grid-item" style="background:linear-gradient(135deg,#E74C3C,#F1948A);"></div>
+                      <div class="detail-grid-item" style="background:linear-gradient(135deg,#7B241C,#CB4335);"></div>
+                    </div>
+                    <div class="score-card">
+                      <div class="score-label">综合评分</div>
+                      <div class="score-big">9.0/10</div>
+                      <div class="score-dim">
+                        <div class="score-dim-row">
+                          <span class="score-dim-name">美观度</span>
+                          <div class="score-dim-track"><div class="score-dim-fill" style="width:95%;"></div></div>
+                          <span class="score-dim-value">9.5</span>
+                        </div>
+                      </div>
+                      <div class="score-dim">
+                        <div class="score-dim-row">
+                          <span class="score-dim-name">稀有度</span>
+                          <div class="score-dim-track"><div class="score-dim-fill" style="width:88%;"></div></div>
+                          <span class="score-dim-value">8.8</span>
+                        </div>
+                      </div>
+                      <div class="score-dim">
+                        <div class="score-dim-row">
+                          <span class="score-dim-name">性价比</span>
+                          <div class="score-dim-track"><div class="score-dim-fill" style="width:85%;"></div></div>
+                          <span class="score-dim-value">8.5</span>
+                        </div>
+                      </div>
+                      <div class="score-dim" style="margin-bottom:0;">
+                        <div class="score-dim-row">
+                          <span class="score-dim-name">协调度</span>
+                          <div class="score-dim-track"><div class="score-dim-fill" style="width:92%;"></div></div>
+                          <span class="score-dim-value">9.2</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="detail-item-row">
+                      <div>
+                        <div class="detail-item-name">AK-47 | 火神</div>
+                        <div class="detail-item-wear">崭新出厂</div>
+                      </div>
+                      <span class="detail-item-price">¥1,280</span>
+                    </div>
+                    <div class="detail-item-row">
+                      <div>
+                        <div class="detail-item-name">AWP | 二西莫夫</div>
+                        <div class="detail-item-wear">崭新出厂</div>
+                      </div>
+                      <span class="detail-item-price">¥980</span>
+                    </div>
+                    <div class="detail-item-row">
+                      <div>
+                        <div class="detail-item-name">M4A4 | 咆哮</div>
+                        <div class="detail-item-wear">略有磨损</div>
+                      </div>
+                      <span class="detail-item-price">¥862</span>
+                    </div>
+                    <div class="detail-item-row">
+                      <div>
+                        <div class="detail-item-name">手套 | 运动手套</div>
+                        <div class="detail-item-wear">崭新出厂</div>
+                      </div>
+                      <span class="detail-item-price">¥740</span>
+                    </div>
+                  </div>
+                  <div class="detail-bottom">
+                    <div>
+                      <span class="detail-total-label">合计 </span>
+                      <span class="detail-total-price">¥3,862</span>
+                    </div>
+                    <button class="detail-buy-btn">加入购物车</button>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-screen-label">搭配详情</div>
+            </div>
+
+            <div class="phone-frame">
+              <div class="phone-outer">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                  <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-bar-right">
+                      <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                      <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                      <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                    </div>
+                  </div>
+                  <div class="cart-nav">
+                    <span class="cart-title">购物车</span>
+                    <span class="cart-edit">编辑</span>
+                  </div>
+                  <div class="screen-body" style="padding-top:8px;">
+                    <div class="cart-item">
+                      <div class="cart-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                      <div class="cart-info">
+                        <div class="cart-item-name">AK-47 | 火神</div>
+                        <div class="cart-item-wear">崭新出厂</div>
+                        <div class="cart-item-price">¥1,280</div>
+                      </div>
+                      <div class="cart-qty">
+                        <span class="cart-qty-btn">-</span>
+                        <span class="cart-qty-num">1</span>
+                        <span class="cart-qty-btn plus">+</span>
+                      </div>
+                      <span class="cart-delete">×</span>
+                    </div>
+                    <div class="cart-item">
+                      <div class="cart-thumb" style="background:linear-gradient(135deg,#2471A3,#2E86C1);"></div>
+                      <div class="cart-info">
+                        <div class="cart-item-name">AWP | 二西莫夫</div>
+                        <div class="cart-item-wear">崭新出厂</div>
+                        <div class="cart-item-price">¥980</div>
+                      </div>
+                      <div class="cart-qty">
+                        <span class="cart-qty-btn">-</span>
+                        <span class="cart-qty-num">1</span>
+                        <span class="cart-qty-btn plus">+</span>
+                      </div>
+                      <span class="cart-delete">×</span>
+                    </div>
+                    <div class="cart-item">
+                      <div class="cart-thumb" style="background:linear-gradient(135deg,#B7950B,#D4AC0D);"></div>
+                      <div class="cart-info">
+                        <div class="cart-item-name">M4A4 | 咆哮</div>
+                        <div class="cart-item-wear">略有磨损</div>
+                        <div class="cart-item-price">¥862</div>
+                      </div>
+                      <div class="cart-qty">
+                        <span class="cart-qty-btn">-</span>
+                        <span class="cart-qty-num">1</span>
+                        <span class="cart-qty-btn plus">+</span>
+                      </div>
+                      <span class="cart-delete">×</span>
+                      <span class="cart-badge">库存紧张</span>
+                    </div>
+                    <div class="cart-item">
+                      <div class="cart-thumb" style="background:linear-gradient(135deg,#1C1C1C,#4A4A4A);"></div>
+                      <div class="cart-info">
+                        <div class="cart-item-name">手套 | 运动手套</div>
+                        <div class="cart-item-wear">崭新出厂</div>
+                        <div class="cart-item-price">¥740</div>
+                      </div>
+                      <div class="cart-qty">
+                        <span class="cart-qty-btn">-</span>
+                        <span class="cart-qty-num">1</span>
+                        <span class="cart-qty-btn plus">+</span>
+                      </div>
+                      <span class="cart-delete">×</span>
+                    </div>
+                    <div class="cart-item">
+                      <div class="cart-thumb" style="background:linear-gradient(135deg,#6C3483,#8E44AD);"></div>
+                      <div class="cart-info">
+                        <div class="cart-item-name">沙漠之鹰 | 烈焰</div>
+                        <div class="cart-item-wear">崭新出厂</div>
+                        <div class="cart-item-price">¥3,386</div>
+                      </div>
+                      <div class="cart-qty">
+                        <span class="cart-qty-btn">-</span>
+                        <span class="cart-qty-num">1</span>
+                        <span class="cart-qty-btn plus">+</span>
+                      </div>
+                      <span class="cart-delete">×</span>
+                    </div>
+                  </div>
+                  <div class="cart-bottom">
+                    <div>
+                      <span class="cart-total-label">合计 </span>
+                      <span class="cart-total-price">¥7,248</span>
+                    </div>
+                    <button class="cart-checkout-btn">去结算</button>
+                  </div>
+                </div>
+              </div>
+              <div class="phone-screen-label">购物车</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ABOUT ME CTA ===== -->
+      <div class="text-center py-20">
+        <a href="resume.html" class="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold no-underline transition-all duration-300" style="background: transparent; color: var(--color-accent); border: 1.5px solid var(--color-accent); letter-spacing: 0.08em;"
+           onmouseover="this.style.background='var(--color-accent)'; this.style.color='#0d0d0d'; this.style.boxShadow='0 4px 24px rgba(232,168,56,0.3)'"
+           onmouseout="this.style.background='transparent'; this.style.color='var(--color-accent)'; this.style.boxShadow='none'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          关于我
+        </a>
+      </div>
+
+    </main>
+
+    <script>
+      function toggleExpand(toggleId, contentId) {
+        const toggle = document.getElementById(toggleId);
+        const content = document.getElementById(contentId);
+        toggle.classList.toggle('active');
+        content.classList.toggle('open');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+
+      const sections = document.querySelectorAll('.portfolio-section');
+      const navLinks = document.querySelectorAll('.bong-nav-menu a[data-page]');
+      const bongNavCurrent = document.getElementById('bongNavCurrent');
+      const pageNames = {
+        '': '作品首页',
+        'hero': '作品首页',
+        'mvp': 'MVP方案',
+        'data': '数据分析',
+        'prototype': '产品原型',
+        'resume': '简历'
+      };
+
+      // bong 风格导航栏：菜单按钮切换 + 点击外部关闭
+      const bongNav = document.getElementById('bongNav');
+      const bongNavToggle = document.getElementById('bongNavToggle');
+      function closeBongNav() {
+        if (!bongNav) return;
+        bongNav.classList.remove('open');
+        bongNavToggle.setAttribute('aria-expanded', 'false');
+        bongNavToggle.setAttribute('aria-label', '打开导航菜单');
+      }
+      function openBongNav() {
+        if (!bongNav) return;
+        bongNav.classList.add('open');
+        bongNavToggle.setAttribute('aria-expanded', 'true');
+        bongNavToggle.setAttribute('aria-label', '关闭导航菜单');
+      }
+      if (bongNavToggle) {
+        bongNavToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          bongNav.classList.contains('open') ? closeBongNav() : openBongNav();
+        });
+      }
+      // 点击菜单项后关闭菜单
+      document.querySelectorAll('.bong-nav-menu a').forEach(a => {
+        a.addEventListener('click', () => closeBongNav());
+      });
+      // 点击导航外部关闭
+      document.addEventListener('click', (e) => {
+        if (bongNav && !bongNav.contains(e.target)) closeBongNav();
+      });
+      // ESC 键关闭
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeBongNav();
+      });
+
+      // 预缓存 section 位置，避免每次滚动都触发回流
+      let sectionCache = [];
+      function cacheSections() {
+        sectionCache = Array.from(sections).map(section => ({
+          id: section.getAttribute('id'),
+          top: section.offsetTop - 100,
+        }));
+      }
+      cacheSections();
+      window.addEventListener('resize', cacheSections);
+
+      let ticking = false;
+      function updateActiveNav() {
+        const scrollY = window.scrollY;
+        let current = '';
+        for (let i = 0; i < sectionCache.length; i++) {
+          if (scrollY >= sectionCache[i].top) {
+            current = sectionCache[i].id;
+          }
+        }
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('data-page') === current) {
+            link.classList.add('active');
+          }
+        });
+        // 更新左侧卡片文字
+        if (bongNavCurrent) {
+          bongNavCurrent.textContent = pageNames[current] || '首页';
+        }
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(updateActiveNav);
+        }
+      }, { passive: true });
+      updateActiveNav();
+
+      if (window.Grainient) {
+        new Grainient('#pageBgCanvas', {
+          timeSpeed: 0.12,
+          colorBalance: 0.15,
+          warpStrength: 0.7,
+          warpFrequency: 3.5,
+          warpSpeed: 0.8,
+          warpAmplitude: 40.0,
+          blendAngle: -15,
+          blendSoftness: 0.12,
+          rotationAmount: 200.0,
+          noiseScale: 1.5,
+          grainAmount: 0.06,
+          grainScale: 2.5,
+          grainAnimated: false,
+          contrast: 1.1,
+          gamma: 1.15,
+          saturation: 0.7,
+          centerX: 0.0,
+          centerY: 0.05,
+          zoom: 1.2,
+          color1: '#d4a853',
+          color2: '#1a1510',
+          color3: '#3d2f1e',
+        });
+      }
+
+      // ============ GSAP 高级动效 ============
+      gsap.registerPlugin(ScrollTrigger);
+
+      // 自定义缓动 - 高级、丝滑
+      const EASE = 'expo.out';
+      const EASE_SOFT = 'power3.out';
+      const EASE_SNAP = 'back.out(1.2)';
+
+      // 检测 prefers-reduced-motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReducedMotion) {
+
+        // ===== HERO OPENING ANIMATION =====
+        const heroTl = gsap.timeline({ delay: 0.2 });
+
+        // Hero 标题行：遮罩揭开 + 轻微压缩后归位
+        heroTl.from('.gsap-hero-title .hero-line-inner', {
+          y: '110%',
+          rotateX: -15,
+          opacity: 0,
+          duration: 1.2,
+          ease: EASE
+        }, 0.3);
+
+        // 副标题行
+        heroTl.from('.gsap-hero-sub .hero-line-inner', {
+          y: '110%',
+          opacity: 0,
+          duration: 1,
+          ease: EASE
+        }, 0.55);
+
+        // 描述行
+        heroTl.from('.gsap-hero-desc .hero-line-inner', {
+          y: '110%',
+          opacity: 0,
+          duration: 0.9,
+          ease: EASE
+        }, 0.75);
+
+        // 导航栏进场
+        heroTl.from('.bong-nav', {
+          y: -30,
+          opacity: 0,
+          duration: 0.8,
+          ease: EASE_SOFT
+        }, 0.9);
+
+        // Hero 视差滚动（仅文字内容）
+        gsap.to('.hero-content', {
+          yPercent: 30,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+
+        // ===== SECTION 滚动进场动画 =====
+        // 每个 section 的通用动画：标签 -> 标题 -> 描述 -> 卡片stagger
+        const sections = document.querySelectorAll('.portfolio-section');
+        sections.forEach((section, idx) => {
+          if (section.id === 'hero') return; // hero 已有开场动画
+          const isPrototype = section.id === 'prototype';
+
+          const ST = {
+            trigger: section,
+            start: 'top 80%',
+            toggleActions: 'play none play reverse'
+          };
+
+          // section 分隔标签：从左侧大幅滑入
+          gsap.from(section.querySelector('.gsap-section-label'), {
+            x: -80,
+            opacity: 0,
+            duration: 0.9,
+            ease: EASE,
+            scrollTrigger: {
+              ...ST,
+              start: 'top 85%'
+            }
+          });
+
+          // section 主标题进场
+          const title = section.querySelector('.gsap-section-title');
+          if (title) {
+            if (isPrototype) {
+              // 原型模块：简单渐入上移，不包裹DOM
+              gsap.from(title, {
+                y: 40,
+                opacity: 0,
+                duration: 0.9,
+                ease: EASE,
+                scrollTrigger: {
+                  ...ST,
+                  start: 'top 82%'
+                }
+              });
+            } else {
+              // 其他模块：遮罩式从下往上
+              const titleWrap = document.createElement('div');
+              titleWrap.style.cssText = 'overflow: hidden; display: inline-block;';
+              title.parentNode.insertBefore(titleWrap, title);
+              titleWrap.appendChild(title);
+
+              gsap.from(title, {
+                y: '110%',
+                opacity: 0,
+                duration: 1,
+                ease: EASE,
+                scrollTrigger: {
+                  ...ST,
+                  start: 'top 82%'
+                }
+              });
+            }
+          }
+
+          // section 描述文字：渐入上移
+          const desc = section.querySelector('.gsap-section-desc');
+          if (desc) {
+            gsap.from(desc, {
+              y: 30,
+              opacity: 0,
+              duration: 0.8,
+              ease: EASE_SOFT,
+              scrollTrigger: {
+                ...ST,
+                start: 'top 80%'
+              }
+            });
+          }
+
+          // 卡片 stagger（原型模块跳过，单独处理）
+          if (!isPrototype) {
+            const cards = section.querySelectorAll(':scope > * > .grid > *');
+            if (cards.length > 0) {
+              gsap.from(cards, {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.08,
+                ease: EASE_SOFT,
+                scrollTrigger: {
+                  ...ST,
+                  start: 'top 75%'
+                }
+              });
+            }
+          }
+
+          // 图片/视觉元素 reveal 效果（原型模块跳过，避免破坏布局）
+          if (!isPrototype) {
+            const visualElements = section.querySelectorAll('img, .yy-skin-img, .result-thumb, .detail-grid-item, .cart-thumb');
+            if (visualElements.length > 0) {
+              visualElements.forEach(el => {
+                // 跳过已有包裹层的元素，跳过绝对定位元素
+                if (el.parentElement && !el.parentElement.classList.contains('gsap-reveal-wrap') && getComputedStyle(el).position !== 'absolute') {
+                  const wrap = document.createElement('div');
+                  wrap.className = 'gsap-reveal-wrap';
+                  wrap.style.cssText = 'overflow: hidden; display: block; border-radius: inherit;';
+                  el.parentNode.insertBefore(wrap, el);
+                  wrap.appendChild(el);
+
+                  gsap.from(el, {
+                    scale: 1.2,
+                    duration: 1.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                      trigger: wrap,
+                      start: 'top 85%',
+                      end: 'bottom 15%',
+                      toggleActions: 'play none none reverse'
+                    }
+                  });
+                }
+              });
+            }
+          }
+        });
+
+        // ===== 产品原型手机进场（单独处理，不破坏DOM结构）=====
+        gsap.utils.toArray('#prototype .phone-frame').forEach((phone, i) => {
+          gsap.from(phone, {
+            y: 60,
+            opacity: 0,
+            rotateY: -10,
+            transformPerspective: 1000,
+            duration: 1,
+            ease: EASE,
+            delay: i * 0.15,
+            scrollTrigger: {
+              trigger: phone,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            }
+          });
+        });
+
+        // ===== 数据模块数字滚动效果（如果有数字）=====
+        // 为包含统计数字的元素添加滚动计数
+        const statNumbers = document.querySelectorAll('td:last-child, .stat-number');
+        if (statNumbers.length > 0) {
+          statNumbers.forEach(el => {
+            const text = el.textContent.trim();
+            if (/^[\d,]+%?$/.test(text) || /^[\d,]+$/.test(text)) {
+              gsap.from(el, {
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                ease: EASE_SOFT,
+                scrollTrigger: {
+                  trigger: el,
+                  start: 'top 90%',
+                  toggleActions: 'play none none reverse'
+                }
+              });
+            }
+          });
+        }
+
+        // ===== MVP 模块小标题 uppercase 标题进场 =====
+        gsap.utils.toArray('.portfolio-section h2.uppercase').forEach((heading, i) => {
+          gsap.from(heading, {
+            x: -40,
+            opacity: 0,
+            letterSpacing: '0.3em',
+            duration: 0.9,
+            ease: EASE_SOFT,
+            scrollTrigger: {
+              trigger: heading,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            }
+          });
+        });
+
+        // ===== 数据分析模块：子章节标题进场 =====
+        gsap.utils.toArray('#data section > h2').forEach((subtitle, i) => {
+          gsap.from(subtitle, {
+            x: -50,
+            opacity: 0,
+            duration: 0.8,
+            ease: EASE,
+            scrollTrigger: {
+              trigger: subtitle,
+              start: 'top 88%',
+              toggleActions: 'play none play reverse'
+            }
+          });
+        });
+
+        // ===== 数据分析模块：子章节描述文字进场 =====
+        gsap.utils.toArray('#data section > p').forEach((desc, i) => {
+          gsap.from(desc, {
+            y: 20,
+            opacity: 0,
+            duration: 0.7,
+            delay: 0.1,
+            ease: EASE_SOFT,
+            scrollTrigger: {
+              trigger: desc,
+              start: 'top 90%',
+              toggleActions: 'play none play reverse'
+            }
+          });
+        });
+
+        // ===== 数据分析模块：独立卡片（非grid中的卡片）进场 =====
+        const dataSection = document.getElementById('data');
+        if (dataSection) {
+          const allCards = dataSection.querySelectorAll('.gsap-reveal-card');
+          const gridCards = dataSection.querySelectorAll(':scope > * > .grid > *');
+          const gridSet = new Set(gridCards);
+          const standaloneCards = Array.from(allCards).filter(c => !gridSet.has(c));
+
+          standaloneCards.forEach((card, i) => {
+            gsap.from(card, {
+              y: 40,
+              opacity: 0,
+              duration: 0.9,
+              ease: EASE_SOFT,
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                toggleActions: 'play none play reverse'
+              }
+            });
+          });
+        }
+
+        // ===== 全局性能优化 =====
+        ScrollTrigger.config({
+          ignoreMobileResize: true,
+          autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load,resize'
+        });
+
+        // 滚动时暂停非活动动画以节省性能
+        ScrollTrigger.addEventListener('refreshInit', () => {
+          gsap.globalTimeline.getChildren().forEach(tween => {
+            if (tween.scrollTrigger && !tween.scrollTrigger.isActive) {
+              tween.pause();
+            }
+          });
+        });
+      }
+
+      // 确保页面加载后刷新 ScrollTrigger
+      window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+      });
+
+      // ========== TOC Card Mouse-following Glow ==========
+      (function() {
+        const tocGrid = document.querySelector('#bong-content .grid.grid-cols-2');
+        if (!tocGrid) return;
+        const cards = tocGrid.querySelectorAll('.toc-glow-card');
+
+        cards.forEach(card => {
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            card.style.setProperty('--mouse-x', x + '%');
+            card.style.setProperty('--mouse-y', y + '%');
+          });
+        });
+      })();
+      });
+    </script>
+</body>
+</html>

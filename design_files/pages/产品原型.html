@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品原型</title>
+    <style id="theme-vars">
+/* ============================================
+   炭金精密设计系统 — Charcoal-Gold Precision Design System
+   CS2 搭配推荐引擎作品集
+   ============================================ */
+
+:root {
+  /* — Surface — */
+  --color-bg-primary: #0d0d0d;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-card: #141414;
+  --color-bg-elevated: #1e1e1e;
+
+  /* — Border — */
+  --color-border-default: #222222;
+  --color-border-subtle: #2a2a2a;
+  --color-border-accent: #3a3220;
+
+  /* — Text — */
+  --color-text-primary: #f0ede5;
+  --color-text-secondary: #999999;
+  --color-text-tertiary: #666666;
+  --color-text-disabled: #444444;
+
+  /* — Accent Gold — */
+  --color-accent: #e8a838;
+  --color-accent-dim: #b88828;
+  --color-accent-glow: rgba(232, 168, 56, 0.15);
+  --color-accent-border: rgba(232, 168, 56, 0.3);
+
+  /* — Functional — */
+  --color-good: #6abf69;
+  --color-bad: #e85d5d;
+  --color-warn: #e8c538;
+
+  /* — Radius — */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* — Font — */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Noto Sans Mono CJK SC', monospace;
+
+  /* — Spacing — */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+  --space-2xl: 64px;
+
+  /* — Transition — */
+  --transition-default: 0.2s ease;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-accent: var(--color-accent);
+  }
+  @layer base {
+    body { background: var(--color-bg-primary); color: var(--color-text-primary); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+      <div class="outer-page">
+        <!-- BACK LINK -->
+        <a class="back-link" data-dom-id="back-to-index" href="index.html" style="text-decoration:none;color:var(--color-text-tertiary,#666);">← 返回</a>
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">产品原型</div>
+        <div class="page-subtitle">悠悠有品 App — CS2 搭配推荐功能原型</div>
+
+        <!-- PHONE ROW -->
+        <div class="phone-row">
+
+          <!-- ========== PHONE 1: 首页·推荐 ========== -->
+          <div class="phone-frame">
+            <div class="phone-outer">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                  <span>9:41</span>
+                  <div class="status-bar-right">
+                    <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                    <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                    <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                  </div>
+                </div>
+
+                <!-- Nav Bar -->
+                <div class="app-nav">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round"><path d="M12 15L6 9l6-6"/></svg>
+                  <div class="app-nav-search">搜索饰品 / 搭配方案</div>
+                  <div class="app-nav-avatar">U</div>
+                </div>
+
+                <!-- Screen Body -->
+                <div class="screen-body">
+                  <!-- Banner Card -->
+                  <div class="banner-card">
+                    <div class="banner-label">OUTFIT RECOMMENDATION</div>
+                    <div class="banner-title">饰品搭配推荐</div>
+                    <div class="banner-subtitle">一键搭配你的专属皮肤组合</div>
+                    <div class="banner-cta">开始搭配 →</div>
+                    <div class="banner-tags">
+                      <span class="banner-tag">风格匹配</span>
+                      <span class="banner-tag">预算优化</span>
+                      <span class="banner-tag">一键加购</span>
+                    </div>
+                  </div>
+
+                  <!-- Section: 定制你的搭配 -->
+                  <div class="section-header">
+                    <div style="display:flex;align-items:center;">
+                      <div class="section-bar"></div>
+                      <span class="section-title">定制你的搭配</span>
+                    </div>
+                    <span class="section-more">查看更多 &gt;</span>
+                  </div>
+
+                  <!-- Filter Card -->
+                  <div class="filter-card">
+                    <div class="filter-label">
+                      风格偏好
+                      <span class="filter-hint">可多选</span>
+                    </div>
+                    <div class="filter-tags">
+                      <span class="filter-tag active"><span class="filter-tag-dot"></span>红色系</span>
+                      <span class="filter-tag">蓝色系</span>
+                      <span class="filter-tag">金色系</span>
+                      <span class="filter-tag">绿色系</span>
+                      <span class="filter-tag">紫色系</span>
+                      <span class="filter-tag">暗黑系</span>
+                      <span class="filter-tag">渐变系</span>
+                    </div>
+
+                    <div class="filter-divider"></div>
+
+                    <div class="range-label">预算区间</div>
+                    <div class="range-track">
+                      <div class="range-fill"></div>
+                      <div class="range-handle range-handle-left"></div>
+                      <div class="range-handle range-handle-right"></div>
+                    </div>
+                    <div class="range-value">¥800 — ¥3,200</div>
+                    <div class="range-ticks">
+                      <span>¥0</span><span>¥1K</span><span>¥2K</span><span>¥3K</span><span>¥4K</span><span>¥5K</span>
+                    </div>
+
+                    <div class="filter-divider"></div>
+
+                    <div class="weapon-label">武器 / 角色</div>
+                    <div class="weapon-grid">
+                      <div class="weapon-cell active">
+                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#1677ff" stroke-width="1.5"><rect x="1" y="4" width="14" height="3" rx="0.5"/><rect x="15" y="5" width="4" height="1"/><line x1="2" y1="7" x2="2" y2="9"/><rect x="1" y="9" width="5" height="2" rx="0.5"/></svg>
+                        AK-47
+                      </div>
+                      <div class="weapon-cell">
+                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#999" stroke-width="1.5"><rect x="2" y="3" width="12" height="3" rx="0.5"/><rect x="14" y="4" width="4" height="1"/><rect x="2" y="8" width="3" height="2" rx="0.5"/></svg>
+                        M4A4
+                      </div>
+                      <div class="weapon-cell">
+                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#999" stroke-width="1.5"><rect x="2" y="3" width="12" height="3" rx="0.5"/><rect x="14" y="4" width="4" height="1"/><rect x="2" y="8" width="3" height="2" rx="0.5"/></svg>
+                        M4A1-S
+                      </div>
+                      <div class="weapon-cell active">
+                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#1677ff" stroke-width="1.5"><rect x="3" y="5" width="12" height="2" rx="0.5"/><circle cx="7" cy="7" r="2" stroke="#1677ff" fill="none"/><rect x="15" y="5" width="4" height="2" rx="0.5"/></svg>
+                        AWP
+                      </div>
+                      <div class="weapon-cell">
+                        <svg width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#999" stroke-width="1.5"><rect x="1" y="4" width="10" height="2.5" rx="0.5"/><rect x="11" y="5" width="4" height="0.5"/></svg>
+                        沙漠之鹰
+                      </div>
+                      <div class="weapon-cell">
+                        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="#999" stroke-width="1.5"><path d="M6 3h8l1 8H5l1-8z"/><line x1="10" y1="1" x2="10" y2="3"/></svg>
+                        手套
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Section: 为你推荐 -->
+                  <div class="section-header" style="margin-top:4px;">
+                    <div style="display:flex;align-items:center;">
+                      <div class="section-bar"></div>
+                      <span class="section-title">为你推荐</span>
+                    </div>
+                  </div>
+
+                  <!-- Recommendation Cards -->
+                  <div class="recommend-scroll">
+                    <!-- Card 1 -->
+                    <div class="recommend-card">
+                      <div class="recommend-thumbs">
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#922B21,#C0392B);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#E74C3C,#F1948A);"></div>
+                      </div>
+                      <div class="recommend-info">
+                        <div class="recommend-name">红色系·全套</div>
+                        <div class="recommend-price">¥2,880</div>
+                        <div class="recommend-score">★ 8.5/10</div>
+                        <div class="recommend-tags">
+                          <span class="rec-tag rec-tag-blue">红色系</span>
+                          <span class="rec-tag rec-tag-gray">AK-47</span>
+                        </div>
+                        <button class="recommend-btn">查看详情 →</button>
+                      </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="recommend-card">
+                      <div class="recommend-thumbs">
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#2471A3,#2E86C1);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#1A5276,#2980B9);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#3498DB,#85C1E9);"></div>
+                      </div>
+                      <div class="recommend-info">
+                        <div class="recommend-name">蓝色系·精选</div>
+                        <div class="recommend-price">¥3,450</div>
+                        <div class="recommend-score">★ 9.0/10</div>
+                        <div class="recommend-tags">
+                          <span class="rec-tag rec-tag-blue">蓝色系</span>
+                          <span class="rec-tag rec-tag-gray">AWP</span>
+                        </div>
+                        <button class="recommend-btn">查看详情 →</button>
+                      </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="recommend-card">
+                      <div class="recommend-thumbs">
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#B7950B,#D4AC0D);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#F1C40F,#F9E79F);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#D4AC0D,#F4D03F);"></div>
+                      </div>
+                      <div class="recommend-info">
+                        <div class="recommend-name">金色系·豪华</div>
+                        <div class="recommend-price">¥5,200</div>
+                        <div class="recommend-score">★ 9.5/10</div>
+                        <div class="recommend-tags">
+                          <span class="rec-tag rec-tag-blue">金色系</span>
+                          <span class="rec-tag rec-tag-gray">M4A4</span>
+                        </div>
+                        <button class="recommend-btn">查看详情 →</button>
+                      </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="recommend-card">
+                      <div class="recommend-thumbs">
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#1C1C1C,#4A4A4A);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#2C2C2C,#555);"></div>
+                        <div class="recommend-thumb" style="background:linear-gradient(135deg,#333,#666);"></div>
+                      </div>
+                      <div class="recommend-info">
+                        <div class="recommend-name">暗黑系·低调</div>
+                        <div class="recommend-price">¥1,960</div>
+                        <div class="recommend-score">★ 8.0/10</div>
+                        <div class="recommend-tags">
+                          <span class="rec-tag rec-tag-blue">暗黑系</span>
+                          <span class="rec-tag rec-tag-gray">沙漠之鹰</span>
+                        </div>
+                        <button class="recommend-btn">查看详情 →</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab Bar -->
+                <div class="tab-bar">
+                  <div class="tab-item active">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#1677ff" stroke-width="1.5"><path d="M3 10l5-7 7 3v8H3z"/><rect x="1" y="10" width="4" height="4" rx="0.5"/></svg>
+                    首页
+                  </div>
+                  <div class="tab-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#999" stroke-width="1.5"><rect x="2" y="2" width="14" height="14" rx="2"/><line x1="6" y1="6" x2="12" y2="6"/><line x1="6" y1="9" x2="12" y2="9"/><line x1="6" y1="12" x2="10" y2="12"/></svg>
+                    市场
+                  </div>
+                  <div class="tab-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#999" stroke-width="1.5"><path d="M9 2L3 16h12L9 2z"/><line x1="9" y1="7" x2="9" y2="11"/><circle cx="9" cy="13" r="0.5" fill="#999"/></svg>
+                    搭配
+                  </div>
+                  <div class="tab-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#999" stroke-width="1.5"><circle cx="9" cy="7" r="4"/><path d="M2 16c0-3 3-5 7-5s7 2 7 5"/></svg>
+                    我的
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-screen-label">首页 · 推荐</div>
+          </div>
+
+          <!-- ========== PHONE 2: 筛选结果 ========== -->
+          <div class="phone-frame">
+            <div class="phone-outer">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                  <span>9:41</span>
+                  <div class="status-bar-right">
+                    <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                    <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                    <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                  </div>
+                </div>
+
+                <!-- Title Nav -->
+                <div class="filter-result-nav">
+                  <span class="filter-result-back">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round"><path d="M12 15L6 9l6-6"/></svg>
+                  </span>
+                  <span class="filter-result-title">搭配结果</span>
+                </div>
+
+                <!-- Filter Chips -->
+                <div class="filter-chips">
+                  <span class="filter-chip">AK-47 <span class="filter-chip-close">×</span></span>
+                  <span class="filter-chip">¥1000-3000 <span class="filter-chip-close">×</span></span>
+                  <span class="filter-chip">崭新出厂 <span class="filter-chip-close">×</span></span>
+                </div>
+
+                <!-- Sort Bar -->
+                <div class="sort-bar">
+                  <span class="sort-count">共 36 套搭配</span>
+                  <span class="sort-select">综合排序 ▼</span>
+                </div>
+
+                <!-- Screen Body -->
+                <div class="screen-body">
+                  <!-- Result Card 1 -->
+                  <div class="result-card">
+                    <div class="result-thumbs">
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#922B21,#C0392B);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#E74C3C,#F1948A);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#7B241C,#CB4335);"></div>
+                    </div>
+                    <div class="result-score-row">
+                      <span class="result-score-text">9.0/10</span>
+                      <div class="result-score-track"><div class="result-score-fill" style="width:90%;"></div></div>
+                      <span class="result-price">¥3,862</span>
+                    </div>
+                    <button class="result-btn">查看详情</button>
+                  </div>
+
+                  <!-- Result Card 2 -->
+                  <div class="result-card">
+                    <div class="result-thumbs">
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#2471A3,#2E86C1);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#1A5276,#2980B9);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#3498DB,#85C1E9);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#154360,#1F618D);"></div>
+                    </div>
+                    <div class="result-score-row">
+                      <span class="result-score-text">7.8/10</span>
+                      <div class="result-score-track"><div class="result-score-fill" style="width:78%;"></div></div>
+                      <span class="result-price">¥2,340</span>
+                    </div>
+                    <button class="result-btn">查看详情</button>
+                  </div>
+
+                  <!-- Result Card 3 -->
+                  <div class="result-card">
+                    <div class="result-thumbs">
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#B7950B,#D4AC0D);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#F1C40F,#F9E79F);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#D4AC0D,#F4D03F);"></div>
+                      <div class="result-thumb" style="background:linear-gradient(135deg,#7D6608,#B7950B);"></div>
+                    </div>
+                    <div class="result-score-row">
+                      <span class="result-score-text">7.2/10</span>
+                      <div class="result-score-track"><div class="result-score-fill" style="width:72%;"></div></div>
+                      <span class="result-price">¥2,980</span>
+                    </div>
+                    <button class="result-btn">查看详情</button>
+                  </div>
+                </div>
+
+                <!-- Tab Bar -->
+                <div class="tab-bar">
+                  <div class="tab-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#999" stroke-width="1.5"><path d="M3 10l5-7 7 3v8H3z"/><rect x="1" y="10" width="4" height="4" rx="0.5"/></svg>
+                    首页
+                  </div>
+                  <div class="tab-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#999" stroke-width="1.5"><rect x="2" y="2" width="14" height="14" rx="2"/><line x1="6" y1="6" x2="12" y2="6"/><line x1="6" y1="9" x2="12" y2="9"/><line x1="6" y1="12" x2="10" y2="12"/></svg>
+                    市场
+                  </div>
+                  <div class="tab-item active">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#1677ff" stroke-width="1.5"><path d="M9 2L3 16h12L9 2z"/><line x1="9" y1="7" x2="9" y2="11"/><circle cx="9" cy="13" r="0.5" fill="#1677ff"/></svg>
+                    搭配
+                  </div>
+                  <div class="tab-item">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#999" stroke-width="1.5"><circle cx="9" cy="7" r="4"/><path d="M2 16c0-3 3-5 7-5s7 2 7 5"/></svg>
+                    我的
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-screen-label">筛选结果</div>
+          </div>
+
+          <!-- ========== PHONE 3: 搭配详情 ========== -->
+          <div class="phone-frame">
+            <div class="phone-outer">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                  <span>9:41</span>
+                  <div class="status-bar-right">
+                    <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                    <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                    <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                  </div>
+                </div>
+
+                <!-- Detail Nav -->
+                <div class="detail-nav">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round"><path d="M12 15L6 9l6-6"/></svg>
+                  搭配详情
+                </div>
+
+                <!-- Screen Body -->
+                <div class="screen-body">
+                  <!-- 2x2 Skin Grid -->
+                  <div class="detail-grid">
+                    <div class="detail-grid-item" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                    <div class="detail-grid-item" style="background:linear-gradient(135deg,#922B21,#C0392B);"></div>
+                    <div class="detail-grid-item" style="background:linear-gradient(135deg,#E74C3C,#F1948A);"></div>
+                    <div class="detail-grid-item" style="background:linear-gradient(135deg,#7B241C,#CB4335);"></div>
+                  </div>
+
+                  <!-- Score Card -->
+                  <div class="score-card">
+                    <div class="score-label">综合评分</div>
+                    <div class="score-big">9.0/10</div>
+                    <div class="score-dim">
+                      <div class="score-dim-row">
+                        <span class="score-dim-name">美观度</span>
+                        <div class="score-dim-track"><div class="score-dim-fill" style="width:95%;"></div></div>
+                        <span class="score-dim-value">9.5</span>
+                      </div>
+                    </div>
+                    <div class="score-dim">
+                      <div class="score-dim-row">
+                        <span class="score-dim-name">稀有度</span>
+                        <div class="score-dim-track"><div class="score-dim-fill" style="width:88%;"></div></div>
+                        <span class="score-dim-value">8.8</span>
+                      </div>
+                    </div>
+                    <div class="score-dim">
+                      <div class="score-dim-row">
+                        <span class="score-dim-name">性价比</span>
+                        <div class="score-dim-track"><div class="score-dim-fill" style="width:85%;"></div></div>
+                        <span class="score-dim-value">8.5</span>
+                      </div>
+                    </div>
+                    <div class="score-dim" style="margin-bottom:0;">
+                      <div class="score-dim-row">
+                        <span class="score-dim-name">协调度</span>
+                        <div class="score-dim-track"><div class="score-dim-fill" style="width:92%;"></div></div>
+                        <span class="score-dim-value">9.2</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Item Rows -->
+                  <div class="detail-item-row">
+                    <div>
+                      <div class="detail-item-name">AK-47 | 火神</div>
+                      <div class="detail-item-wear">崭新出厂</div>
+                    </div>
+                    <span class="detail-item-price">¥1,280</span>
+                  </div>
+                  <div class="detail-item-row">
+                    <div>
+                      <div class="detail-item-name">AWP | 二西莫夫</div>
+                      <div class="detail-item-wear">崭新出厂</div>
+                    </div>
+                    <span class="detail-item-price">¥980</span>
+                  </div>
+                  <div class="detail-item-row">
+                    <div>
+                      <div class="detail-item-name">M4A4 | 咆哮</div>
+                      <div class="detail-item-wear">略有磨损</div>
+                    </div>
+                    <span class="detail-item-price">¥862</span>
+                  </div>
+                  <div class="detail-item-row">
+                    <div>
+                      <div class="detail-item-name">手套 | 运动手套</div>
+                      <div class="detail-item-wear">崭新出厂</div>
+                    </div>
+                    <span class="detail-item-price">¥740</span>
+                  </div>
+                </div>
+
+                <!-- Bottom Action Bar -->
+                <div class="detail-bottom">
+                  <div>
+                    <span class="detail-total-label">合计 </span>
+                    <span class="detail-total-price">¥3,862</span>
+                  </div>
+                  <button class="detail-buy-btn">加入购物车</button>
+                </div>
+              </div>
+            </div>
+            <div class="phone-screen-label">搭配详情</div>
+          </div>
+
+          <!-- ========== PHONE 4: 购物车 ========== -->
+          <div class="phone-frame">
+            <div class="phone-outer">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                  <span>9:41</span>
+                  <div class="status-bar-right">
+                    <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="4" width="3" height="6" rx="0.5" fill="#333"/><rect x="4" y="2.5" width="3" height="7.5" rx="0.5" fill="#333"/><rect x="8" y="1" width="3" height="9" rx="0.5" fill="#333"/></svg>
+                    <svg width="12" height="10" viewBox="0 0 12 10"><path d="M6 2C3.5 2 1.2 3.2 0 5l1.2 1.2C2 5.2 4 4 6 4s4 1.2 4.8 2.2L12 5C10.8 3.2 8.5 2 6 2z" fill="#333"/><path d="M6 5C4.5 5 3 5.8 2 7l1 1C3.5 7.4 4.7 6.8 6 6.8s2.5.6 3 1.2l1-1C9 5.8 7.5 5 6 5z" fill="#333"/><circle cx="6" cy="9" r="1.2" fill="#333"/></svg>
+                    <svg width="22" height="10" viewBox="0 0 22 10"><rect x="0" y="1" width="18" height="8" rx="2" stroke="#333" stroke-width="1" fill="none"/><rect x="18.5" y="3" width="2" height="4" rx="0.5" fill="#333"/><rect x="1.5" y="2" width="14" height="6" rx="1" fill="#333"/></svg>
+                  </div>
+                </div>
+
+                <!-- Cart Nav -->
+                <div class="cart-nav">
+                  <span class="cart-title">购物车</span>
+                  <span class="cart-edit">编辑</span>
+                </div>
+
+                <!-- Screen Body -->
+                <div class="screen-body" style="padding-top:8px;">
+                  <!-- Cart Item 1 -->
+                  <div class="cart-item">
+                    <div class="cart-thumb" style="background:linear-gradient(135deg,#c0392b,#e74c3c);"></div>
+                    <div class="cart-info">
+                      <div class="cart-item-name">AK-47 | 火神</div>
+                      <div class="cart-item-wear">崭新出厂</div>
+                      <div class="cart-item-price">¥1,280</div>
+                    </div>
+                    <div class="cart-qty">
+                      <span class="cart-qty-btn">-</span>
+                      <span class="cart-qty-num">1</span>
+                      <span class="cart-qty-btn plus">+</span>
+                    </div>
+                    <span class="cart-delete">×</span>
+                  </div>
+
+                  <!-- Cart Item 2 -->
+                  <div class="cart-item">
+                    <div class="cart-thumb" style="background:linear-gradient(135deg,#2471A3,#2E86C1);"></div>
+                    <div class="cart-info">
+                      <div class="cart-item-name">AWP | 二西莫夫</div>
+                      <div class="cart-item-wear">崭新出厂</div>
+                      <div class="cart-item-price">¥980</div>
+                    </div>
+                    <div class="cart-qty">
+                      <span class="cart-qty-btn">-</span>
+                      <span class="cart-qty-num">1</span>
+                      <span class="cart-qty-btn plus">+</span>
+                    </div>
+                    <span class="cart-delete">×</span>
+                  </div>
+
+                  <!-- Cart Item 3 (low stock) -->
+                  <div class="cart-item">
+                    <div class="cart-thumb" style="background:linear-gradient(135deg,#B7950B,#D4AC0D);"></div>
+                    <div class="cart-info">
+                      <div class="cart-item-name">M4A4 | 咆哮</div>
+                      <div class="cart-item-wear">略有磨损</div>
+                      <div class="cart-item-price">¥862</div>
+                    </div>
+                    <div class="cart-qty">
+                      <span class="cart-qty-btn">-</span>
+                      <span class="cart-qty-num">1</span>
+                      <span class="cart-qty-btn plus">+</span>
+                    </div>
+                    <span class="cart-delete">×</span>
+                    <span class="cart-badge">库存紧张</span>
+                  </div>
+
+                  <!-- Cart Item 4 -->
+                  <div class="cart-item">
+                    <div class="cart-thumb" style="background:linear-gradient(135deg,#1C1C1C,#4A4A4A);"></div>
+                    <div class="cart-info">
+                      <div class="cart-item-name">手套 | 运动手套</div>
+                      <div class="cart-item-wear">崭新出厂</div>
+                      <div class="cart-item-price">¥740</div>
+                    </div>
+                    <div class="cart-qty">
+                      <span class="cart-qty-btn">-</span>
+                      <span class="cart-qty-num">1</span>
+                      <span class="cart-qty-btn plus">+</span>
+                    </div>
+                    <span class="cart-delete">×</span>
+                  </div>
+
+                  <!-- Cart Item 5 -->
+                  <div class="cart-item">
+                    <div class="cart-thumb" style="background:linear-gradient(135deg,#6C3483,#8E44AD);"></div>
+                    <div class="cart-info">
+                      <div class="cart-item-name">沙漠之鹰 | 烈焰</div>
+                      <div class="cart-item-wear">崭新出厂</div>
+                      <div class="cart-item-price">¥3,386</div>
+                    </div>
+                    <div class="cart-qty">
+                      <span class="cart-qty-btn">-</span>
+                      <span class="cart-qty-num">1</span>
+                      <span class="cart-qty-btn plus">+</span>
+                    </div>
+                    <span class="cart-delete">×</span>
+                  </div>
+                </div>
+
+                <!-- Checkout Bar -->
+                <div class="cart-bottom">
+                  <div>
+                    <span class="cart-total-label">合计 </span>
+                    <span class="cart-total-price">¥7,248</span>
+                  </div>
+                  <button class="cart-checkout-btn">去结算</button>
+                </div>
+              </div>
+            </div>
+            <div class="phone-screen-label">购物车</div>
+          </div>
+
+        </div><!-- end phone-row -->
+      </div><!-- end outer-page -->
+    </main>
+    <script>lucide.createIcons();</script>
+
+    <style>
+/* ===== OUTER PAGE (Dark Charcoal-Gold) ===== */
+.outer-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+  min-height: 100vh;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-tertiary, #666);
+  font-size: 14px;
+  text-decoration: none;
+  margin-bottom: 32px;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.back-link:hover { color: var(--color-accent, #e8a838); }
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-text-primary, #f0ede5);
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-accent, #e8a838);
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.page-subtitle {
+  font-size: 14px;
+  color: var(--color-text-tertiary, #666);
+  margin-bottom: 36px;
+}
+.phone-row {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px 0 30px;
+  -webkit-overflow-scrolling: touch;
+}
+.phone-row::-webkit-scrollbar { height: 6px; }
+.phone-row::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 3px; }
+.phone-row::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+/* ===== PHONE FRAME ===== */
+.phone-frame {
+  flex-shrink: 0;
+  width: 320px;
+  scroll-snap-align: start;
+  position: relative;
+}
+.phone-outer {
+  width: 320px;
+  border: 3px solid #1c1c1c;
+  border-radius: 36px;
+  background: #1c1c1c;
+  padding: 12px 0 0;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+}
+.phone-notch {
+  width: 100px;
+  height: 24px;
+  background: #1c1c1c;
+  border-radius: 999px;
+  margin: 0 auto -6px;
+  position: relative;
+  z-index: 2;
+}
+.phone-screen {
+  background: #f7f7f7;
+  border-radius: 24px 24px 28px 28px;
+  overflow: hidden;
+  height: 560px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.phone-screen-label {
+  text-align: center;
+  color: var(--color-text-secondary, #999);
+  font-size: 13px;
+  margin-top: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 20px 4px;
+  background: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  color: #333;
+  flex-shrink: 0;
+}
+.status-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ===== NAV BAR ===== */
+.app-nav {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: #ffffff;
+  border-bottom: 1px solid #e8e8e8;
+  flex-shrink: 0;
+  gap: 8px;
+}
+.app-nav-search {
+  flex: 1;
+  height: 32px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 999px;
+  padding: 0 14px;
+  font-size: 12px;
+  color: #999;
+}
+.app-nav-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1677ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* ===== SCREEN CONTENT ===== */
+.screen-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.screen-body::-webkit-scrollbar { width: 0; }
+
+/* ===== BANNER CARD ===== */
+.banner-card {
+  background: #ffffff;
+  border-radius: 12px;
+  margin: 12px;
+  padding: 18px 16px 14px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.banner-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(22,119,255,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.banner-label {
+  font-size: 10px;
+  color: #1677ff;
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.banner-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+.banner-subtitle {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 14px;
+}
+.banner-cta {
+  display: inline-block;
+  background: #1677ff;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+.banner-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.banner-tag {
+  font-size: 10px;
+  color: #1677ff;
+  border: 1px solid #1677ff;
+  border-radius: 999px;
+  padding: 3px 10px;
+  background: #fff;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 12px 8px;
+}
+.section-bar {
+  width: 3px;
+  height: 16px;
+  background: #1677ff;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+.section-more {
+  font-size: 12px;
+  color: #1677ff;
+}
+
+/* ===== FILTER CARD ===== */
+.filter-card {
+  background: #ffffff;
+  border-radius: 12px;
+  margin: 8px 12px;
+  padding: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.filter-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.filter-hint {
+  font-size: 11px;
+  color: #999;
+}
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.filter-tag {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid #e8e8e8;
+  color: #666;
+  background: #f5f5f5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.filter-tag.active {
+  background: #e6f4ff;
+  border-color: #1677ff;
+  color: #1677ff;
+}
+.filter-tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1677ff;
+}
+.filter-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 12px 0;
+}
+.range-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+.range-track {
+  position: relative;
+  height: 4px;
+  background: #e8e8e8;
+  border-radius: 2px;
+  margin: 10px 0 6px;
+}
+.range-fill {
+  position: absolute;
+  left: 16%;
+  right: 36%;
+  height: 100%;
+  background: #1677ff;
+  border-radius: 2px;
+}
+.range-handle {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1677ff;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+.range-handle-left { left: 16%; }
+.range-handle-right { left: 64%; }
+.range-value {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1677ff;
+  margin: 8px 0;
+}
+.range-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #999;
+  margin-top: 4px;
+}
+.weapon-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+}
+.weapon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.weapon-cell {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 8px 4px;
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  cursor: pointer;
+}
+.weapon-cell.active {
+  border-color: #1677ff;
+  background: #e6f4ff;
+  color: #1677ff;
+}
+.weapon-cell svg {
+  margin: 0 auto 4px;
+  display: block;
+}
+
+/* ===== RECOMMENDATION CARDS ===== */
+.recommend-scroll {
+  display: flex;
+  gap: 10px;
+  padding: 0 12px 12px;
+  overflow-x: auto;
+}
+.recommend-scroll::-webkit-scrollbar { display: none; }
+.recommend-card {
+  flex-shrink: 0;
+  width: 200px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.recommend-thumbs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 10px 8px;
+}
+.recommend-thumb {
+  flex: 1;
+  height: 48px;
+  border-radius: 6px;
+}
+.recommend-info {
+  padding: 0 10px 10px;
+}
+.recommend-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+}
+.recommend-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ff4d4f;
+  margin-bottom: 2px;
+}
+.recommend-score {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 8px;
+}
+.recommend-tags {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.rec-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.rec-tag-blue { background: #e6f4ff; color: #1677ff; }
+.rec-tag-gray { background: #f5f5f5; color: #999; }
+.recommend-btn {
+  width: 100%;
+  background: #f5f5f5;
+  color: #666;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  padding: 6px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.recommend-btn:hover {
+  background: #1677ff;
+  color: #fff;
+}
+
+/* ===== BOTTOM TAB BAR ===== */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 48px;
+  background: #ffffff;
+  border-top: 1px solid #e8e8e8;
+  flex-shrink: 0;
+  padding-bottom: 4px;
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  color: #999;
+  cursor: pointer;
+}
+.tab-item.active { color: #1677ff; }
+.tab-item svg { width: 18px; height: 18px; }
+
+/* ===== SCREEN 2: FILTER RESULTS ===== */
+.filter-result-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  position: relative;
+  flex-shrink: 0;
+}
+.filter-result-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+.filter-result-back {
+  position: absolute;
+  left: 12px;
+  color: #333;
+  cursor: pointer;
+}
+.filter-chips {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+  overflow-x: auto;
+  background: #fff;
+  flex-shrink: 0;
+}
+.filter-chips::-webkit-scrollbar { display: none; }
+.filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #e6f4ff;
+  color: #1677ff;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.filter-chip-close {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 1;
+}
+.sort-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.sort-count { color: #666; }
+.sort-select {
+  background: #f5f5f5;
+  border: none;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #666;
+  cursor: pointer;
+}
+
+/* ===== RESULT CARD ===== */
+.result-card {
+  background: #ffffff;
+  border-radius: 12px;
+  margin: 0 12px 10px;
+  padding: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.result-thumbs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.result-thumb {
+  flex: 1;
+  height: 56px;
+  border-radius: 8px;
+}
+.result-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.result-score-track {
+  flex: 1;
+  height: 4px;
+  background: #e8e8e8;
+  border-radius: 2px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+.result-score-fill {
+  height: 100%;
+  background: #1677ff;
+  border-radius: 2px;
+}
+.result-score-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1677ff;
+  white-space: nowrap;
+}
+.result-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+.result-btn {
+  display: block;
+  width: 100%;
+  background: #f5f5f5;
+  color: #1677ff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 0;
+  font-size: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* ===== SCREEN 3: DETAIL ===== */
+.detail-nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  gap: 8px;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px;
+}
+.detail-grid-item {
+  height: 90px;
+  border-radius: 10px;
+  transform: rotate(-1deg);
+}
+.detail-grid-item:nth-child(even) { transform: rotate(1deg); }
+.score-card {
+  background: #fff;
+  border-radius: 12px;
+  margin: 4px 12px 10px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.score-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+.score-big {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1677ff;
+  margin-bottom: 16px;
+}
+.score-dim {
+  margin-bottom: 10px;
+}
+.score-dim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.score-dim-name {
+  font-size: 12px;
+  color: #666;
+  width: 50px;
+}
+.score-dim-track {
+  flex: 1;
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  margin: 0 8px;
+  overflow: hidden;
+}
+.score-dim-fill {
+  height: 100%;
+  background: #1677ff;
+  border-radius: 3px;
+}
+.score-dim-value {
+  font-size: 12px;
+  color: #333;
+  font-weight: 600;
+  width: 28px;
+  text-align: right;
+}
+.detail-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  margin: 0 12px 6px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.detail-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+.detail-item-wear {
+  font-size: 11px;
+  color: #999;
+}
+.detail-item-price {
+  font-size: 13px;
+  color: #666;
+}
+.detail-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+.detail-total-label {
+  font-size: 13px;
+  color: #666;
+}
+.detail-total-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+.detail-buy-btn {
+  background: #1677ff;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ===== SCREEN 4: CART ===== */
+.cart-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  flex-shrink: 0;
+}
+.cart-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+.cart-edit {
+  font-size: 13px;
+  color: #999;
+  cursor: pointer;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 12px;
+  margin: 0 12px 8px;
+  padding: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  position: relative;
+}
+.cart-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.cart-info {
+  flex: 1;
+  min-width: 0;
+}
+.cart-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cart-item-wear {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 2px;
+}
+.cart-item-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.cart-qty-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  background: #f5f5f5;
+  color: #999;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.cart-qty-btn.plus { color: #1677ff; }
+.cart-qty-num {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  width: 16px;
+  text-align: center;
+}
+.cart-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: #ccc;
+  font-size: 14px;
+  cursor: pointer;
+}
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.cart-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+.cart-total-label {
+  font-size: 13px;
+  color: #666;
+}
+.cart-total-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+.cart-checkout-btn {
+  background: #1677ff;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+    </style>
+</body>
+</html>
