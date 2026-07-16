@@ -1540,10 +1540,11 @@
         background: var(--color-bg-primary);
         opacity: 1;
         pointer-events: none;
-        transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition: opacity 0.3s ease-out;
       }
       .page-loader.hidden {
         opacity: 0;
+        visibility: hidden;
       }
 
     </style>
@@ -3616,10 +3617,10 @@
         const hideLoader = () => {
           pageLoader.classList.add('hidden');
         };
-        if (document.readyState === 'complete') {
-          setTimeout(hideLoader, 300);
+        if (document.readyState !== 'loading') {
+          hideLoader();
         } else {
-          window.addEventListener('load', () => setTimeout(hideLoader, 300));
+          document.addEventListener('DOMContentLoaded', hideLoader);
         }
       }
 
