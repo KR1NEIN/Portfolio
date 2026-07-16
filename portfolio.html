@@ -352,45 +352,6 @@
         line-height: 1.7;
       }
 
-      /* ===== VIDEO LOADER ===== */
-      .video-loader {
-        position: absolute;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 20px;
-        border-radius: 50px;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(8px);
-        z-index: 3;
-        transition: opacity 0.6s ease, transform 0.6s ease;
-        opacity: 1;
-      }
-      .video-loader.hidden {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateX(-50%) translateY(10px);
-      }
-      .video-loader-spinner {
-        width: 16px;
-        height: 16px;
-        border: 2px solid rgba(232, 168, 56, 0.2);
-        border-top-color: var(--color-accent);
-        border-radius: 50%;
-        animation: loaderSpin 0.8s linear infinite;
-      }
-      @keyframes loaderSpin {
-        to { transform: rotate(360deg); }
-      }
-      .video-loader-text {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.8);
-        letter-spacing: 0.5px;
-      }
-
       .hero-video-section {
         position: relative;
         min-height: 100vh;
@@ -1597,15 +1558,11 @@
 
       <!-- ========== HERO ========== -->
       <section id="hero" class="hero-video-section portfolio-section" style="padding-top: 80px;">
-        <video id="heroVideo" class="hero-video-bg" autoplay muted loop playsinline preload="metadata" poster="assets/image_0_5i1d46.jpg">
+        <video class="hero-video-bg" autoplay muted loop playsinline preload="metadata" poster="hero-bg-poster.jpg">
           <source src="hero-bg.mp4" type="video/mp4">
         </video>
         <div class="hero-grain-overlay"></div>
         <div class="hero-grain-noise"></div>
-        <div id="videoLoader" class="video-loader">
-          <div class="video-loader-spinner"></div>
-          <span class="video-loader-text">正在加载视频背景...</span>
-        </div>
         <div class="hero-content">
           <div class="hero-line gsap-hero-title">
             <h1 class="hero-line-inner text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] mb-6" style="color: #ffffff;">
@@ -3673,21 +3630,6 @@
 
       // 检测 prefers-reduced-motion
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      // ===== VIDEO LOADING INDICATOR =====
-      const heroVideo = document.getElementById('heroVideo');
-      const videoLoader = document.getElementById('videoLoader');
-      if (heroVideo && videoLoader) {
-        // 视频可以播放时隐藏 loader
-        heroVideo.addEventListener('canplay', function onCanPlay() {
-          videoLoader.classList.add('hidden');
-          heroVideo.removeEventListener('canplay', onCanPlay);
-        });
-        // 5 秒后无论是否加载完都隐藏（兜底）
-        setTimeout(() => {
-          videoLoader.classList.add('hidden');
-        }, 5000);
-      }
 
       if (!prefersReducedMotion) {
 
